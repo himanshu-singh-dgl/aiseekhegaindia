@@ -1,0 +1,18 @@
+{
+  "id": "deep-learning/dummy",
+  "title": "Deep Dive into the Architecture of GPT",
+  "description": "Chapter 1: Understanding Large Language Models (LLMs))",
+  "source": "@site/docs/deep-learning/dummy.mdx",
+  "sourceDirName": "deep-learning",
+  "slug": "/deep-learning/dummy",
+  "permalink": "/docs/deep-learning/dummy",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/deep-learning/dummy.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  }
+}

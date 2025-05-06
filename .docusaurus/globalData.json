@@ -1,0 +1,153 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "machine-learning/intro",
+          "docs": [
+            {
+              "id": "deep-learning/intro",
+              "path": "/docs/deep-learning/intro",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "deep-learning/perceptron",
+              "path": "/docs/deep-learning/perceptron",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/AccessingLLMs",
+              "path": "/docs/language-models/AccessingLLMs",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/BaseModels",
+              "path": "/docs/language-models/BaseModels",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/Evaluation",
+              "path": "/docs/language-models/Evaluation",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/EvolutionGpt2",
+              "path": "/docs/language-models/EvolutionGpt2",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/Hallucinations",
+              "path": "/docs/language-models/Hallucinations",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/intro",
+              "path": "/docs/language-models/intro",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/LLMIdentity",
+              "path": "/docs/language-models/LLMIdentity",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/LLMInconsistencies",
+              "path": "/docs/language-models/LLMInconsistencies",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/LLMJudgement",
+              "path": "/docs/language-models/LLMJudgement",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/Multimodality",
+              "path": "/docs/language-models/Multimodality",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/NNInference",
+              "path": "/docs/language-models/NNInference",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/NNInternals",
+              "path": "/docs/language-models/NNInternals",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/NNTraining",
+              "path": "/docs/language-models/NNTraining",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/PostTraining",
+              "path": "/docs/language-models/PostTraining",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/PostTrainingReinforcementLearning",
+              "path": "/docs/language-models/PostTrainingReinforcementLearning",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/QueryToResponse",
+              "path": "/docs/language-models/QueryToResponse",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/ReinforcementLearning",
+              "path": "/docs/language-models/ReinforcementLearning",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/ThinkingInTokens",
+              "path": "/docs/language-models/ThinkingInTokens",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/ThinkingRL",
+              "path": "/docs/language-models/ThinkingRL",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "language-models/Tokenization",
+              "path": "/docs/language-models/Tokenization",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "machine-learning/intro",
+              "path": "/docs/machine-learning/intro",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "machine-learning/supervised-learning",
+              "path": "/docs/machine-learning/supervised-learning",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "resources/intro",
+              "path": "/docs/resources/intro",
+              "sidebar": "docsSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "docsSidebar": {
+              "link": {
+                "path": "/docs/machine-learning/intro",
+                "label": "machine-learning/intro"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

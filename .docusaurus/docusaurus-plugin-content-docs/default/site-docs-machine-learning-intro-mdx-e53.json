@@ -1,0 +1,23 @@
+{
+  "id": "machine-learning/intro",
+  "title": "Introduction to Machine Learning",
+  "description": "Machine Learning (ML) is a subset of artificial intelligence that focuses on developing systems that can learn from and make decisions based on data. Unlike traditional programming where explicit instructions are given to accomplish a task, machine learning algorithms build a model based on sample data, known as training data, to make predictions or decisions without being explicitly programmed to do so.",
+  "source": "@site/docs/machine-learning/intro.mdx",
+  "sourceDirName": "machine-learning",
+  "slug": "/machine-learning/intro",
+  "permalink": "/docs/machine-learning/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/machine-learning/intro.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "docsSidebar",
+  "next": {
+    "title": "Supervised Learning",
+    "permalink": "/docs/machine-learning/supervised-learning"
+  }
+}

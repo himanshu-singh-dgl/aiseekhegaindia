@@ -1,0 +1,972 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "loadedVersions": [
+        {
+          "versionName": "current",
+          "label": "Next",
+          "banner": null,
+          "badge": false,
+          "noIndex": false,
+          "className": "docs-version-current",
+          "path": "/docs",
+          "tagsPath": "/docs/tags",
+          "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs",
+          "editUrlLocalized": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/i18n/en/docusaurus-plugin-content-docs/current",
+          "isLast": true,
+          "routePriority": -1,
+          "sidebarFilePath": "/Users/lexai/Documents/aiseekhegaindia/sidebars.ts",
+          "contentPath": "/Users/lexai/Documents/aiseekhegaindia/docs",
+          "contentPathLocalized": "/Users/lexai/Documents/aiseekhegaindia/i18n/en/docusaurus-plugin-content-docs/current",
+          "docs": [
+            {
+              "id": "deep-learning/intro",
+              "title": "Introduction to Deep Learning",
+              "description": "Deep Learning is a subset of machine learning that uses neural networks with multiple layers (deep neural networks) to analyze various forms of data. While traditional machine learning algorithms require feature extraction by human experts, deep learning systems can automatically discover the representations needed for detection or classification from raw data.",
+              "source": "@site/docs/deep-learning/intro.mdx",
+              "sourceDirName": "deep-learning",
+              "slug": "/deep-learning/intro",
+              "permalink": "/docs/deep-learning/intro",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/deep-learning/intro.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Supervised Learning",
+                "permalink": "/docs/machine-learning/supervised-learning"
+              },
+              "next": {
+                "title": "Understanding the Perceptron: A Dive into the Basics and the Perceptron Trick",
+                "permalink": "/docs/deep-learning/perceptron"
+              }
+            },
+            {
+              "id": "deep-learning/perceptron",
+              "title": "Understanding the Perceptron: A Dive into the Basics and the Perceptron Trick",
+              "description": "Perceptron Visualization",
+              "source": "@site/docs/deep-learning/perceptron.mdx",
+              "sourceDirName": "deep-learning",
+              "slug": "/deep-learning/perceptron",
+              "permalink": "/docs/deep-learning/perceptron",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/deep-learning/perceptron.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Introduction to Deep Learning",
+                "permalink": "/docs/deep-learning/intro"
+              },
+              "next": {
+                "title": "Introduction to Large Language Models",
+                "permalink": "/docs/language-models/intro"
+              }
+            },
+            {
+              "id": "language-models/AccessingLLMs",
+              "title": "Accessing and Understanding LLMs: From Cloud to Local",
+              "description": "Introduction:",
+              "source": "@site/docs/language-models/AccessingLLMs.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/AccessingLLMs",
+              "permalink": "/docs/language-models/AccessingLLMs",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/AccessingLLMs.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 16,
+              "frontMatter": {
+                "sidebar_position": 16
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Navigating the LLM Landscape: Evaluation, News, and Access",
+                "permalink": "/docs/language-models/Evaluation"
+              },
+              "next": {
+                "title": "From Query to Response: Understanding the LLM Journey",
+                "permalink": "/docs/language-models/QueryToResponse"
+              }
+            },
+            {
+              "id": "language-models/BaseModels",
+              "title": "Understanding Base Models in Large Language Models",
+              "description": "Introduction",
+              "source": "@site/docs/language-models/BaseModels.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/BaseModels",
+              "permalink": "/docs/language-models/BaseModels",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/BaseModels.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 5,
+              "frontMatter": {
+                "sidebar_position": 5
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Understanding GPT-2 and the Evolution of Large Language Models",
+                "permalink": "/docs/language-models/EvolutionGpt2"
+              },
+              "next": {
+                "title": "Navigating the Hallucinations: Understanding and Improving LLM Accuracy",
+                "permalink": "/docs/language-models/Hallucinations"
+              }
+            },
+            {
+              "id": "language-models/Evaluation",
+              "title": "Navigating the LLM Landscape: Evaluation, News, and Access",
+              "description": "Introduction:",
+              "source": "@site/docs/language-models/Evaluation.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/Evaluation",
+              "permalink": "/docs/language-models/Evaluation",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/Evaluation.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 15,
+              "frontMatter": {
+                "sidebar_position": 15
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "The Evolving LLM: Multimodality, Agents, and the Future of AI",
+                "permalink": "/docs/language-models/Multimodality"
+              },
+              "next": {
+                "title": "Accessing and Understanding LLMs: From Cloud to Local",
+                "permalink": "/docs/language-models/AccessingLLMs"
+              }
+            },
+            {
+              "id": "language-models/EvolutionGpt2",
+              "title": "Understanding GPT-2 and the Evolution of Large Language Models",
+              "description": "Introduction to GPT-2",
+              "source": "@site/docs/language-models/EvolutionGpt2.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/EvolutionGpt2",
+              "permalink": "/docs/language-models/EvolutionGpt2",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/EvolutionGpt2.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 5,
+              "frontMatter": {
+                "sidebar_position": 5
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Post-Training of Large Language Models",
+                "permalink": "/docs/language-models/PostTraining"
+              },
+              "next": {
+                "title": "Understanding Base Models in Large Language Models",
+                "permalink": "/docs/language-models/BaseModels"
+              }
+            },
+            {
+              "id": "language-models/Hallucinations",
+              "title": "Navigating the Hallucinations: Understanding and Improving LLM Accuracy",
+              "description": "Introduction:",
+              "source": "@site/docs/language-models/Hallucinations.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/Hallucinations",
+              "permalink": "/docs/language-models/Hallucinations",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/Hallucinations.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 6,
+              "frontMatter": {
+                "sidebar_position": 6
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Understanding Base Models in Large Language Models",
+                "permalink": "/docs/language-models/BaseModels"
+              },
+              "next": {
+                "title": "The Illusion of Self: Understanding LLM Identity",
+                "permalink": "/docs/language-models/LLMIdentity"
+              }
+            },
+            {
+              "id": "language-models/intro",
+              "title": "Introduction to Large Language Models",
+              "description": "Understanding Large Language Models (LLMs)",
+              "source": "@site/docs/language-models/intro.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/intro",
+              "permalink": "/docs/language-models/intro",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/intro.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Understanding the Perceptron: A Dive into the Basics and the Perceptron Trick",
+                "permalink": "/docs/deep-learning/perceptron"
+              },
+              "next": {
+                "title": "Tokenization",
+                "permalink": "/docs/language-models/Tokenization"
+              }
+            },
+            {
+              "id": "language-models/LLMIdentity",
+              "title": "The Illusion of Self: Understanding LLM Identity",
+              "description": "Introduction:",
+              "source": "@site/docs/language-models/LLMIdentity.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/LLMIdentity",
+              "permalink": "/docs/language-models/LLMIdentity",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/LLMIdentity.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 7,
+              "frontMatter": {
+                "sidebar_position": 7
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Navigating the Hallucinations: Understanding and Improving LLM Accuracy",
+                "permalink": "/docs/language-models/Hallucinations"
+              },
+              "next": {
+                "title": "Thinking in Tokens: Understanding LLM Computational Limitations",
+                "permalink": "/docs/language-models/ThinkingInTokens"
+              }
+            },
+            {
+              "id": "language-models/LLMInconsistencies",
+              "title": "The Quirks and Foundations: LLM Inconsistencies and Pre-Training",
+              "description": "Introduction:",
+              "source": "@site/docs/language-models/LLMInconsistencies.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/LLMInconsistencies",
+              "permalink": "/docs/language-models/LLMInconsistencies",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/LLMInconsistencies.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 9,
+              "frontMatter": {
+                "sidebar_position": 9
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Thinking in Tokens: Understanding LLM Computational Limitations",
+                "permalink": "/docs/language-models/ThinkingInTokens"
+              },
+              "next": {
+                "title": "The School of LLMs: Post-Training and Reinforcement Learning",
+                "permalink": "/docs/language-models/PostTrainingReinforcementLearning"
+              }
+            },
+            {
+              "id": "language-models/LLMJudgement",
+              "title": "LLM Judgment: Reinforcement Learning in Unverifiable Domains",
+              "description": "Introduction:",
+              "source": "@site/docs/language-models/LLMJudgement.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/LLMJudgement",
+              "permalink": "/docs/language-models/LLMJudgement",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/LLMJudgement.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 13,
+              "frontMatter": {
+                "sidebar_position": 13
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Beyond Human Limits: Reinforcement Learning and the Future of LLM Thinking",
+                "permalink": "/docs/language-models/ReinforcementLearning"
+              },
+              "next": {
+                "title": "The Evolving LLM: Multimodality, Agents, and the Future of AI",
+                "permalink": "/docs/language-models/Multimodality"
+              }
+            },
+            {
+              "id": "language-models/Multimodality",
+              "title": "The Evolving LLM: Multimodality, Agents, and the Future of AI",
+              "description": "Introduction:",
+              "source": "@site/docs/language-models/Multimodality.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/Multimodality",
+              "permalink": "/docs/language-models/Multimodality",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/Multimodality.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 14,
+              "frontMatter": {
+                "sidebar_position": 14
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "LLM Judgment: Reinforcement Learning in Unverifiable Domains",
+                "permalink": "/docs/language-models/LLMJudgement"
+              },
+              "next": {
+                "title": "Navigating the LLM Landscape: Evaluation, News, and Access",
+                "permalink": "/docs/language-models/Evaluation"
+              }
+            },
+            {
+              "id": "language-models/NNInference",
+              "title": "Understanding Inference in Neural Network-Based Language Models",
+              "description": "Introduction",
+              "source": "@site/docs/language-models/NNInference.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/NNInference",
+              "permalink": "/docs/language-models/NNInference",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/NNInference.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Understanding Neural Network Training for Tokenized Sequences",
+                "permalink": "/docs/language-models/NNTraining"
+              },
+              "next": {
+                "title": "Internals of Neural Networks",
+                "permalink": "/docs/language-models/NNInternals"
+              }
+            },
+            {
+              "id": "language-models/NNInternals",
+              "title": "Internals of Neural Networks",
+              "description": "Introduction",
+              "source": "@site/docs/language-models/NNInternals.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/NNInternals",
+              "permalink": "/docs/language-models/NNInternals",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/NNInternals.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Understanding Inference in Neural Network-Based Language Models",
+                "permalink": "/docs/language-models/NNInference"
+              },
+              "next": {
+                "title": "Post-Training of Large Language Models",
+                "permalink": "/docs/language-models/PostTraining"
+              }
+            },
+            {
+              "id": "language-models/NNTraining",
+              "title": "Understanding Neural Network Training for Tokenized Sequences",
+              "description": "1\\. Introduction",
+              "source": "@site/docs/language-models/NNTraining.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/NNTraining",
+              "permalink": "/docs/language-models/NNTraining",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/NNTraining.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Tokenization",
+                "permalink": "/docs/language-models/Tokenization"
+              },
+              "next": {
+                "title": "Understanding Inference in Neural Network-Based Language Models",
+                "permalink": "/docs/language-models/NNInference"
+              }
+            },
+            {
+              "id": "language-models/PostTraining",
+              "title": "Post-Training of Large Language Models",
+              "description": "Introduction",
+              "source": "@site/docs/language-models/PostTraining.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/PostTraining",
+              "permalink": "/docs/language-models/PostTraining",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/PostTraining.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 5,
+              "frontMatter": {
+                "sidebar_position": 5
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Internals of Neural Networks",
+                "permalink": "/docs/language-models/NNInternals"
+              },
+              "next": {
+                "title": "Understanding GPT-2 and the Evolution of Large Language Models",
+                "permalink": "/docs/language-models/EvolutionGpt2"
+              }
+            },
+            {
+              "id": "language-models/PostTrainingReinforcementLearning",
+              "title": "The School of LLMs: Post-Training and Reinforcement Learning",
+              "description": "Introduction:",
+              "source": "@site/docs/language-models/PostTrainingReinforcementLearning.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/PostTrainingReinforcementLearning",
+              "permalink": "/docs/language-models/PostTrainingReinforcementLearning",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/PostTrainingReinforcementLearning.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 10,
+              "frontMatter": {
+                "sidebar_position": 10
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "The Quirks and Foundations: LLM Inconsistencies and Pre-Training",
+                "permalink": "/docs/language-models/LLMInconsistencies"
+              },
+              "next": {
+                "title": "LLM Thinking: Reinforcement Learning and the Emergence of Reasoning",
+                "permalink": "/docs/language-models/ThinkingRL"
+              }
+            },
+            {
+              "id": "language-models/QueryToResponse",
+              "title": "From Query to Response: Understanding the LLM Journey",
+              "description": "Introduction:",
+              "source": "@site/docs/language-models/QueryToResponse.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/QueryToResponse",
+              "permalink": "/docs/language-models/QueryToResponse",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/QueryToResponse.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 17,
+              "frontMatter": {
+                "sidebar_position": 17
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Accessing and Understanding LLMs: From Cloud to Local",
+                "permalink": "/docs/language-models/AccessingLLMs"
+              },
+              "next": {
+                "title": "AI & ML Resources",
+                "permalink": "/docs/resources/intro"
+              }
+            },
+            {
+              "id": "language-models/ReinforcementLearning",
+              "title": "Beyond Human Limits: Reinforcement Learning and the Future of LLM Thinking",
+              "description": "Introduction:",
+              "source": "@site/docs/language-models/ReinforcementLearning.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/ReinforcementLearning",
+              "permalink": "/docs/language-models/ReinforcementLearning",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/ReinforcementLearning.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 12,
+              "frontMatter": {
+                "sidebar_position": 12
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "LLM Thinking: Reinforcement Learning and the Emergence of Reasoning",
+                "permalink": "/docs/language-models/ThinkingRL"
+              },
+              "next": {
+                "title": "LLM Judgment: Reinforcement Learning in Unverifiable Domains",
+                "permalink": "/docs/language-models/LLMJudgement"
+              }
+            },
+            {
+              "id": "language-models/ThinkingInTokens",
+              "title": "Thinking in Tokens: Understanding LLM Computational Limitations",
+              "description": "Introduction:",
+              "source": "@site/docs/language-models/ThinkingInTokens.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/ThinkingInTokens",
+              "permalink": "/docs/language-models/ThinkingInTokens",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/ThinkingInTokens.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 8,
+              "frontMatter": {
+                "sidebar_position": 8
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "The Illusion of Self: Understanding LLM Identity",
+                "permalink": "/docs/language-models/LLMIdentity"
+              },
+              "next": {
+                "title": "The Quirks and Foundations: LLM Inconsistencies and Pre-Training",
+                "permalink": "/docs/language-models/LLMInconsistencies"
+              }
+            },
+            {
+              "id": "language-models/ThinkingRL",
+              "title": "LLM Thinking: Reinforcement Learning and the Emergence of Reasoning",
+              "description": "Introduction:",
+              "source": "@site/docs/language-models/ThinkingRL.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/ThinkingRL",
+              "permalink": "/docs/language-models/ThinkingRL",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/ThinkingRL.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 11,
+              "frontMatter": {
+                "sidebar_position": 11
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "The School of LLMs: Post-Training and Reinforcement Learning",
+                "permalink": "/docs/language-models/PostTrainingReinforcementLearning"
+              },
+              "next": {
+                "title": "Beyond Human Limits: Reinforcement Learning and the Future of LLM Thinking",
+                "permalink": "/docs/language-models/ReinforcementLearning"
+              }
+            },
+            {
+              "id": "language-models/Tokenization",
+              "title": "Tokenization",
+              "description": "Tokenization \\- Transforming Text for Neural Networks",
+              "source": "@site/docs/language-models/Tokenization.mdx",
+              "sourceDirName": "language-models",
+              "slug": "/language-models/Tokenization",
+              "permalink": "/docs/language-models/Tokenization",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/Tokenization.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Introduction to Large Language Models",
+                "permalink": "/docs/language-models/intro"
+              },
+              "next": {
+                "title": "Understanding Neural Network Training for Tokenized Sequences",
+                "permalink": "/docs/language-models/NNTraining"
+              }
+            },
+            {
+              "id": "machine-learning/intro",
+              "title": "Introduction to Machine Learning",
+              "description": "Machine Learning (ML) is a subset of artificial intelligence that focuses on developing systems that can learn from and make decisions based on data. Unlike traditional programming where explicit instructions are given to accomplish a task, machine learning algorithms build a model based on sample data, known as training data, to make predictions or decisions without being explicitly programmed to do so.",
+              "source": "@site/docs/machine-learning/intro.mdx",
+              "sourceDirName": "machine-learning",
+              "slug": "/machine-learning/intro",
+              "permalink": "/docs/machine-learning/intro",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/machine-learning/intro.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "docsSidebar",
+              "next": {
+                "title": "Supervised Learning",
+                "permalink": "/docs/machine-learning/supervised-learning"
+              }
+            },
+            {
+              "id": "machine-learning/supervised-learning",
+              "title": "Supervised Learning",
+              "description": "Supervised learning is a type of machine learning where the model is trained on labeled data. In this approach, the algorithm learns from a training dataset that includes both input features and their corresponding correct outputs.",
+              "source": "@site/docs/machine-learning/supervised-learning.mdx",
+              "sourceDirName": "machine-learning",
+              "slug": "/machine-learning/supervised-learning",
+              "permalink": "/docs/machine-learning/supervised-learning",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/machine-learning/supervised-learning.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Introduction to Machine Learning",
+                "permalink": "/docs/machine-learning/intro"
+              },
+              "next": {
+                "title": "Introduction to Deep Learning",
+                "permalink": "/docs/deep-learning/intro"
+              }
+            },
+            {
+              "id": "resources/intro",
+              "title": "AI & ML Resources",
+              "description": "This section provides a curated collection of resources for machine learning, deep learning, and language models. Whether you're just starting your journey or looking to deepen your expertise, you'll find valuable tools, datasets, libraries, and educational materials here.",
+              "source": "@site/docs/resources/intro.mdx",
+              "sourceDirName": "resources",
+              "slug": "/resources/intro",
+              "permalink": "/docs/resources/intro",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/resources/intro.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "From Query to Response: Understanding the LLM Journey",
+                "permalink": "/docs/language-models/QueryToResponse"
+              }
+            }
+          ],
+          "drafts": [],
+          "sidebars": {
+            "docsSidebar": [
+              {
+                "type": "category",
+                "label": "Machine Learning",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "machine-learning/intro"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "machine-learning/supervised-learning"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Deep Learning",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "deep-learning/intro"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "deep-learning/perceptron"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Language Models",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "language-models/intro"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/Tokenization"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/NNTraining"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/NNInference"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/NNInternals"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/PostTraining"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/EvolutionGpt2"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/BaseModels"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/Hallucinations"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/LLMIdentity"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/ThinkingInTokens"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/LLMInconsistencies"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/PostTrainingReinforcementLearning"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/ThinkingRL"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/ReinforcementLearning"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/LLMJudgement"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/Multimodality"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/Evaluation"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/AccessingLLMs"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "language-models/QueryToResponse"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Resources",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "resources/intro"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "docusaurus-plugin-content-blog": {
+    "default": {
+      "blogSidebarTitle": "Recent posts",
+      "blogPosts": [
+        {
+          "id": "/2024/04/24/welcome",
+          "metadata": {
+            "permalink": "/blog/2024/04/24/welcome",
+            "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/blog/2024-04-24-welcome.mdx",
+            "source": "@site/blog/2024-04-24-welcome.mdx",
+            "title": "Welcome to AI Seekhega India Blog",
+            "description": "Welcome to the official blog of AI Seekhega India! This is where we'll share updates, tutorials, and insights about artificial intelligence and machine learning.",
+            "date": "2024-04-24T00:00:00.000Z",
+            "formattedDate": "April 24, 2024",
+            "tags": [
+              {
+                "label": "announcement",
+                "permalink": "/blog/tags/announcement"
+              },
+              {
+                "label": "welcome",
+                "permalink": "/blog/tags/welcome"
+              }
+            ],
+            "readingTime": 0.405,
+            "hasTruncateMarker": false,
+            "authors": [
+              {
+                "name": "AI Seekhega India Team"
+              }
+            ],
+            "frontMatter": {
+              "title": "Welcome to AI Seekhega India Blog",
+              "author": "AI Seekhega India Team",
+              "tags": [
+                "announcement",
+                "welcome"
+              ],
+              "date": "2024-04-24"
+            },
+            "unlisted": false
+          },
+          "content": "Welcome to the official blog of AI Seekhega India! This is where we'll share updates, tutorials, and insights about artificial intelligence and machine learning.\n\n## What to Expect\n\n- Tutorials and guides\n- Project updates\n- Community highlights\n- Research summaries\n- Best practices and tips\n\n## Get Involved\n\nWe encourage community members to contribute to our blog. If you have something to share about AI and ML, please check out our [contribution guidelines](/contribute).\n\nStay tuned for more content coming soon!"
+        }
+      ],
+      "blogListPaginated": [
+        {
+          "items": [
+            "/2024/04/24/welcome"
+          ],
+          "metadata": {
+            "permalink": "/blog",
+            "page": 1,
+            "postsPerPage": 10,
+            "totalPages": 1,
+            "totalCount": 1,
+            "blogDescription": "Blog",
+            "blogTitle": "Blog"
+          }
+        }
+      ],
+      "blogTags": {
+        "/blog/tags/announcement": {
+          "label": "announcement",
+          "items": [
+            "/2024/04/24/welcome"
+          ],
+          "permalink": "/blog/tags/announcement",
+          "pages": [
+            {
+              "items": [
+                "/2024/04/24/welcome"
+              ],
+              "metadata": {
+                "permalink": "/blog/tags/announcement",
+                "page": 1,
+                "postsPerPage": 10,
+                "totalPages": 1,
+                "totalCount": 1,
+                "blogDescription": "Blog",
+                "blogTitle": "Blog"
+              }
+            }
+          ],
+          "unlisted": false
+        },
+        "/blog/tags/welcome": {
+          "label": "welcome",
+          "items": [
+            "/2024/04/24/welcome"
+          ],
+          "permalink": "/blog/tags/welcome",
+          "pages": [
+            {
+              "items": [
+                "/2024/04/24/welcome"
+              ],
+              "metadata": {
+                "permalink": "/blog/tags/welcome",
+                "page": 1,
+                "postsPerPage": 10,
+                "totalPages": 1,
+                "totalCount": 1,
+                "blogDescription": "Blog",
+                "blogTitle": "Blog"
+              }
+            }
+          ],
+          "unlisted": false
+        }
+      },
+      "blogTagsListPath": "/blog/tags"
+    }
+  },
+  "docusaurus-plugin-content-pages": {
+    "default": [
+      {
+        "type": "mdx",
+        "permalink": "/contribute",
+        "source": "@site/src/pages/contribute.mdx",
+        "title": "How to Contribute",
+        "description": "Thank you for your interest in contributing to the AI & ML Documentation project! This community-driven resource depends on contributions from people like you.",
+        "frontMatter": {},
+        "unlisted": false
+      },
+      {
+        "type": "jsx",
+        "permalink": "/fellowship",
+        "source": "@site/src/pages/fellowship.tsx"
+      },
+      {
+        "type": "jsx",
+        "permalink": "/",
+        "source": "@site/src/pages/index.tsx"
+      }
+    ]
+  },
+  "docusaurus-plugin-debug": {},
+  "docusaurus-theme-classic": {},
+  "docusaurus-bootstrap-plugin": {},
+  "docusaurus-mdx-fallback-plugin": {}
+}

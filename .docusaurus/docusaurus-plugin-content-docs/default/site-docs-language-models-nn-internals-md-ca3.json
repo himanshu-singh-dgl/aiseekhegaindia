@@ -1,0 +1,15 @@
+{
+  "id": "language-models/NNInternals",
+  "title": "NNInternals",
+  "description": "",
+  "source": "@site/docs/language-models/NNInternals.md",
+  "sourceDirName": "language-models",
+  "slug": "/language-models/NNInternals",
+  "permalink": "/docs/language-models/NNInternals",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/language-models/NNInternals.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}
