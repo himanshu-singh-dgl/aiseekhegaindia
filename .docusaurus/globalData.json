@@ -126,6 +126,11 @@
               "sidebar": "docsSidebar"
             },
             {
+              "id": "machine-learning/logistic_regression_tutorial",
+              "path": "/docs/machine-learning/logistic_regression_tutorial",
+              "sidebar": "docsSidebar"
+            },
+            {
               "id": "machine-learning/supervised-learning",
               "path": "/docs/machine-learning/supervised-learning",
               "sidebar": "docsSidebar"

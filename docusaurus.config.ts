@@ -1,6 +1,10 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+// import remarkMath from 'remark-math';
+// import rehypeKatex from 'rehype-katex';
+const remarkMath = require('remark-math');
+const rehypeKatex = require('rehype-katex');
 
 const config: Config = {
   title: 'AISeekhegaIndia',
@@ -39,6 +43,8 @@ const config: Config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/ai-ml-community/ai-ml-docs/tree/main/',
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
         },
         blog: {
           showReadingTime: true,
@@ -46,6 +52,8 @@ const config: Config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/ai-ml-community/ai-ml-docs/tree/main/',
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -172,6 +180,15 @@ const config: Config = {
       disableSwitch: false,
       respectPrefersColorScheme: true,
     },
+    stylesheets: [
+      {
+        href: 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css',
+        type: 'text/css',
+        integrity:
+          'sha384-mQ93GR66B8fYB1+K+9a6UA+6QK9lQ8l+Q5p3p3Z5p3p3Z5p3p3Z5p3p3Z5p3p3Z5',
+        crossorigin: 'anonymous',
+      },
+    ],
   } satisfies Preset.ThemeConfig,
 };
 

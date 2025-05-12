@@ -19,6 +19,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'machine-learning/intro',
         'machine-learning/supervised-learning',
+        'machine-learning/logistic_regression_tutorial',
       ],
     },
     {

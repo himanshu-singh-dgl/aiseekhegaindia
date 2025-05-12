@@ -21,7 +21,7 @@
     "permalink": "/docs/machine-learning/intro"
   },
   "next": {
-    "title": "Introduction to Deep Learning",
-    "permalink": "/docs/deep-learning/intro"
+    "title": "Logistic Regression: A Complete Guide",
+    "permalink": "/docs/machine-learning/logistic_regression_tutorial"
   }
 }

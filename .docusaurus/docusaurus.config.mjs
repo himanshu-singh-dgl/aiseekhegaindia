@@ -27,11 +27,23 @@ export default {
       {
         "docs": {
           "sidebarPath": "./sidebars.ts",
-          "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/"
+          "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/",
+          "remarkPlugins": [
+            null
+          ],
+          "rehypePlugins": [
+            null
+          ]
         },
         "blog": {
           "showReadingTime": true,
-          "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/"
+          "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/",
+          "remarkPlugins": [
+            null
+          ],
+          "rehypePlugins": [
+            null
+          ]
         },
         "theme": {
           "customCss": "./src/css/custom.css"
@@ -364,6 +376,14 @@ export default {
       "disableSwitch": false,
       "respectPrefersColorScheme": true
     },
+    "stylesheets": [
+      {
+        "href": "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css",
+        "type": "text/css",
+        "integrity": "sha384-mQ93GR66B8fYB1+K+9a6UA+6QK9lQ8l+Q5p3p3Z5p3p3Z5p3p3Z5p3p3Z5p3p3Z5",
+        "crossorigin": "anonymous"
+      }
+    ],
     "docs": {
       "versionPersistence": "localStorage",
       "sidebar": {

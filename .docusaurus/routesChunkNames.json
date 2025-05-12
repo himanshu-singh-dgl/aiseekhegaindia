@@ -120,17 +120,17 @@
     },
     "config": "config---fellowship-5-e-9-50c"
   },
-  "/docs-f68": {
+  "/docs-7ca": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
     "__context": {
       "plugin": "plugin---docs-1-da-721"
     }
   },
-  "/docs-974": {
+  "/docs-af2": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
     "version": "version---docs-935-398"
   },
-  "/docs-190": {
+  "/docs-2a2": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
   "/docs/deep-learning/intro-516": {
@@ -224,6 +224,10 @@
   "/docs/machine-learning/intro-79e": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-machine-learning-introe-53-dc5"
+  },
+  "/docs/machine-learning/logistic_regression_tutorial-f31": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-machine-learning-logistic-regression-tutorial-281-08e"
   },
   "/docs/machine-learning/supervised-learning-039": {
     "__comp": "__comp---theme-doc-item-178-a40",

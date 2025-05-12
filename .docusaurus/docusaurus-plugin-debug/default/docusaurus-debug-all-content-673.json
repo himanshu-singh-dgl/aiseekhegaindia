@@ -38,8 +38,8 @@
               },
               "sidebar": "docsSidebar",
               "previous": {
-                "title": "Supervised Learning",
-                "permalink": "/docs/machine-learning/supervised-learning"
+                "title": "Logistic Regression: A Complete Guide",
+                "permalink": "/docs/machine-learning/logistic_regression_tutorial"
               },
               "next": {
                 "title": "Understanding the Perceptron: A Dive into the Basics and the Perceptron Trick",
@@ -637,6 +637,33 @@
               }
             },
             {
+              "id": "machine-learning/logistic_regression_tutorial",
+              "title": "Logistic Regression: A Complete Guide",
+              "description": "This notebook provides a comprehensive introduction to logistic regression, covering:",
+              "source": "@site/docs/machine-learning/logistic_regression_tutorial.mdx",
+              "sourceDirName": "machine-learning",
+              "slug": "/machine-learning/logistic_regression_tutorial",
+              "permalink": "/docs/machine-learning/logistic_regression_tutorial",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/machine-learning/logistic_regression_tutorial.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Supervised Learning",
+                "permalink": "/docs/machine-learning/supervised-learning"
+              },
+              "next": {
+                "title": "Introduction to Deep Learning",
+                "permalink": "/docs/deep-learning/intro"
+              }
+            },
+            {
               "id": "machine-learning/supervised-learning",
               "title": "Supervised Learning",
               "description": "Supervised learning is a type of machine learning where the model is trained on labeled data. In this approach, the algorithm learns from a training dataset that includes both input features and their corresponding correct outputs.",
@@ -659,8 +686,8 @@
                 "permalink": "/docs/machine-learning/intro"
               },
               "next": {
-                "title": "Introduction to Deep Learning",
-                "permalink": "/docs/deep-learning/intro"
+                "title": "Logistic Regression: A Complete Guide",
+                "permalink": "/docs/machine-learning/logistic_regression_tutorial"
               }
             },
             {
@@ -701,6 +728,10 @@
                   {
                     "type": "doc",
                     "id": "machine-learning/supervised-learning"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "machine-learning/logistic_regression_tutorial"
                   }
                 ],
                 "collapsed": true,

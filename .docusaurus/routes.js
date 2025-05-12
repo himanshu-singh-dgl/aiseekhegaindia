@@ -79,15 +79,15 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', 'f68'),
+    component: ComponentCreator('/docs', '7ca'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', '974'),
+        component: ComponentCreator('/docs', 'af2'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', '190'),
+            component: ComponentCreator('/docs', '2a2'),
             routes: [
               {
                 path: '/docs/deep-learning/intro',
@@ -224,6 +224,12 @@ export default [
               {
                 path: '/docs/machine-learning/intro',
                 component: ComponentCreator('/docs/machine-learning/intro', '79e'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/docs/machine-learning/logistic_regression_tutorial',
+                component: ComponentCreator('/docs/machine-learning/logistic_regression_tutorial', 'f31'),
                 exact: true,
                 sidebar: "docsSidebar"
               },

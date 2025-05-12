@@ -26,6 +26,13 @@
             "href": "/docs/machine-learning/supervised-learning",
             "docId": "machine-learning/supervised-learning",
             "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Logistic Regression: A Complete Guide",
+            "href": "/docs/machine-learning/logistic_regression_tutorial",
+            "docId": "machine-learning/logistic_regression_tutorial",
+            "unlisted": false
           }
         ],
         "collapsed": true,
@@ -355,6 +362,12 @@
       "id": "machine-learning/intro",
       "title": "Introduction to Machine Learning",
       "description": "Machine Learning (ML) is a subset of artificial intelligence that focuses on developing systems that can learn from and make decisions based on data. Unlike traditional programming where explicit instructions are given to accomplish a task, machine learning algorithms build a model based on sample data, known as training data, to make predictions or decisions without being explicitly programmed to do so.",
+      "sidebar": "docsSidebar"
+    },
+    "machine-learning/logistic_regression_tutorial": {
+      "id": "machine-learning/logistic_regression_tutorial",
+      "title": "Logistic Regression: A Complete Guide",
+      "description": "This notebook provides a comprehensive introduction to logistic regression, covering:",
       "sidebar": "docsSidebar"
     },
     "machine-learning/supervised-learning": {
