@@ -92,3 +92,90 @@ With deep learning, this problem has evolved dramatically. Modern models not onl
 ![This is an ALT text](./image_cnn_3.png)
 ![This is an ALT text](./image_cnn_4.png)
 ![This is an ALT text](./image_cnn_5.png)
+
+# Chapter 3: From Pixels to Perception — How Computers Interpret Images
+
+## Bridging Human Intuition and Machine Perception
+
+In today’s class, we begin to transition from high-level applications to the underlying mechanics that enable them. The central question is both philosophical and technical: **how can we take a task that humans perform effortlessly and encode that capability into machines?**
+
+For example, recognizing a face, distinguishing between two objects, or interpreting a scene are actions we perform with no conscious thought. Yet each of these tasks requires a series of complex perceptual computations.
+
+> The goal is to design models that can perform such tasks with the same level of efficiency and accuracy, despite the lack of human intuition.
+
+---
+
+## How Computers Represent Images
+
+At the lowest level, images are fundamentally numerical. While to us an image of Abraham Lincoln is a coherent visual entity, to a computer it is nothing more than a structured set of values.
+
+- In **grayscale images**, each pixel is represented by a single intensity value.
+- In **color images**, each pixel is represented by a triplet of numbers corresponding to **red**, **green**, and **blue** intensities.
+
+This leads to two primary types of image representations:
+
+- **Grayscale Image**: Represented as a 2D matrix of shape `(height, width)`
+- **Color Image**: Represented as a 3D tensor of shape `(height, width, 3)`
+
+This structured representation is ideal for feeding into neural networks. Unlike text, which must be tokenized and embedded, images are already in a **dense numerical format**. The challenge is not converting them into numbers, but **interpreting** the numbers meaningfully.
+
+---
+
+## Understanding the Learning Tasks: Regression and Classification
+
+Once an image is represented numerically, we can train deep learning models to perform specific tasks. These tasks typically fall into two broad categories:
+
+### Regression
+
+- **Outputs** continuous values.
+- **Examples in vision**:
+  - Predicting the age of a person from a face image
+  - Estimating the depth of each pixel in a scene
+  - Forecasting motion vectors
+
+### Classification
+
+- **Outputs** discrete class labels.
+- **Example**: Given an image of a historical figure, determine whether it is Abraham Lincoln, George Washington, or another U.S. president.
+- The output is one of **K** possible categories, and the model must learn to assign high probability to the correct one.
+
+> The classification task is central to many computer vision problems. For a model to classify images correctly, it must first learn to identify the features that distinguish one class from another.
+
+---
+
+## Feature Extraction: The Key to Recognition
+
+Let’s ground this with an example: identifying whether a portrait is Abraham Lincoln or George Washington. Humans rely on distinctive features such as:
+
+- Facial structure  
+- Hairstyle  
+- Beard or lack thereof  
+- Historical clothing artifacts
+
+For a machine to do this, it must also extract features — but unlike humans, it needs these features to be either **explicitly defined** or **automatically learned**.
+
+This brings us to the heart of deep learning for vision: **representation learning**.
+
+Neural networks learn to extract features from raw pixels through successive layers of:
+
+- **Convolution**
+- **Pooling**
+- **Non-linear transformation**
+
+- Lower layers capture **local edges and textures**.
+- Deeper layers capture **higher-level abstractions** such as facial parts or spatial arrangements.
+
+By learning a hierarchy of features, the network becomes capable of associating specific patterns with specific labels.
+
+---
+
+## Summary
+
+In this chapter, we have laid the foundation for understanding how deep learning systems interpret images. The pipeline begins with raw pixel arrays and flows into two core types of learning problems: **regression** and **classification**.
+
+### Key insights:
+
+- Images are **structured arrays of numbers**, inherently suitable for machine interpretation.
+- Classification tasks require models to **detect and leverage features** that separate one class from another.
+- Deep networks automate this **feature extraction** through layers of learned filters, enabling models to understand visual patterns with increasing abstraction.
+![This is an ALT text](./image_cnn_6.png)
