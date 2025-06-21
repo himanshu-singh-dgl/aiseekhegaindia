@@ -291,4 +291,89 @@ Human-defined features are limited by our intuition and manual effort.
 Neural networks eliminate the need for handcrafted feature pipelines by learning representations directly from data.  
 Hierarchical structure arises naturally from network depth, enabling increasingly abstract features to emerge.  
 This approach makes models more adaptive, more robust to real-world variation, and ultimately more performant across vision tasks.
+
 ![This is an ALT text](./image_cnn_9.png)
+
+# Chapter 6: Preserving Spatial Structure with Convolutional Neural Networks
+
+## The Limits of Fully Connected Networks in Vision
+In Lecture 1, we explored fully connected neural networks  models where each neuron in one layer is connected to every neuron in the previous layer. This structure works well for problems where the input is one-dimensional or where spatial locality is not important.
+
+But images are fundamentally different.  
+An image is a two-dimensional structure — width and height (and possibly channels for color). Every pixel has spatial meaning: a pixel next to another shares more visual relevance than one on the opposite side of the image. Flattening this structure into a one-dimensional vector destroys this locality.
+
+Let’s say we flatten a 100×100 image (grayscale). That’s a vector of size 10,000. If our hidden layer has 1,000 neurons, we now have 10 million parameters just between two layers. Worse, we’ve lost all of the rich structure that defines images  edges, shapes, orientation, and locality.  
+This is computationally inefficient and conceptually unsound.
+
+## What We Need Instead
+To model vision tasks effectively, we need a network architecture that:
+
+- Preserves the spatial arrangement of pixels  
+- Maintains local connectivity (pixels that are near each other matter most)  
+- Is parameter-efficient, sharing computations across regions of the image  
+- Builds hierarchical features, where local patterns form edges, shapes, and entire objects
+
+This is the idea behind Convolutional Neural Networks (CNNs).
+
+## Local Connectivity and Weight Sharing
+Instead of connecting every input pixel to every neuron in the next layer, CNNs use local receptive fields in small patches of the input image.
+
+Let’s say we use a filter (also called a kernel) of size 4×4. This filter is a small set of weights (just 16 numbers) that will be applied across the image:  
+- The first output neuron in the next layer is computed by applying this filter to the top-left 4×4 patch of the image.  
+- The next neuron is computed by applying the same filter to the next 4×4 patch, shifted one pixel to the right.  
+- This continues across the entire image.
+
+This operation is called a convolution.  
+**Key characteristics:**
+
+- **Locality:**  
+  Each neuron sees only a small patch of the input (local features).  
+- **Weight sharing:**  
+  The same filter is used everywhere in the image, which drastically reduces parameters.  
+- **Translation invariance:**  
+  Because the same filter is applied across locations, the network can detect a pattern regardless of where it occurs.
+
+This is fundamentally different from fully connected layers, where each neuron has a separate weight for every input pixel.
+
+## What is a Convolution?
+A convolution is a sliding, element-wise multiplication operation followed by a sum, bias addition, and nonlinearity.  
+Here’s how it works:
+
+- Take a small patch of the input image — say, a 4×4 region.  
+- Multiply it element-wise with the 4×4 filter.  
+- Sum the result into a single number.  
+- Add a bias term.  
+- Pass the result through a nonlinearity (like ReLU).  
+- Shift the filter (by a stride of 1 or 2 pixels), and repeat.
+
+The result is a new matrix, called a **feature map**, which encodes where and how strongly a certain pattern appears in the image.  
+By stacking multiple filters, we extract multiple types of features — edges in different directions, textures, corners, etc.
+
+## Why Convolutions Work So Well
+CNNs introduce inductive biases that are well-aligned with how real-world images behave:
+
+- **Locality bias:**  
+  Nearby pixels are more related than distant ones.  
+- **Translation equivariance:**  
+  A pattern (like an eye) means the same thing regardless of where it appears.  
+- **Parameter sharing:**  
+  Learning one set of weights that can generalize across the input space makes the model more efficient and data-hungry.
+
+Over multiple layers, CNNs form hierarchies of features:
+
+- **Layer 1:** local edge detectors (like Sobel filters)  
+- **Layer 2:** motifs (corners, curves)  
+- **Layer 3+:** parts of objects and entire objects (faces, wheels, etc.)
+
+This aligns perfectly with how humans understand vision — as a composition of increasingly complex structures.
+
+## Summary
+- Flattening images for fully connected layers destroys spatial information and is inefficient.  
+- Convolutional layers maintain spatial structure and reduce parameters by using local filters.  
+- A convolution is a filter sliding across the image, performing local pattern detection.  
+- CNNs exploit properties of images  locality, translation invariance, and shared structure  to build robust visual models.
+
+![This is an ALT text](./image_cnn_10.png)
+![This is an ALT text](./image_cnn_11.png)
+![This is an ALT text](./image_cnn_12.png)
+![This is an ALT text](./image_cnn_13.png)
