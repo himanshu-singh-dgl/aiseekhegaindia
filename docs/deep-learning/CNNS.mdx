@@ -377,3 +377,144 @@ This aligns perfectly with how humans understand vision — as a composition of 
 ![This is an ALT text](./image_cnn_11.png)
 ![This is an ALT text](./image_cnn_12.png)
 ![This is an ALT text](./image_cnn_13.png)
+
+# Chapter 7: Filters, Features, and the Power of Convolutions
+
+## The Feature Detection Power of Convolutions
+So far, we’ve learned that:  
+Fully connected networks discard spatial structure.  
+Convolutions preserve it by operating locally.  
+Each filter detects a specific pattern by sliding over the image.  
+
+But how exactly does a filter detect features like edges, textures, or shapes?  
+Let’s answer that through an example.
+
+## Detecting Shapes: The Case of an “X”
+Suppose you're trying to detect whether an image contains an X — not necessarily centered, possibly rotated or distorted. You could:  
+- Compare the input image pixel by pixel with a prototype X (but this fails under deformation),  
+- Or, break the image into patches, and search for elemental components of an X:  
+  - a forward diagonal  
+  - a backward diagonal  
+  - a crossing pattern  
+
+Instead of recognizing the full structure all at once, we detect and recombine parts of it.  
+These elemental detectors are what filters are for. Each filter is a small matrix (e.g., 3×3) that looks for a basic pattern:  
+- A diagonal line  
+- A vertical edge  
+- A horizontal transition  
+- A corner  
+
+These filters are our learned eyes — they decide what to look for in the data.
+
+Here's the Markdown-compatible version of the image content you shared, with LaTeX math and code blocks properly adapted:
+
+---
+
+### **Convolution: Mathematical Recap**
+
+Let’s define the operation formally.
+Let:
+
+* $I \in \mathbb{R}^{H \times W}$: Input image (grayscale)
+* $F \in \mathbb{R}^{k \times k}$: Filter of size $k \times k$
+* $O \in \mathbb{R}^{H \times W}$: Output feature map
+
+Then the convolution operation at location $(i, j)$ is defined as:
+
+$$
+O(i, j) = \sum_{m=0}^{k-1} \sum_{n=0}^{k-1} I(i + m, j + n) \cdot F(m, n)
+$$
+
+1. This is an element-wise multiplication of the filter and the patch of the image it covers.
+2. The result is summed up to a single scalar.
+3. We then slide this filter across the image (usually with stride = 1).
+4. Optionally, we add a bias and apply a nonlinearity (e.g., ReLU).
+
+This gives us a 2D output — a feature map — indicating where in the image that particular pattern is detected.
+
+---
+
+### **Interpretable Filters and Hand-Engineering**
+
+Before learning filters via backpropagation became common, hand-engineered filters were widely used.
+Let’s examine a few examples:
+
+---
+
+### **Edge Detection Filters**
+
+#### Horizontal edge filter (Sobel):
+
+```text
+[ -1, -2, -1 ]  
+[  0,  0,  0 ]  
+[  1,  2,  1 ]
+```
+
+#### Vertical edge filter (Sobel):
+
+```text
+[ -1,  0,  1 ]  
+[ -2,  0,  2 ]  
+[ -1,  0,  1 ]
+```
+
+---
+These filters approximate derivatives — they highlight where pixel intensity changes rapidly. They are high-pass filters, designed to detect edges.
+Here is the content from your image converted into clean, Markdown-compatible format with code blocks and proper structure:
+
+---
+
+### **Sharpen Filter:**
+
+```text
+[  0, -1,  0 ]  
+[ -1,  5, -1 ]  
+[  0, -1,  0 ]
+```
+
+These emphasize central pixels and subtract neighbors — enhancing contrast and sharpness.
+These filters are **interpretable** — you can understand their behavior just by inspection.
+
+---
+
+### **What’s Learned in CNNs?**
+
+In modern CNNs, these filters are **not hand-coded**. Instead:
+
+* They are learned directly from data via backpropagation.
+* The model finds the optimal set of filters that maximize task performance (e.g., accuracy).
+
+---
+
+### **Early layers typically learn:**
+
+* Edges
+* Corners
+* Color blobs
+
+---
+
+### **Deeper layers combine these to form:**
+
+* Parts of objects (e.g., eyes, wheels)
+* Full objects (e.g., faces, cats)
+
+Each convolutional filter becomes a template detector for a particular feature.
+
+---
+
+### **Summary of Concepts**
+
+Let’s consolidate what we’ve covered:
+
+| **Concept**           | **Explanation**                                                     |
+| --------------------- | ------------------------------------------------------------------- |
+| **Filter (Kernel)**   | A small matrix that scans over the image, detecting a feature       |
+| **Convolution**       | Element-wise multiplication + summation between filter and patch    |
+| **Stride**            | How far the filter moves at each step (e.g., 1 pixel, 2 pixels)     |
+| **Padding**           | Adding zeros around the image to preserve spatial dimensions        |
+| **Feature map**       | Output after applying a filter across the entire image              |
+| **Learnable filters** | CNNs optimize these filters via training to extract useful features |
+
+---
