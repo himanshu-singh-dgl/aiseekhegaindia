@@ -526,3 +526,147 @@ Let’s consolidate what we’ve covered:
 ![This is an ALT text](./image_cnn_19.png)
 ![This is an ALT text](./image_cnn_20.png)
 ![This is an ALT text](./image_cnn_21.png)
+
+# Chapter 8: "Learning to See: Understanding the Inner Workings of CNNs"
+
+## From Convolution to CNN: Zooming Out
+
+You already know the basic idea:  
+- The image is input.  
+- The filters (also called kernels) are slid over the image to compute feature maps via convolution.  
+- The resulting numbers capture the presence (or absence) of specific patterns (edges, corners, etc.) in the image.  
+
+But so far, we assumed we had those filters. In real CNNs:  
+**We learn those filters automatically from data.**
+
+---
+
+## The Core Components of a CNN
+
+There are three core operations you’ll repeatedly see in CNNs:
+
+### (i) Convolution
+- Captures local features.  
+- Each filter learns to detect a specific pattern (edge, texture, shape).  
+- Produces multiple feature maps, each indicating where that pattern appears.
+
+### (ii) ReLU: Nonlinearity (e.g., ReLU) Rectified Linear Unit
+- Applies an activation function to the feature map output.  
+- ReLU sets all negative values to zero (like a threshold gate).  
+- This nonlinearity makes the network expressive, i.e., capable of learning complex, nonlinear patterns.
+
+### (iii) Pooling (Downsampling)
+- Reduces the spatial dimensions (e.g., 28×28 → 14×14).  
+- Helps reduce computation and introduces invariance to small translations/rotations.  
+- Common: **Max pooling**, which retains only the max value in each small window.  
+- **Mean Pooling**: averages out the whole matrix and preserves the mean/avg instead of max.
+
+These steps repeat across layers, allowing the network to learn increasingly abstract and complex representations.
+
+---
+
+## Local Connectivity + Hierarchical Features
+
+CNNs exploit local connectivity: each neuron only “sees” a small patch of the image.  
+However, by stacking multiple convolution layers, the effective receptive field grows:
+
+- **Layer 1** learns edges (horizontal, vertical, diagonal).  
+- **Layer 2** learns combinations of those edges (corners, curves).  
+- **Layer 3+** starts recognizing more semantic features (eyes, faces, objects).  
+
+This is **hierarchical feature extraction**, a key power of CNNs.
+
+---
+
+## Multiple Filters per Layer = Feature Volume
+
+Each conv layer learns not one, but many filters—each producing its own feature map.  
+Stacking all of these maps together gives a **feature volume** (like a 3D tensor).  
+
+**Example:**  
+- Input: (32×32×3) image (RGB)  
+- Conv Layer 1 applies 16 filters → Output: (30×30×16)  
+- Next conv layer may apply 32 filters → Output: (28×28×32), and so on...  
+
+The **depth increases**, but the **height/width may decrease via pooling**.
+
+---
+
+## Training: How Filters Are Learned
+
+Filters (i.e., weights of the convolution kernels) are learned via **gradient descent**.  
+**How?**
+
+1. The network makes a prediction (e.g., "this is a cat").  
+2. If it's wrong, a loss is calculated.  
+3. The error is back-propagated through the network.  
+4. This updates the filters to reduce future error.
+
+So over time, **filters specialize to detect patterns most useful for distinguishing between the target classes**.
+
+---
+
+## Visualizing Filters
+
+After training:  
+- First-layer filters tend to look like **oriented edges** (Sobel-like).  
+- Deeper filters may detect **textures, motifs, or object parts** (eyes, wheels, ears).  
+
+You can visualize these filters and activations to understand what the model “sees”.  
+This is powerful because it gives **interpretable insight** into otherwise “black-box” deep models.
+
+---
+
+## Classification via Softmax
+
+Once you've passed the image through multiple **convolution + ReLU + pooling** layers:  
+- You’re left with abstract high-level features.  
+- **Flatten** them and feed them into a fully connected (dense) layer.  
+- The final layer uses **Softmax** to produce a probability distribution over possible classes.
+Here is your image content converted into clean, Markdown-compatible format with LaTeX and code blocks preserved:
+
+---
+
+### **Softmax formula:**
+
+```math
+\text{Softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}
+```
+
+**Where:**
+
+* $z_i$ is the score for class $i$
+* $K$ is the total number of classes
+
+---
+
+### **This ensures:**
+
+* Each output is in $[0, 1]$
+* All outputs sum to 1 (so they form a valid probability distribution)
+
+---
+
+### **Overall Pipeline: CNN for Classification**
+
+```text
+Input Image
+      ↓
+Convolution Layer(s) ➜ ReLU ➜ Pooling
+      ↓
+More Conv Layers ➜ ReLU ➜ Pooling
+      ↓
+Flatten
+      ↓
+Fully Connected Layer
+      ↓
+Softmax
+      ↓
+Predicted Class Probabilities
+```
+
+The CNN learns to extract patterns that are invariant, informative, and interpretable, and then uses those to classify the input.
+
+---
+
+
