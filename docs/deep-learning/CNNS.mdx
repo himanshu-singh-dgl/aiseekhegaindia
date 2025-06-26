@@ -673,3 +673,96 @@ The CNN learns to extract patterns that are invariant, informative, and interpre
 ![This is an ALT text](./image_cnn_23.png)
 ![This is an ALT text](./image_cnn_24.png)
 ![This is an ALT text](./image_cnn_25.png)
+
+# Chapter 9: Building an End-to-End Convolutional Neural Network
+
+In this chapter, we’ll walk through the process of building a complete convolutional neural network (CNN) from the ground up. The focus will be on understanding both the conceptual architecture and its concrete implementation in PyTorch. Our final objective is to classify images (e.g., digits 0–9) by learning hierarchical visual features directly from raw pixel inputs.
+
+This is not a theoretical detour. Everything we explore here is driven toward the practical goal of building a trainable, end-to-end system that can extract features, flatten them into an abstract representation, and make predictions over a predefined set of categories.
+
+## Architectural Breakdown: Two Key Stages
+
+A CNN is organized into two principal stages:
+
+### 1. Feature Extraction
+
+This is where convolutional operations take place. The model scans over the input image using learnable filters (also called kernels), extracting local patterns such as edges, corners, and textures. These filters are not manually specified they are learned from the data.  
+We begin with:
+
+- A first convolutional layer that applies 32 filters to the input. The output is a 3D volume of shape (32, H, W) one activation map per filter.
+
+- A ReLU nonlinearity to introduce the non-linear decision-making capability.
+
+- A max pooling operation to downsample the spatial resolution, allowing the network to focus on what was detected rather than where it was detected.
+
+Then:
+
+- A second convolutional layer that builds on the first by learning 64 additional filters. These filters now operate over the 32-feature volume from the first layer.
+
+- Followed again by ReLU and pooling.
+
+This pipeline lets us learn a rich, hierarchical set of features — from edges to textures to object parts.
+
+### 2. Classification (Fully Connected Layers)
+
+Once spatial features have been extracted, we transition from spatial reasoning to semantic reasoning.  
+- The multi-channel feature maps from the last convolutional layer are flattened into a single vector.
+
+- This vector is then passed through fully connected (dense) layers.
+
+- Finally, a softmax function squashes the final output into a probability distribution over the target classes (e.g., digits 0 to 9).
+
+This structure forms a classic CNN pipeline:  
+**convolutions → pooling → flattening → classification**
+
+## Implementation in PyTorch  
+Below is the code that mirrors the above architecture using PyTorch's nn.Module API.
+
+```
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class ConvNet(nn.Module):
+    def __init__(self, num_classes=10):
+        super(ConvNet, self).__init__()
+        
+        # Feature extractor
+        self.features = nn.Sequential(
+            nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1),  # 1x28x28 → 32x28x28
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            # 32x28x28 → 32x14x14
+            
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1),  # 32x14x14 → 64x14x14
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+            # 64x14x14 → 64x7x7
+        )
+        
+        # Classifier
+        self.classifier = nn.Sequential(
+            nn.Flatten(),                    # 64x7x7 → 3136
+            nn.Linear(64 * 7 * 7, 128),
+            nn.ReLU(),
+            nn.Linear(128, num_classes)      # Output: 10
+        )
+    
+    def forward(self, x):
+        x = self.features(x)
+        x = self.classifier(x)
+        return x  # Output: logits (apply softmax externally if needed)
+```
+Key Design Intuitions  
+Why 32 and 64 filters?  
+ These are design choices balancing performance and computational efficiency. 32 filters in the first layer are often sufficient to capture basic spatial patterns. 64 filters in the second layer expand the representational capacity without exploding model size.  
+Why ReLU?  
+ ReLU introduces non-linearity in a simple and computationally efficient way. It also helps mitigate the vanishing gradient problem compared to older activations like sigmoid or tanh.  
+Why Pooling?  
+ Max pooling reduces spatial dimensions, improving generalization and reducing the number of parameters. It also gives the model some translation invariance.  
+Why Flatten?  
+ We shift from 2D spatial reasoning to 1D semantic classification. This transformation is necessary to connect convolutional outputs with fully connected layers.  
+
+Final Remarks  
+This CNN does not just “look” at pixels, it learns a sequence of increasingly abstract features, layer by layer. Crucially, all of these filters are learned directly through backpropagation and optimization using labeled training data.  
+By separating the feature extraction from classification  but training them jointly  CNNs combine the strengths of both automatic representation learning and supervised learning.
