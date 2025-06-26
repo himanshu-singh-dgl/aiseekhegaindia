@@ -753,16 +753,29 @@ class ConvNet(nn.Module):
         x = self.classifier(x)
         return x  # Output: logits (apply softmax externally if needed)
 ```
-Key Design Intuitions  
-Why 32 and 64 filters?  
- These are design choices balancing performance and computational efficiency. 32 filters in the first layer are often sufficient to capture basic spatial patterns. 64 filters in the second layer expand the representational capacity without exploding model size.  
-Why ReLU?  
- ReLU introduces non-linearity in a simple and computationally efficient way. It also helps mitigate the vanishing gradient problem compared to older activations like sigmoid or tanh.  
-Why Pooling?  
- Max pooling reduces spatial dimensions, improving generalization and reducing the number of parameters. It also gives the model some translation invariance.  
-Why Flatten?  
- We shift from 2D spatial reasoning to 1D semantic classification. This transformation is necessary to connect convolutional outputs with fully connected layers.  
 
-Final Remarks  
-This CNN does not just “look” at pixels, it learns a sequence of increasingly abstract features, layer by layer. Crucially, all of these filters are learned directly through backpropagation and optimization using labeled training data.  
-By separating the feature extraction from classification  but training them jointly  CNNs combine the strengths of both automatic representation learning and supervised learning.
+### **Key Design Intuitions**
+
+* **Why 32 and 64 filters?**
+  These are design choices balancing performance and computational efficiency. 32 filters in the first layer are often sufficient to capture basic spatial patterns. 64 filters in the second layer expand the representational capacity without exploding model size.
+
+* **Why ReLU?**
+  ReLU introduces non-linearity in a simple and computationally efficient way. It also helps mitigate the vanishing gradient problem compared to older activations like sigmoid or tanh.
+
+* **Why Pooling?**
+  Max pooling reduces spatial dimensions, improving generalization and reducing the number of parameters. It also gives the model some translation invariance.
+
+* **Why Flatten?**
+  We shift from 2D spatial reasoning to 1D semantic classification. This transformation is necessary to connect convolutional outputs with fully connected layers.
+
+---
+
+### **Final Remarks**
+
+This CNN does not just “look” at pixels — it learns a sequence of increasingly abstract features, layer by layer. Crucially, all of these filters are learned directly through backpropagation and optimization using labeled training data.
+
+By separating the feature extraction from classification — but training them jointly — CNNs combine the strengths of both automatic representation learning and supervised learning.
+
+---
+
+Let me know if you'd like a combined markdown file for all the CNN parts you've converted so far.
