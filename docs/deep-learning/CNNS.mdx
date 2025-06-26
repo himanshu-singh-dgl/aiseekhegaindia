@@ -782,7 +782,7 @@ By separating the feature extraction from classification — but training them j
 
 ## Intuition Behind CNN Architecture Choices
 
-Choosing CNN architecture parameters — like patch size, feature dimensions, and layer depth — is more of an art guided by intuition and data characteristics than a strict science. For example, using a 3x3 kernel may be appropriate when features are expected to be fine-grained, but this depends heavily on the scale and resolution of the input. For large images, such small patches may not be sufficient to capture meaningful spatial context early in the network. Conversely, for smaller images or those with compact features, even a 3x3 patch may hold significant signal. Always consider the visual semantics your model needs to learn and at what resolution those features are most meaningful.  
+Choosing CNN architecture parameters — like patch size, feature dimensions, and layer depth is more of an art guided by intuition and data characteristics than a strict science. For example, using a 3x3 kernel may be appropriate when features are expected to be fine-grained, but this depends heavily on the scale and resolution of the input. For large images, such small patches may not be sufficient to capture meaningful spatial context early in the network. Conversely, for smaller images or those with compact features, even a 3x3 patch may hold significant signal. Always consider the visual semantics your model needs to learn and at what resolution those features are most meaningful.  
 Another important consideration is invariance. If your model is trained on only upright faces, it will likely fail on rotated ones unless rotation is part of your training distribution. The model does not generalize rotationally unless explicitly trained to do so.
 
 ## From Classification to Detection and Beyond
@@ -842,3 +842,16 @@ CNNs are foundational, but their power lies in modularity. Once feature extracti
 - Robotic control and navigation  
 
 While each task introduces specific architectural modifications, they all stem from the same core ideas: learning spatial features via convolution and applying supervision at the appropriate resolution and form — whether classification, bounding boxes, pixel masks, or control signals.
+![This is an ALT text](./image_cnn_27.png)
+![This is an ALT text](./image_cnn_28.png)
+![This is an ALT text](./image_cnn_29.png)
+![This is an ALT text](./image_cnn_30.png)
+![This is an ALT text](./image_cnn_31.png)
+![This is an ALT text](./image_cnn_32.png)
+![This is an ALT text](./image_cnn_33.png)
+![This is an ALT text](./image_cnn_34.png)
+![This is an ALT text](./image_cnn_35.png)
+![This is an ALT text](./image_cnn_36.png)
+![This is an ALT text](./image_cnn_37.png)
+![This is an ALT text](./image_cnn_38.png)
+![This is an ALT text](./image_cnn_39.png)
