@@ -90,3 +90,65 @@ This sets the stage for understanding Recurrent Neural Networks (RNNs), Long Sho
 ![This is an ALT text](./image_rnn_3.png)
 ![This is an ALT text](./image_rnn_4.png)
 ![This is an ALT text](./image_rnn_5.png)
+
+# Chapter :2 2.7 From Static Networks to Time-Aware Models
+
+In the previous section, we established the importance of modeling sequential dependencies. We now turn to how the field historically addressed this problem, beginning with a shift from traditional feedforward architectures to networks capable of handling temporal dynamics.
+
+## Revisiting the Perceptron
+
+Let us return briefly to the basic building block introduced in Lecture 1: the perceptron. Each perceptron takes a vector of inputs $$\( x_1, x_2, \dots, x_m \)$$, applies a weighted sum, and passes the result through a non-linear activation function to produce an output $$\( \hat{y} \)$$. This output can then feed into further layers to construct deep networks.  
+In its basic form, the perceptron operates on a fixed-length vector with no awareness of any sequential structure. All inputs are assumed to belong to a single time slice. There is no notion of temporal ordering or dependence on previous data points. This limitation makes such architectures insufficient for handling sequential data.
+
+## Applying Feedforward Networks to Time Series: A Naive Attempt
+
+One naive way to apply a static neural network to sequence data is to treat each time step independently. Imagine rotating our input-output diagram vertically, where each input      $$\( x_t \)$$ is processed by the same network $$\( f \)$$ to yield an output$$\( \hat{y}_t \)$$. We repeat this process across all time steps $$\( t = 0, 1, 2, \dots \)$$
+
+While this allows us to handle sequences of inputs, each prediction $$\( \hat{y}_t \)$$ is based only on the corresponding $$\( x_t \)$$. There is no memory of what happened at earlier time steps. This independence assumption contradicts the very premise of sequential modeling, which relies on the idea that prior context informs future states.  
+This setup lacks the ability to model dependencies across time. For example, if you are predicting a word in a sentence, the words that came before are crucial to predicting the next one. Ignoring previous steps leads to poor modeling capacity in such domains.
+
+## Introducing Recurrence: Capturing Temporal Dependencies
+
+To solve this problem, we introduce a core idea: maintain and update an internal state as the network processes each time step.
+To solve this problem, we introduce a core idea: maintain and update an internal state as the network processes each time step. Let us define this hidden or internal state as $$\( h_t \)$$. At each time step $$\( t \)$$, we compute:
+
+- An updated internal state $$\( h_t \)$$, which is a function of both the current input $$\( x_t \)$$ and the previous state $$\( h_{t-1} \)$$.
+- An output prediction $$\( \hat{y}_t \)$$, which now depends on $$\( h_t \)$$ rather than directly on $$\( x_t \)$$ alone.
+
+**Formally:**
+
+$$\[
+h_t = f(x_t, h_{t-1}) \quad \hat{y}_t = g(h_t)
+\]$$
+
+
+This setup provides a recurrence relation. The internal state acts as a form of memory, encoding information from past inputs and making it available to influence future computations. Crucially, this creates a dependency chain over time. The prediction at time step $$\( t \)$$ indirectly depends on all inputs $$\( x_0, x_1, \dots, x_t \)$$ seen so far.
+
+This structure defines a Recurrent Neural Network (RNN).
+
+## Visualizing Recurrence
+
+There are two primary ways to visualize an RNN:
+
+1. **Unrolled View:**  
+   We unroll the recurrence over time. Each time step is shown as a separate copy of the same neural unit, connected to the previous and next states via the hidden variable \( h \). This view is useful for understanding backpropagation through time and dependencies between states.
+
+2. **Cyclic View:**  
+   We represent the recurrent computation as a loop in the computational graph. This succinctly captures the feedback nature of the model: the hidden state feeds back into itself over time.
+
+Both views are functionally equivalent but offer different insights. The unrolled view emphasizes temporal flow. The cyclic view emphasizes structural recurrence.
+
+## Why This Matters
+
+The introduction of recurrence was a turning point in sequence modeling. It allowed neural networks to:
+
+- Learn patterns that span across multiple time steps.  
+- Maintain a form of short-term memory.  
+- Generalize across sequences of different lengths using a shared set of parameters.
+Although vanilla RNNs are limited in their ability to capture long-term dependencies due to issues like vanishing gradients, they laid the foundation for more advanced architectures such as LSTMs, GRUs, and eventually Transformers.  
+This transition from static to dynamic, time-aware models marked the beginning of deep learning's foray into language, speech, and many other sequence-intensive domains.
+![This is an ALT text](./image_rnn_6.png)
+![This is an ALT text](./image_rnn_7.png)
+![This is an ALT text](./image_rnn_8.png)
+![This is an ALT text](./image_rnn_9.png)
+![This is an ALT text](./image_rnn_10.png)
