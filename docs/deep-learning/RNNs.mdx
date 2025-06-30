@@ -389,6 +389,85 @@ And while RNNs are a start, you’ll soon see why their limitations pushed the c
 
 In our next step, we’ll dive deeper into those limitations and begin exploring how models like **LSTMs** and **GRUs** tackle long-term dependencies more effectively — setting the stage for even more powerful sequence modeling paradigms.
 ![This is an ALT text](./image_rnn_16.png)
+![This is an ALT text](./image_rnn_17.png)
 ![This is an ALT text](./image_rnn_18.png)
 ![This is an ALT text](./image_rnn_19.png)
 ![This is an ALT text](./image_rnn_20.png)
+
+# Chapter :5 Training RNNs: From Backpropagation to Backpropagation Through Time
+
+Even though sequence models like RNNs require special considerations, they’re still trained using the same fundamental algorithm that underpins most of modern deep learning: backpropagation.  
+Let’s revisit that core idea and then see how it extends to recurrent models.
+
+## Backpropagation in Feedforward Networks: A Recap
+
+In feedforward neural networks, training follows a simple loop:
+
+**Forward Pass:**  
+Input data flows through the network to produce an output.
+
+**Loss Computation:**  
+A loss function measures the error between the predicted output and the true target.
+
+**Backward Pass (Backpropagation):**  
+The loss is differentiated with respect to the model’s parameters — layer by layer — using the chain rule.
+
+**Parameter Update:**  
+Weights are updated using the gradient descent rule to minimize the loss.
+
+This process is repeated across batches of data until convergence.
+
+## Extending to RNNs: The Need for Temporal Backpropagation
+
+In the case of recurrent neural networks, we face an added challenge: temporal dependencies.  
+Rather than a single forward pass through a static network, an RNN unfolds over time. At each time step:
+- It takes in a new input,  
+- Updates its hidden state,  
+- Produces an output,  
+- And contributes to the total loss.
+
+This means the total loss is not just from one output, but is the sum of losses across time steps.  
+To train such a model, we need to backpropagate not only through the layers of the network, but also backward through time — across each time step where the hidden state was reused.  
+This is the motivation for a specific training algorithm:
+
+## Backpropagation Through Time (BPTT)
+
+Backpropagation Through Time (BPTT) is the extension of backpropagation to recurrent structures. Here's what it involves:
+- Unroll the RNN across the sequence length, treating each time step as a separate layer (sharing weights).  
+- Compute the total loss as the sum over all time steps.  
+- Backpropagate gradients from the final time step back to the initial one, flowing errors backward through both layers and time.
+
+This backward flow must propagate through a chain of repeated computations — the same weight matrices and activation functions applied again and again at each step.
+
+## Practical Challenge: Vanishing and Exploding Gradients
+
+This repeated multiplication creates a major numerical challenge:  
+If the derivatives at each step are slightly greater than one, the gradients can explode exponentially.  
+If they’re less than one, the gradients can vanish — shrinking toward zero.
+
+This problem is particularly damaging in sequence modeling because it prevents the model from learning long-term dependencies. If gradients either blow up or vanish, the model can’t effectively use early sequence information to make late predictions.
+
+## Why This Matters
+
+This issue isn't just theoretical. In practice, it severely limits the capacity of vanilla RNNs to:
+- Learn from long sequences, where important information might occur far from the prediction target,  
+- Retain stable training dynamics, which are essential for convergence,  
+- Capture meaningful temporal patterns over extended contexts.
+
+## A Solution: Long Short-Term Memory (LSTM)
+
+To address this, the deep learning community proposed enhanced RNN architectures — ones that modify the recurrent unit itself to better regulate the flow of information and gradients.  
+The most well-known of these is the Long Short-Term Memory (LSTM) network.
+
+### What LSTMs Do Differently:
+
+LSTMs introduce gates — learned mechanisms that selectively control what information to keep, forget, and expose at each time step. This makes them far more robust to the vanishing and exploding gradient problems.  
+By introducing explicit memory cells and gating functions, LSTMs can:
+- Retain information across long time spans,  
+- Learn what to forget and what to remember,  
+- Maintain stable gradients during training.
+![This is an ALT text](./image_rnn_21.png)
+![This is an ALT text](./image_rnn_22.png)
+![This is an ALT text](./image_rnn_23.png)
+![This is an ALT text](./image_rnn_24.png)
+![This is an ALT text](./image_rnn_25.png)
