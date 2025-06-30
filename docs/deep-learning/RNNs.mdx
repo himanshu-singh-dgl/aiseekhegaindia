@@ -524,3 +524,78 @@ Attention allows models to learn which parts of the input are most important for
 ![This is an ALT text](./image_rnn_29.png)
 ![This is an ALT text](./image_rnn_30.png)
 ![This is an ALT text](./image_rnn_31.png)
+
+# Chapter :7 The Core Idea Behind Attention and Transformers
+
+This is the core idea of a very powerful mechanism called attention. In 2017, a seminal paper titled "Attention is All You Need" introduced this mechanism. If you've heard of models like ChatGPT or GPT, the "T" stands for Transformer. A Transformer is a type of neural network architecture that can be applied not only to language data but also to other types of sequential data.
+
+What makes Transformers different is their use of the attention mechanism. In this lecture, we will explore the attention mechanism in detail, and in later sessions, you’ll learn how Transformers are used in language models and other real-world applications.
+
+## Understanding Attention: A Human Analogy
+
+The term "attention" is quite intuitive. As humans, we have a remarkable ability to focus on specific parts of an input — to attend to what matters. Let's build up our intuition using an example. Suppose you're looking at an image. A naive approach would be to scan each pixel one by one to figure out what’s important. But our brains do not work like that. We instantly focus on salient parts of the image.
+
+This act of identifying and focusing on the important parts of an input is the first part of what attention mechanisms aim to replicate. The next part is extracting useful features based on this attention. Think of this as identifying what matters and then pulling out the meaningful bits.
+
+## Attention as Search
+
+Conceptually, attention is very similar to search. Suppose you have a question like “How can I learn more about neural networks and AI?” One way to get an answer would be to search on the Internet. You enter your query into YouTube, and the search system goes through a massive video database. For each video, a key descriptor — is extracted to represent the core content.
+
+You then compare your query to all those keys. If the match is high, it means the video is relevant. If not, it gets ignored. Once a match is found, you extract the associated value — which, in this case, is the actual video. This process of comparing the query to the keys, and then pulling out the value, forms the core of attention mechanisms.
+
+## Attention in Neural Networks
+
+Now let’s return to our sequence modeling task. Suppose you are trying to predict the next word in a sentence. With attention, instead of processing the sentence one word at a time like RNNs, we feed in the whole sequence at once. To preserve information about order, we introduce positional embeddings — additional encodings that help the model keep track of the relative position of each word.  
+These position-aware inputs are then used to compute three sets of vectors using learned neural network layers:  
+- Queries  
+- Keys  
+- Values
+
+Each is derived from the same input but via different transformations, allowing each to capture different types of information. This setup is often referred to as self-attention, since the inputs are attending to each other within the same sequence.
+
+## Similarity and Softmax Weights
+
+Next, the model computes similarity scores between each query and each key. Since these are numeric vectors, we use the dot product to measure their similarity. The dot product tells us how aligned or relevant two vectors are.
+
+These similarity scores are then passed through a softmax function, which normalizes them into a distribution. This gives us attention weights, which indicate how much attention should be paid to each word in the sequence relative to others.  
+For example, in the sentence:  
+"He tossed the tennis ball to serve."  
+Words like “tossed” and “ball” may receive high mutual attention scores due to their semantic relation, while unrelated words get lower scores.
+
+## Extracting Features with the Value Matrix
+
+The final step is to use these attention weights to compute a weighted sum of the value vectors. This yields an output representation that reflects the most relevant features in the sequence, according to the attention scores. This mechanism is the heart of the attention operation.
+
+## Building Transformers
+
+To build a Transformer model using this mechanism,  
+we follow these steps:
+- Start with the input sequence and apply positional encodings.  
+- Compute the query, key, and value matrices using separate neural network layers.  
+- Calculate attention scores using dot products between queries and keys, followed by softmax normalization.  
+- Multiply the attention weights with the value matrix to get the final output features.
+
+These computations form an attention head, and multiple such heads can be stacked in parallel to form a multi-head attention layer. Each head may focus on different parts or relationships in the input, increasing the expressive capacity of the model.
+
+## Real-World Applications of Attention
+
+The attention mechanism has revolutionized many fields:
+- **Natural Language Processing:** Transformers power nearly all modern language models including GPT, BERT, and T5.  
+- **Biology:** Transformers are used to model biological sequences, including DNA and protein structures.  
+- **Computer Vision:** Vision Transformers (ViTs) apply attention to image patches instead of pixels, and have shown strong performance in tasks like classification, segmentation, and object detection.
+
+You will get hands-on experience with these models, especially with LLMs (Large Language Models) in dedicated software labs.
+
+![This is an ALT text](./image_rnn_32.png)
+![This is an ALT text](./image_rnn_33.png)
+![This is an ALT text](./image_rnn_34.png)
+![This is an ALT text](./image_rnn_35.png)
+![This is an ALT text](./image_rnn_36.png)
+![This is an ALT text](./image_rnn_37.png)
+![This is an ALT text](./image_rnn_38.png)
+![This is an ALT text](./image_rnn_39.png)
+![This is an ALT text](./image_rnn_40.png)
+![This is an ALT text](./image_rnn_41.png)
+![This is an ALT text](./image_rnn_42.png)
+![This is an ALT text](./image_rnn_43.png)
+![This is an ALT text](./image_rnn_44.png)
