@@ -471,3 +471,56 @@ By introducing explicit memory cells and gating functions, LSTMs can:
 ![This is an ALT text](./image_rnn_23.png)
 ![This is an ALT text](./image_rnn_24.png)
 ![This is an ALT text](./image_rnn_25.png)
+
+# Chapter :6 Applications of RNNs: Music Generation
+
+To ground our understanding of sequence modeling in a tangible example, let’s look at music generation, a domain that naturally aligns with the structure of recurrent neural networks (RNNs).
+
+Imagine you are trying to compose a new piece of music. One approach is to model the task similarly to next-word prediction in language: given a sequence of past musical notes, predict the most likely next note. RNNs are well-suited to this task because they are inherently designed to capture dependencies across sequential data, like notes in a melody.
+
+In today’s hands-on lab session, you will build and train an RNN model capable of generating entirely new music. By learning from existing compositions, your model will generate sequences that have never existed before — a creative fusion of data and pattern recognition.
+
+This is not just a theoretical exercise. Years ago, a startup trained a neural network on classical music to complete a famous unfinished symphony by Franz Schubert. The model was given the first two movements and tasked with generating the third. The result was surprisingly compelling and offered a glimpse into the creative potential of sequence modeling.
+
+## Reflecting on RNNs: Power and Limitations
+
+So far, we have focused exclusively on RNNs as the core architecture for sequence modeling. It is remarkable how we can start from basic principles and build toward something capable of generating music or modeling complex sequences.  
+However, as with any technique, RNNs have inherent limitations. These limitations have driven the development of new architectures and improved variants that attempt to address the shortcomings.
+
+### Fixed-Length Bottleneck  
+The hidden state of an RNN is a fixed-length vector. Regardless of the length or richness of the input sequence, all the information must be compressed into a vector of predefined size. This creates a bottleneck and restricts the model’s ability to retain nuanced details from long sequences.
+
+### Sequential Processing Constraint  
+RNNs operate one time step at a time. While this allows them to handle temporal dependencies, it makes them difficult to parallelize. In contrast to models that process all inputs simultaneously, RNNs must process inputs in order, slowing down training and inference.
+
+### Limited Long-Term Memory  
+Due to the bottleneck in hidden states and the sequential nature of the architecture, RNNs often struggle to maintain dependencies over long ranges. This is particularly problematic in tasks where information from the start of the sequence is crucial for predictions at the end.
+
+## Rethinking Sequence Modeling: Beyond Recurrence
+
+To address these challenges, we revisit the fundamental goal of sequence modeling:  
+Given a sequence of inputs, compute a representation that captures dependencies within the sequence and use that representation to generate useful outputs.
+
+With RNNs, we achieve this by processing inputs one time step at a time. But what if we could avoid processing data sequentially? Could we eliminate recurrence entirely?
+
+An early idea was to concatenate all inputs into one large vector, pass it through a feedforward network, and generate an output. This does eliminate recurrence, allowing us to process all inputs in parallel.
+
+However, it introduces two major problems:
+- It becomes inefficient and computationally expensive for long sequences.
+- It destroys the ordering of the sequence. Once the inputs are concatenated, we lose information about which parts came earlier or later, and we cannot model the relationships between distant tokens.
+
+## The Rise of Attention: Learning What Matters
+
+This realization inspired a new approach — rather than encoding everything into a single vector or processing step by step, can we allow the model to selectively focus on the most relevant parts of the sequence?
+
+## This leads us to the concept of attention.  
+The idea is simple but powerful. Given a sequence, define a mechanism that can identify and attend to the important elements, regardless of their position in the sequence. By doing this, we can model dependencies directly and more flexibly.
+
+Attention allows models to learn which parts of the input are most important for a given output — whether those parts are nearby or far away in the sequence.
+
+![This is an ALT text](./image_rnn_26.png)
+![This is an ALT text](./image_rnn_27.png)
+![This is an ALT text](./image_rnn_28.png)
+![This is an ALT text](./image_rnn_29.png)
+![This is an ALT text](./image_rnn_30.png)
+![This is an ALT text](./image_rnn_31.png)
