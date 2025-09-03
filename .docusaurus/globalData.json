@@ -139,6 +139,11 @@
               "id": "resources/intro",
               "path": "/docs/resources/intro",
               "sidebar": "docsSidebar"
+            },
+            {
+              "id": "tutorials/logistic-regression",
+              "path": "/docs/tutorials/logistic-regression",
+              "sidebar": "docsSidebar"
             }
           ],
           "draftIds": [],

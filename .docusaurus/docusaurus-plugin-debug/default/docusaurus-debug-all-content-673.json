@@ -501,8 +501,8 @@
                 "permalink": "/docs/language-models/AccessingLLMs"
               },
               "next": {
-                "title": "AI & ML Resources",
-                "permalink": "/docs/resources/intro"
+                "title": "Interactive Logistic Regression Tutorial",
+                "permalink": "/docs/tutorials/logistic-regression"
               }
             },
             {
@@ -709,8 +709,46 @@
               },
               "sidebar": "docsSidebar",
               "previous": {
+                "title": "Interactive Logistic Regression Tutorial",
+                "permalink": "/docs/tutorials/logistic-regression"
+              }
+            },
+            {
+              "id": "tutorials/logistic-regression",
+              "title": "Interactive Logistic Regression Tutorial",
+              "description": "Learn logistic regression through hands-on visualization and interactive animations",
+              "source": "@site/docs/tutorials/logistic-regression.mdx",
+              "sourceDirName": "tutorials",
+              "slug": "/tutorials/logistic-regression",
+              "permalink": "/docs/tutorials/logistic-regression",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/tutorials/logistic-regression.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "title": "Interactive Logistic Regression Tutorial",
+                "description": "Learn logistic regression through hands-on visualization and interactive animations",
+                "keywords": [
+                  "logistic regression",
+                  "machine learning",
+                  "tutorial",
+                  "interactive",
+                  "visualization",
+                  "AI",
+                  "India"
+                ],
+                "sidebar_position": 1
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
                 "title": "From Query to Response: Understanding the LLM Journey",
                 "permalink": "/docs/language-models/QueryToResponse"
+              },
+              "next": {
+                "title": "AI & ML Resources",
+                "permalink": "/docs/resources/intro"
               }
             }
           ],
@@ -836,6 +874,18 @@
                   {
                     "type": "doc",
                     "id": "language-models/QueryToResponse"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Interactive Tutorials",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "tutorials/logistic-regression"
                   }
                 ],
                 "collapsed": true,

@@ -58,6 +58,13 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'Interactive Tutorials',
+      items: [
+        'tutorials/logistic-regression',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Resources',
       items: [
         'resources/intro',

@@ -1,12 +1,24 @@
-<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="200" height="200" rx="20" fill="#3B82F6" />
-  <path d="M38 96C38 77.2223 53.2223 62 72 62H128C146.778 62 162 77.2223 162 96V128C162 146.778 146.778 162 128 162H72C53.2223 162 38 146.778 38 128V96Z" fill="white" />
-  <path d="M94 38H106V54H94V38Z" fill="white" />
-  <path d="M58.1213 50.1213L66.4645 58.4645L54.636 70.2929L46.2929 61.9497L58.1213 50.1213Z" fill="white" />
-  <path d="M141.879 50.1213L133.536 58.4645L145.364 70.2929L153.707 61.9497L141.879 50.1213Z" fill="white" />
-  <circle cx="100" cy="110" r="32" fill="#3B82F6" />
-  <path d="M89 89L111 111M89 111L111 89" stroke="white" strokeWidth="6" strokeLinecap="round" />
-  <path d="M100 146V162" stroke="#3B82F6" strokeWidth="6" strokeLinecap="round" />
-  <path d="M76 135L65 146" stroke="#3B82F6" strokeWidth="6" strokeLinecap="round" />
-  <path d="M124 135L135 146" stroke="#3B82F6" strokeWidth="6" strokeLinecap="round" />
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="580" height="120" viewBox="0 0 580 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- White background -->
+  <rect width="580" height="120" rx="16" fill="#FFFFFF"/>
+  
+  <!-- Base text in dark color -->
+  <text x="40" y="75" font-family="Inter, Arial, sans-serif" font-size="62" font-weight="600" letter-spacing="0" fill="#1A1A2E">
+     ai seekhega india
+  </text>
+  
+  <!-- Correctly positioned colored dots for the i's -->
+  <!-- Remove original dot from "i" in "ai" -->
+  <rect x="88" y="25" width="15" height="15" fill="#FFFFFF"/>
+  <!-- Add orange dot for "i" in "ai" -->
+  <circle cx="83" cy="33" r="6" fill="#FF9933"/>
+  
+  <!-- Remove original dot from "i" in "india" -->
+  <rect x="408" y="25" width="15" height="15" fill="#FFFFFF"/>
+  <!-- Add green dot for "i" in "india" -->
+  <circle cx="417" cy="33" r="6" fill="#138808"/>
+  
+  <!-- Minimal tech accent line -->
+  <line x1="40" y1="90" x2="535" y2="90" stroke="#3D5AFE" stroke-width="1" stroke-opacity="0.5"/>
 </svg>

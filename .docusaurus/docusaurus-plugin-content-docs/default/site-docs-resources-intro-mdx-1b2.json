@@ -17,7 +17,7 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "From Query to Response: Understanding the LLM Journey",
-    "permalink": "/docs/language-models/QueryToResponse"
+    "title": "Interactive Logistic Regression Tutorial",
+    "permalink": "/docs/tutorials/logistic-regression"
   }
 }

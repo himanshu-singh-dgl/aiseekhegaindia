@@ -102,6 +102,17 @@ const config: Config = {
         },
         {to: '/fellowship', label: 'AI Fellowship', position: 'left'},
         {
+          type: 'dropdown',
+          label: 'Tutorials',
+          position: 'left',
+          items: [
+            {
+              label: 'Interactive Logistic Regression',
+              to: '/docs/tutorials/logistic-regression',
+            },
+          ],
+        },
+        {
           href: 'https://github.com/ai-ml-community/ai-ml-docs',
           label: 'GitHub',
           position: 'right',

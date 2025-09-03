@@ -210,6 +210,21 @@
       },
       {
         "type": "category",
+        "label": "Interactive Tutorials",
+        "items": [
+          {
+            "type": "link",
+            "label": "Interactive Logistic Regression Tutorial",
+            "href": "/docs/tutorials/logistic-regression",
+            "docId": "tutorials/logistic-regression",
+            "unlisted": false
+          }
+        ],
+        "collapsed": true,
+        "collapsible": true
+      },
+      {
+        "type": "category",
         "label": "Resources",
         "items": [
           {
@@ -380,6 +395,12 @@
       "id": "resources/intro",
       "title": "AI & ML Resources",
       "description": "This section provides a curated collection of resources for machine learning, deep learning, and language models. Whether you're just starting your journey or looking to deepen your expertise, you'll find valuable tools, datasets, libraries, and educational materials here.",
+      "sidebar": "docsSidebar"
+    },
+    "tutorials/logistic-regression": {
+      "id": "tutorials/logistic-regression",
+      "title": "Interactive Logistic Regression Tutorial",
+      "description": "Learn logistic regression through hands-on visualization and interactive animations",
       "sidebar": "docsSidebar"
     }
   }
