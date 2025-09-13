@@ -20,7 +20,7 @@ function HomepageHeader() {
               Building India's <span className={styles.heroTitleHighlight}>AI</span> Future — Together
             </h1>
             <p className={styles.heroSubtitle}>
-              Community-driven AI learning platform, accessible in Indian languages.
+            AI Seekhega India, Badhega India. 
             </p>
             <div className={styles.buttons}>
               <Link

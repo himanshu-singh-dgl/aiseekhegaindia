@@ -8,88 +8,190 @@ import styles from './fellowship.module.css';
 export default function Fellowship(): JSX.Element {
   return (
     <Layout
-      title="AI Fellowship"
-      description="Join the Lex AI Fellowship - A comprehensive program for learning Machine Learning, Deep Learning, and Language Models">
+      title="Lex AI Fellowship"
+      description="Lex AI Fellowship – Shaping India's AI Generation. Career-transforming programs for Engineers and Leaders.">
       <main className={styles.fellowshipPage}>
+        {/* Hero Section */}
         <div className={styles.heroSection}>
           <div className="container">
-            <h1 className={styles.heroTitle}>Lex AI Fellowship</h1>
+            <h1 className={styles.heroTitle}>Lex AI</h1>
+            <p className={styles.heroTagline}>Trusted Voice of AI Education in India</p>
             <p className={styles.heroSubtitle}>
-              A 14–16 week online, live, and interactive program designed to train engineers in Machine Learning, Deep Learning, and Transformers/Language Models
+            Deep, technical, transformative—programs built for ambitious engineers and leaders.
             </p>
+            <div className={styles.heroButtons}>
+              <a
+                href="https://lexailabs.com/"
+                className={clsx('button button--primary button--lg', styles.primaryButton)}
+                target="_blank"
+                rel="noopener noreferrer">
+                Apply Now
+              </a>
+              <a
+                href="https://lexailabs.com/consultation"
+                className={clsx('button button--secondary button--lg', styles.secondaryButton)}
+                target="_blank"
+                rel="noopener noreferrer">
+                Schedule a Call
+              </a>
+            </div>
           </div>
         </div>
 
         <div className="container">
           <div className={styles.contentSection}>
-            <div className={styles.programOverview}>
-              <h2>Program Overview</h2>
-              <p>
-                The Lex AI Fellowship is designed to train engineers in the kind of AI that's powering everything from ChatGPT to self-driving cars.
-                This isn't a pre-recorded course, it's a hands-on, cohort-based learning experience.
+            {/* Lex AI Introduction */}
+            <div className={styles.introSection}>
+              <h2 className={styles.sectionTitle}>About Lex AI</h2>
+              <p className={styles.introText}>
+                <strong>Lex AI Technologies Private Limited</strong> is the holding company behind <strong>AI Seekhega India</strong>, dedicated to democratizing AI education 
+                and empowering India's workforce with cutting-edge AI skills. Our flagship program, the <strong>Lex AI Fellowship</strong>, 
+                offers specialized tracks designed for different professional needs.
               </p>
             </div>
 
-            <div className={styles.features}>
-              <div className={styles.featureCard}>
-                <h3>Build Real Projects</h3>
-                <p>Work on real-world ML and AI projects that demonstrate your skills and knowledge</p>
+            {/* Programs Section */}
+            <div className={styles.programsSection}>
+              <h2 className={styles.sectionTitle}>Choose Your AI Journey</h2>
+              
+              {/* AI Fellowship for Engineers */}
+              <div className={styles.programCard}>
+                <div className={styles.programHeader}>
+                  <div className={styles.programIcon}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                      <line x1="8" y1="21" x2="16" y2="21"></line>
+                      <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className={styles.programTitle}>AI Fellowship</h3>
+                    <p className={styles.programAudience}>For Engineers</p>
+                  </div>
+                </div>
+                
+                <p className={styles.programValue}>
+                  A career-transforming program that equips engineers to become Machine Learning Engineers 
+                  and Applied Scientists at leading tech firms.
+                </p>
+                
+                <div className={styles.learningOutcomes}>
+                  <h4>Learning Outcomes:</h4>
+                  <ul className={styles.outcomesList}>
+                    <li>
+                      <span className={styles.outcomeIcon}>🤖</span>
+                      <strong>Machine Learning & Deep Learning</strong>
+                    </li>
+                    <li>
+                      <span className={styles.outcomeIcon}>📊</span>
+                      <strong>Maths for AI</strong> - Linear Algebra, Probability, Stats, Calculus
+                    </li>
+                    <li>
+                      <span className={styles.outcomeIcon}>🔧</span>
+                      <strong>Applied ML & DL</strong> with real-world case studies
+                    </li>
+                    <li>
+                      <span className={styles.outcomeIcon}>🚀</span>
+                      <strong>Transformers & Large Language Models</strong>
+                    </li>
+                    <li>
+                      <span className={styles.outcomeIcon}>🏆</span>
+                      <strong>Competing in Kaggle Competitions</strong>
+                    </li>
+                    <li>
+                      <span className={styles.outcomeIcon}>💼</span>
+                      <strong>Preparing for ML Interviews</strong>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div className={styles.programCta}>
+                  <a
+                    href="https://lexailabs.com/"
+                    className={clsx('button button--primary', styles.programButton)}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Apply for Engineers Program
+                  </a>
+                </div>
               </div>
-              <div className={styles.featureCard}>
-                <h3>Learn the Fundamentals</h3>
-                <p>Master the mathematics and code behind modern models</p>
-              </div>
-              <div className={styles.featureCard}>
-                <h3>Personalized Mentorship</h3>
-                <p>Work in a tight-knit group with personalized guidance</p>
-              </div>
-              <div className={styles.featureCard}>
-                <h3>Career Guidance</h3>
-                <p>Get support to transition into roles like ML Engineer or SWE in ML</p>
-              </div>
-            </div>
 
-            <div className={styles.instructor}>
-              <h2>Meet Your Instructor</h2>
-              <div className={styles.instructorProfile}>
-                <div className={styles.instructorInfo}>
-                  <h3>Puru Kathuria</h3>
-                  <p className={styles.instructorTitle}>Software Engineer at Google</p>
-                  <p className={styles.instructorBio}>
-                    Puru facilitates and teaches in the Fellowship. He is currently a Software Engineer at Google, 
-                    and previously worked as a Deep Learning + SWE engineer at MathWorks, building ML algorithms 
-                    for self-driving cars.
-                  </p>
+              {/* AI for Leaders */}
+              <div className={styles.programCard}>
+                <div className={styles.programHeader}>
+                  <div className={styles.programIcon}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="9" cy="7" r="4"></circle>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className={styles.programTitle}>AI for Leaders</h3>
+                    <p className={styles.programAudience}>For C-Suite, Managers, PMs, Leaders</p>
+                  </div>
+                </div>
+                
+                <p className={styles.programValue}>
+                  A program that helps leaders understand, apply, and drive AI adoption inside their organizations.
+                </p>
+                
+                <div className={styles.learningOutcomes}>
+                  <h4>Learning Outcomes:</h4>
+                  <ul className={styles.outcomesList}>
+                    <li>
+                      <span className={styles.outcomeIcon}>🧠</span>
+                      <strong>Deep AI Understanding</strong> → How AI systems are designed & work at a conceptual level
+                    </li>
+                    <li>
+                      <span className={styles.outcomeIcon}>⚡</span>
+                      <strong>Productivity Mastery</strong> → Using AI tools for leadership workflows
+                    </li>
+                    <li>
+                      <span className={styles.outcomeIcon}>🎯</span>
+                      <strong>Agent Opportunities</strong> → Spot AI-agent opportunities inside teams
+                    </li>
+                    <li>
+                      <span className={styles.outcomeIcon}>📋</span>
+                      <strong>Custom Playbook</strong> → Industry-specific AI adoption playbook
+                    </li>
+                  </ul>
+                </div>
+                
+                <div className={styles.programCta}>
+                  <a
+                    href="https://lexailabs.com/leaders"
+                    className={clsx('button button--primary', styles.programButton)}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Apply for Leaders Program
+                  </a>
                 </div>
               </div>
             </div>
 
-            <div className={styles.ctaSection}>
-              <h2>Ready to Start Your AI Journey?</h2>
-              <p>Join the next cohort of the Lex AI Fellowship</p>
-              <div className={styles.ctaButtons}>
+            {/* Final CTA Section */}
+            <div className={styles.finalCtaSection}>
+              <h2 className={styles.ctaTitle}>Ready to Transform Your Career with AI?</h2>
+              <p className={styles.ctaSubtitle}>
+                Join thousands of professionals who have accelerated their careers through Lex AI Fellowship
+              </p>
+              <div className={styles.finalCtaButtons}>
                 <a
                   href="https://lexailabs.com/"
-                  className="button button--primary button--lg"
+                  className={clsx('button button--primary button--lg', styles.primaryButton)}
                   target="_blank"
                   rel="noopener noreferrer">
                   Apply Now
                 </a>
                 <a
                   href="https://lexailabs.com/curriculum"
-                  className="button button--primary button--lg"
+                  className={clsx('button button--secondary button--lg', styles.secondaryButton)}
                   target="_blank"
                   rel="noopener noreferrer">
                   Explore Curriculum
                 </a>
-                <a
-                  href="https://lexailabs.com/consultation"
-                  className="button button--primary button--lg"
-                  target="_blank"
-                  rel="noopener noreferrer">
-                  Schedule a 1:1
-                </a>
-                
               </div>
             </div>
           </div>
