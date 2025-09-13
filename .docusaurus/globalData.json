@@ -11,6 +11,10 @@
           "mainDocId": "machine-learning/intro",
           "docs": [
             {
+              "id": "deep-learning/CNNS",
+              "path": "/docs/deep-learning/CNNS"
+            },
+            {
               "id": "deep-learning/intro",
               "path": "/docs/deep-learning/intro",
               "sidebar": "docsSidebar"
@@ -19,6 +23,10 @@
               "id": "deep-learning/perceptron",
               "path": "/docs/deep-learning/perceptron",
               "sidebar": "docsSidebar"
+            },
+            {
+              "id": "deep-learning/RNNs",
+              "path": "/docs/deep-learning/RNNs"
             },
             {
               "id": "language-models/AccessingLLMs",

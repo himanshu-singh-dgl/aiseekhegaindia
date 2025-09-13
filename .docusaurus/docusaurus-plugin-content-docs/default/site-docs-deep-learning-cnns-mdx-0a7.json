@@ -1,0 +1,15 @@
+{
+  "id": "deep-learning/CNNS",
+  "title": "Chapter 1: Teaching Machines to See — The Fundamentals of Computer Vision",
+  "description": "Introduction to Vision as a Human and Machine Capability",
+  "source": "@site/docs/deep-learning/CNNS.mdx",
+  "sourceDirName": "deep-learning",
+  "slug": "/deep-learning/CNNS",
+  "permalink": "/docs/deep-learning/CNNS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/deep-learning/CNNS.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

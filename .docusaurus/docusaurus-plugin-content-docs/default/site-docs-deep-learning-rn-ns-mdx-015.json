@@ -1,0 +1,15 @@
+{
+  "id": "deep-learning/RNNs",
+  "title": "Chapter 1: Foundations of Deep Sequence Modeling",
+  "description": "Why Sequence Modeling? A Motivating Example",
+  "source": "@site/docs/deep-learning/RNNs.mdx",
+  "sourceDirName": "deep-learning",
+  "slug": "/deep-learning/RNNs",
+  "permalink": "/docs/deep-learning/RNNs",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/deep-learning/RNNs.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

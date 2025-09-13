@@ -120,18 +120,22 @@
     },
     "config": "config---fellowship-5-e-9-50c"
   },
-  "/docs-d5d": {
+  "/docs-aad": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
     "__context": {
       "plugin": "plugin---docs-1-da-721"
     }
   },
-  "/docs-aad": {
+  "/docs-4de": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
     "version": "version---docs-935-398"
   },
-  "/docs-07c": {
+  "/docs-622": {
     "__comp": "__comp---theme-doc-roota-94-67a"
+  },
+  "/docs/deep-learning/CNNS-363": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-deep-learning-cnns-0-a-7-1ed"
   },
   "/docs/deep-learning/intro-516": {
     "__comp": "__comp---theme-doc-item-178-a40",
@@ -140,6 +144,10 @@
   "/docs/deep-learning/perceptron-9a8": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-deep-learning-perceptron-641-c2c"
+  },
+  "/docs/deep-learning/RNNs-649": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-deep-learning-rn-ns-015-09d"
   },
   "/docs/language-models/AccessingLLMs-e71": {
     "__comp": "__comp---theme-doc-item-178-a40",

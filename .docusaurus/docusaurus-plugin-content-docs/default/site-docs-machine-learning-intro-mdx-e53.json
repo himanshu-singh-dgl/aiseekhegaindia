@@ -1,7 +1,7 @@
 {
   "id": "machine-learning/intro",
   "title": "Introduction to Machine Learning",
-  "description": "Machine Learning (ML) is a subset of artificial intelligence that focuses on developing systems that can learn from and make decisions based on data. Unlike traditional programming where explicit instructions are given to accomplish a task, machine learning algorithms build a model based on sample data, known as training data, to make predictions or decisions without being explicitly programmed to do so.",
+  "description": "What is Machine Learning?",
   "source": "@site/docs/machine-learning/intro.mdx",
   "sourceDirName": "machine-learning",
   "slug": "/machine-learning/intro",

@@ -79,16 +79,21 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', 'd5d'),
+    component: ComponentCreator('/docs', 'aad'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', 'aad'),
+        component: ComponentCreator('/docs', '4de'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', '07c'),
+            component: ComponentCreator('/docs', '622'),
             routes: [
+              {
+                path: '/docs/deep-learning/CNNS',
+                component: ComponentCreator('/docs/deep-learning/CNNS', '363'),
+                exact: true
+              },
               {
                 path: '/docs/deep-learning/intro',
                 component: ComponentCreator('/docs/deep-learning/intro', '516'),
@@ -100,6 +105,11 @@ export default [
                 component: ComponentCreator('/docs/deep-learning/perceptron', '9a8'),
                 exact: true,
                 sidebar: "docsSidebar"
+              },
+              {
+                path: '/docs/deep-learning/RNNs',
+                component: ComponentCreator('/docs/deep-learning/RNNs', '649'),
+                exact: true
               },
               {
                 path: '/docs/language-models/AccessingLLMs',

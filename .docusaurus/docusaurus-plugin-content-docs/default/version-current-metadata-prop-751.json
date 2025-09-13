@@ -241,6 +241,11 @@
     ]
   },
   "docs": {
+    "deep-learning/CNNS": {
+      "id": "deep-learning/CNNS",
+      "title": "Chapter 1: Teaching Machines to See — The Fundamentals of Computer Vision",
+      "description": "Introduction to Vision as a Human and Machine Capability"
+    },
     "deep-learning/intro": {
       "id": "deep-learning/intro",
       "title": "Introduction to Deep Learning",
@@ -252,6 +257,11 @@
       "title": "Understanding the Perceptron: A Dive into the Basics and the Perceptron Trick",
       "description": "Perceptron Visualization",
       "sidebar": "docsSidebar"
+    },
+    "deep-learning/RNNs": {
+      "id": "deep-learning/RNNs",
+      "title": "Chapter 1: Foundations of Deep Sequence Modeling",
+      "description": "Why Sequence Modeling? A Motivating Example"
     },
     "language-models/AccessingLLMs": {
       "id": "language-models/AccessingLLMs",
@@ -376,7 +386,7 @@
     "machine-learning/intro": {
       "id": "machine-learning/intro",
       "title": "Introduction to Machine Learning",
-      "description": "Machine Learning (ML) is a subset of artificial intelligence that focuses on developing systems that can learn from and make decisions based on data. Unlike traditional programming where explicit instructions are given to accomplish a task, machine learning algorithms build a model based on sample data, known as training data, to make predictions or decisions without being explicitly programmed to do so.",
+      "description": "What is Machine Learning?",
       "sidebar": "docsSidebar"
     },
     "machine-learning/logistic_regression_tutorial": {

@@ -20,6 +20,21 @@
           "contentPathLocalized": "/Users/lexai/Documents/aiseekhegaindia/i18n/en/docusaurus-plugin-content-docs/current",
           "docs": [
             {
+              "id": "deep-learning/CNNS",
+              "title": "Chapter 1: Teaching Machines to See — The Fundamentals of Computer Vision",
+              "description": "Introduction to Vision as a Human and Machine Capability",
+              "source": "@site/docs/deep-learning/CNNS.mdx",
+              "sourceDirName": "deep-learning",
+              "slug": "/deep-learning/CNNS",
+              "permalink": "/docs/deep-learning/CNNS",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/deep-learning/CNNS.mdx",
+              "tags": [],
+              "version": "current",
+              "frontMatter": {}
+            },
+            {
               "id": "deep-learning/intro",
               "title": "Introduction to Deep Learning",
               "description": "Deep Learning is a subset of machine learning that uses neural networks with multiple layers (deep neural networks) to analyze various forms of data. While traditional machine learning algorithms require feature extraction by human experts, deep learning systems can automatically discover the representations needed for detection or classification from raw data.",
@@ -72,6 +87,21 @@
                 "title": "Introduction to Large Language Models",
                 "permalink": "/docs/language-models/intro"
               }
+            },
+            {
+              "id": "deep-learning/RNNs",
+              "title": "Chapter 1: Foundations of Deep Sequence Modeling",
+              "description": "Why Sequence Modeling? A Motivating Example",
+              "source": "@site/docs/deep-learning/RNNs.mdx",
+              "sourceDirName": "deep-learning",
+              "slug": "/deep-learning/RNNs",
+              "permalink": "/docs/deep-learning/RNNs",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/deep-learning/RNNs.mdx",
+              "tags": [],
+              "version": "current",
+              "frontMatter": {}
             },
             {
               "id": "language-models/AccessingLLMs",
@@ -616,7 +646,7 @@
             {
               "id": "machine-learning/intro",
               "title": "Introduction to Machine Learning",
-              "description": "Machine Learning (ML) is a subset of artificial intelligence that focuses on developing systems that can learn from and make decisions based on data. Unlike traditional programming where explicit instructions are given to accomplish a task, machine learning algorithms build a model based on sample data, known as training data, to make predictions or decisions without being explicitly programmed to do so.",
+              "description": "What is Machine Learning?",
               "source": "@site/docs/machine-learning/intro.mdx",
               "sourceDirName": "machine-learning",
               "slug": "/machine-learning/intro",
