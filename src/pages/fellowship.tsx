@@ -161,7 +161,7 @@ export default function Fellowship(): JSX.Element {
                 
                 <div className={styles.programCta}>
                   <a
-                    href="https://lexailabs.com/leaders"
+                    href="https://lexailabs.com/"
                     className={clsx('button button--primary', styles.programButton)}
                     target="_blank"
                     rel="noopener noreferrer">
