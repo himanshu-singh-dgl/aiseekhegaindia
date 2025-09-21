@@ -152,12 +152,12 @@ const config: Config = {
               href: 'https://github.com/ai-ml-community/ai-ml-docs/discussions',
             },
             {
-              label: 'Discord',
-              href: 'https://discord.gg/ai-ml-community',
+              label: 'Join our Discord community here',
+              href: 'https://discord.gg/QtzYHmfw',
             },
             {
               label: 'Twitter',
-              href: 'https://twitter.com/ai_ml_docs',
+              href: 'https://x.com/labs_ai80315',
             },
           ],
         },
@@ -179,7 +179,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} AI & ML Docs. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Lex AI Technologies Pvt Ltd. 🌏❤️ Proudly built in India 🇮🇳`,
     },
     prism: {
       theme: prismThemes.github,

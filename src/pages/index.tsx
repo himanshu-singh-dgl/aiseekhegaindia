@@ -17,7 +17,7 @@ function HomepageHeader() {
         <div className={styles.heroContent}>
           <div className={styles.heroLeft}>
             <h1 className={styles.heroTitle}>
-              Building India's <span className={styles.heroTitleHighlight}>AI</span> Future — Together
+              Building India's <span className={styles.heroTitleHighlight}>AI</span> Future Together
             </h1>
             <p className={styles.heroSubtitle}>
             AI Seekhega India, Badhega India. 

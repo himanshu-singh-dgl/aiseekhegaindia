@@ -145,12 +145,12 @@ export default {
               "href": "https://github.com/ai-ml-community/ai-ml-docs/discussions"
             },
             {
-              "label": "Discord",
-              "href": "https://discord.gg/ai-ml-community"
+              "label": "Join our Discord community here",
+              "href": "https://discord.gg/QtzYHmfw"
             },
             {
               "label": "Twitter",
-              "href": "https://twitter.com/ai_ml_docs"
+              "href": "https://x.com/labs_ai80315"
             }
           ]
         },
@@ -172,7 +172,7 @@ export default {
           ]
         }
       ],
-      "copyright": "Copyright © 2025 AI & ML Docs. Built with Docusaurus."
+      "copyright": "Copyright © 2025 Lex AI Technologies Pvt Ltd. 🌏❤️ Proudly built in India 🇮🇳"
     },
     "prism": {
       "theme": {

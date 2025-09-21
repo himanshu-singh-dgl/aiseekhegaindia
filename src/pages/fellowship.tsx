@@ -17,16 +17,16 @@ export default function Fellowship(): JSX.Element {
             <h1 className={styles.heroTitle}>Lex AI</h1>
             <p className={styles.heroTagline}>Trusted Voice of AI Education in India</p>
             <p className={styles.heroSubtitle}>
-            Deep, technical, transformative—programs built for ambitious engineers and leaders.
+            Deep, technical, transformative programs built for ambitious engineers and leaders.
             </p>
             <div className={styles.heroButtons}>
-              <a
-                href="https://lexailabs.com/"
-                className={clsx('button button--primary button--lg', styles.primaryButton)}
-                target="_blank"
-                rel="noopener noreferrer">
-                Apply Now
-              </a>
+                <a
+                  href="https://www.lexailabs.com/ai-fellowship"
+                  className={clsx('button button--primary button--lg', styles.primaryButton)}
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  Apply Now
+                </a>
               <a
                 href="https://lexailabs.com/consultation"
                 className={clsx('button button--secondary button--lg', styles.secondaryButton)}
@@ -107,7 +107,7 @@ export default function Fellowship(): JSX.Element {
                 
                 <div className={styles.programCta}>
                   <a
-                    href="https://lexailabs.com/"
+                    href="https://www.lexailabs.com/ai-fellowship"
                     className={clsx('button button--primary', styles.programButton)}
                     target="_blank"
                     rel="noopener noreferrer">
@@ -161,7 +161,7 @@ export default function Fellowship(): JSX.Element {
                 
                 <div className={styles.programCta}>
                   <a
-                    href="https://lexailabs.com/"
+                    href="https://www.lexailabs.com/ai-for-leaders"
                     className={clsx('button button--primary', styles.programButton)}
                     target="_blank"
                     rel="noopener noreferrer">
@@ -179,7 +179,7 @@ export default function Fellowship(): JSX.Element {
               </p>
               <div className={styles.finalCtaButtons}>
                 <a
-                  href="https://lexailabs.com/"
+                  href="https://www.lexailabs.com/ai-fellowship"
                   className={clsx('button button--primary button--lg', styles.primaryButton)}
                   target="_blank"
                   rel="noopener noreferrer">

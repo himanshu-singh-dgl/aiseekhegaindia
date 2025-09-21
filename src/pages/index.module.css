@@ -162,20 +162,21 @@
 }
 
 .contributeButton {
-  background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: #ffffff !important;
   transition: all 0.3s ease;
   border-radius: 8px;
   padding: 16px 32px;
   font-weight: 600;
   font-size: 1.1rem;
+  backdrop-filter: blur(10px);
 }
 
 .contributeButton:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 1);
+  color: #ffffff !important;
   transform: translateY(-2px);
 }
 
