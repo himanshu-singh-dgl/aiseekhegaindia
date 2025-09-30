@@ -83,6 +83,10 @@ const config: Config = {
           position: 'left',
           items: [
             {
+              label: 'AI for Leaders',
+              to: '/docs/ai-for-leaders/intro',
+            },
+            {
               label: 'Machine Learning',
               to: '/docs/machine-learning/intro',
             },
@@ -130,6 +134,10 @@ const config: Config = {
         {
           title: 'Docs',
           items: [
+            {
+              label: 'AI for Leaders',
+              to: '/docs/ai-for-leaders/intro',
+            },
             {
               label: 'Machine Learning',
               to: '/docs/machine-learning/intro',

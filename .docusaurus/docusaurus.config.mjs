@@ -71,6 +71,10 @@ export default {
           "position": "left",
           "items": [
             {
+              "label": "AI for Leaders",
+              "to": "/docs/ai-for-leaders/intro"
+            },
+            {
               "label": "Machine Learning",
               "to": "/docs/machine-learning/intro"
             },
@@ -123,6 +127,10 @@ export default {
         {
           "title": "Docs",
           "items": [
+            {
+              "label": "AI for Leaders",
+              "to": "/docs/ai-for-leaders/intro"
+            },
             {
               "label": "Machine Learning",
               "to": "/docs/machine-learning/intro"

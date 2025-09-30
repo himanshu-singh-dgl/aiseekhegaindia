@@ -79,16 +79,57 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', 'aad'),
+    component: ComponentCreator('/docs', 'c29'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', '4de'),
+        component: ComponentCreator('/docs', '6ab'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', '622'),
+            component: ComponentCreator('/docs', '2fc'),
             routes: [
+              {
+                path: '/docs/ai-for-leaders/algorithms-high-level-overview',
+                component: ComponentCreator('/docs/ai-for-leaders/algorithms-high-level-overview', '69d'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/docs/ai-for-leaders/classical-ml-in-market',
+                component: ComponentCreator('/docs/ai-for-leaders/classical-ml-in-market', 'f59'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/docs/ai-for-leaders/classification-regression-supervised-unsupervised',
+                component: ComponentCreator('/docs/ai-for-leaders/classification-regression-supervised-unsupervised', '3bb'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/docs/ai-for-leaders/curriculum-overview',
+                component: ComponentCreator('/docs/ai-for-leaders/curriculum-overview', '105'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/docs/ai-for-leaders/curriculum-visual-tree',
+                component: ComponentCreator('/docs/ai-for-leaders/curriculum-visual-tree', '1b3'),
+                exact: true
+              },
+              {
+                path: '/docs/ai-for-leaders/intro',
+                component: ComponentCreator('/docs/ai-for-leaders/intro', '743'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/docs/ai-for-leaders/machine-learning-fundamentals',
+                component: ComponentCreator('/docs/ai-for-leaders/machine-learning-fundamentals', 'f92'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
               {
                 path: '/docs/deep-learning/CNNS',
                 component: ComponentCreator('/docs/deep-learning/CNNS', '363'),

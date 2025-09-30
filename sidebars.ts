@@ -15,6 +15,18 @@ const sidebars: SidebarsConfig = {
   docsSidebar: [
     {
       type: 'category',
+      label: 'AI for Leaders',
+      items: [
+        'ai-for-leaders/intro',
+        'ai-for-leaders/curriculum-overview',
+        'ai-for-leaders/machine-learning-fundamentals',
+        'ai-for-leaders/classification-regression-supervised-unsupervised',
+        'ai-for-leaders/algorithms-high-level-overview',
+        'ai-for-leaders/classical-ml-in-market',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Machine Learning',
       items: [
         'machine-learning/intro',

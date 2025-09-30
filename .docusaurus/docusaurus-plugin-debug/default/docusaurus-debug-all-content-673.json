@@ -20,6 +20,179 @@
           "contentPathLocalized": "/Users/lexai/Documents/aiseekhegaindia/i18n/en/docusaurus-plugin-content-docs/current",
           "docs": [
             {
+              "id": "ai-for-leaders/algorithms-high-level-overview",
+              "title": "High-Level Breadth of Classical Machine Learning Algorithms",
+              "description": "As a leader, you don't need to understand the mathematical complexities behind machine learning algorithms, but you do need to know which tools work best for different business challenges. This guide provides an intuitive overview of the most commonly used classical ML algorithms, helping you make informed decisions about AI initiatives in your organization.",
+              "source": "@site/docs/ai-for-leaders/algorithms-high-level-overview.mdx",
+              "sourceDirName": "ai-for-leaders",
+              "slug": "/ai-for-leaders/algorithms-high-level-overview",
+              "permalink": "/docs/ai-for-leaders/algorithms-high-level-overview",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/ai-for-leaders/algorithms-high-level-overview.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "ML Problems: Classification, Regression, and Learning Approaches",
+                "permalink": "/docs/ai-for-leaders/classification-regression-supervised-unsupervised"
+              },
+              "next": {
+                "title": "Where Classical Machine Learning Models Are Used in the Market",
+                "permalink": "/docs/ai-for-leaders/classical-ml-in-market"
+              }
+            },
+            {
+              "id": "ai-for-leaders/classical-ml-in-market",
+              "title": "Where Classical Machine Learning Models Are Used in the Market",
+              "description": "As a product leader at a major tech company, you're constantly evaluating which AI approaches will give you the fastest time-to-market, clearest ROI, and most sustainable competitive advantage. The ML landscape isn't just about choosing the \"best\" algorithm—it's about choosing the right tool for your specific market position, data constraints, and business timeline.",
+              "source": "@site/docs/ai-for-leaders/classical-ml-in-market.mdx",
+              "sourceDirName": "ai-for-leaders",
+              "slug": "/ai-for-leaders/classical-ml-in-market",
+              "permalink": "/docs/ai-for-leaders/classical-ml-in-market",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/ai-for-leaders/classical-ml-in-market.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 5,
+              "frontMatter": {
+                "sidebar_position": 5
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "High-Level Breadth of Classical Machine Learning Algorithms",
+                "permalink": "/docs/ai-for-leaders/algorithms-high-level-overview"
+              },
+              "next": {
+                "title": "Introduction to Machine Learning",
+                "permalink": "/docs/machine-learning/intro"
+              }
+            },
+            {
+              "id": "ai-for-leaders/classification-regression-supervised-unsupervised",
+              "title": "ML Problems: Classification, Regression, and Learning Approaches",
+              "description": "Now that you understand the fundamentals of machine learning, let's dive deeper into the different types of problems ML can solve and how machines approach learning. This knowledge will help you identify the right AI solutions for your specific business challenges.",
+              "source": "@site/docs/ai-for-leaders/classification-regression-supervised-unsupervised.mdx",
+              "sourceDirName": "ai-for-leaders",
+              "slug": "/ai-for-leaders/classification-regression-supervised-unsupervised",
+              "permalink": "/docs/ai-for-leaders/classification-regression-supervised-unsupervised",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/ai-for-leaders/classification-regression-supervised-unsupervised.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Understanding Machine Learning Fundamentals",
+                "permalink": "/docs/ai-for-leaders/machine-learning-fundamentals"
+              },
+              "next": {
+                "title": "High-Level Breadth of Classical Machine Learning Algorithms",
+                "permalink": "/docs/ai-for-leaders/algorithms-high-level-overview"
+              }
+            },
+            {
+              "id": "ai-for-leaders/curriculum-overview",
+              "title": "AI for Leaders: Complete Curriculum Overview",
+              "description": "This document provides the hierarchical structure and learning progression for the AI for Leaders curriculum. It's designed to guide leaders from foundational concepts to advanced AI strategy and implementation.",
+              "source": "@site/docs/ai-for-leaders/curriculum-overview.mdx",
+              "sourceDirName": "ai-for-leaders",
+              "slug": "/ai-for-leaders/curriculum-overview",
+              "permalink": "/docs/ai-for-leaders/curriculum-overview",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/ai-for-leaders/curriculum-overview.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "AI for Leaders",
+                "permalink": "/docs/ai-for-leaders/intro"
+              },
+              "next": {
+                "title": "Understanding Machine Learning Fundamentals",
+                "permalink": "/docs/ai-for-leaders/machine-learning-fundamentals"
+              }
+            },
+            {
+              "id": "ai-for-leaders/curriculum-visual-tree",
+              "title": "AI for Leaders: Visual Curriculum Tree",
+              "description": "Learning Progression Overview",
+              "source": "@site/docs/ai-for-leaders/curriculum-visual-tree.md",
+              "sourceDirName": "ai-for-leaders",
+              "slug": "/ai-for-leaders/curriculum-visual-tree",
+              "permalink": "/docs/ai-for-leaders/curriculum-visual-tree",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/ai-for-leaders/curriculum-visual-tree.md",
+              "tags": [],
+              "version": "current",
+              "frontMatter": {}
+            },
+            {
+              "id": "ai-for-leaders/intro",
+              "title": "AI for Leaders",
+              "description": "Welcome to AI for Leaders - a comprehensive resource designed specifically for business leaders, executives, and decision-makers who need to understand artificial intelligence without diving into technical complexities.",
+              "source": "@site/docs/ai-for-leaders/intro.mdx",
+              "sourceDirName": "ai-for-leaders",
+              "slug": "/ai-for-leaders/intro",
+              "permalink": "/docs/ai-for-leaders/intro",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/ai-for-leaders/intro.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 0,
+              "frontMatter": {
+                "sidebar_position": 0
+              },
+              "sidebar": "docsSidebar",
+              "next": {
+                "title": "AI for Leaders: Complete Curriculum Overview",
+                "permalink": "/docs/ai-for-leaders/curriculum-overview"
+              }
+            },
+            {
+              "id": "ai-for-leaders/machine-learning-fundamentals",
+              "title": "Understanding Machine Learning Fundamentals",
+              "description": "As a leader in today's data-driven world, understanding machine learning isn't just about staying current with technology—it's about making informed strategic decisions that can transform your business. This guide will walk you through the essential concepts of machine learning in clear, business-focused terms.",
+              "source": "@site/docs/ai-for-leaders/machine-learning-fundamentals.mdx",
+              "sourceDirName": "ai-for-leaders",
+              "slug": "/ai-for-leaders/machine-learning-fundamentals",
+              "permalink": "/docs/ai-for-leaders/machine-learning-fundamentals",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/ai-for-leaders/machine-learning-fundamentals.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "AI for Leaders: Complete Curriculum Overview",
+                "permalink": "/docs/ai-for-leaders/curriculum-overview"
+              },
+              "next": {
+                "title": "ML Problems: Classification, Regression, and Learning Approaches",
+                "permalink": "/docs/ai-for-leaders/classification-regression-supervised-unsupervised"
+              }
+            },
+            {
               "id": "deep-learning/CNNS",
               "title": "Chapter 1: Teaching Machines to See — The Fundamentals of Computer Vision",
               "description": "Introduction to Vision as a Human and Machine Capability",
@@ -661,6 +834,10 @@
                 "sidebar_position": 1
               },
               "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Where Classical Machine Learning Models Are Used in the Market",
+                "permalink": "/docs/ai-for-leaders/classical-ml-in-market"
+              },
               "next": {
                 "title": "Supervised Learning",
                 "permalink": "/docs/machine-learning/supervised-learning"
@@ -785,6 +962,38 @@
           "drafts": [],
           "sidebars": {
             "docsSidebar": [
+              {
+                "type": "category",
+                "label": "AI for Leaders",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "ai-for-leaders/intro"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "ai-for-leaders/curriculum-overview"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "ai-for-leaders/machine-learning-fundamentals"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "ai-for-leaders/classification-regression-supervised-unsupervised"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "ai-for-leaders/algorithms-high-level-overview"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "ai-for-leaders/classical-ml-in-market"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              },
               {
                 "type": "category",
                 "label": "Machine Learning",

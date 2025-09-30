@@ -120,18 +120,46 @@
     },
     "config": "config---fellowship-5-e-9-50c"
   },
-  "/docs-aad": {
+  "/docs-c29": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
     "__context": {
       "plugin": "plugin---docs-1-da-721"
     }
   },
-  "/docs-4de": {
+  "/docs-6ab": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
     "version": "version---docs-935-398"
   },
-  "/docs-622": {
+  "/docs-2fc": {
     "__comp": "__comp---theme-doc-roota-94-67a"
+  },
+  "/docs/ai-for-leaders/algorithms-high-level-overview-69d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-ai-for-leaders-algorithms-high-level-overview-8-d-4-d6d"
+  },
+  "/docs/ai-for-leaders/classical-ml-in-market-f59": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-ai-for-leaders-classical-ml-in-marketc-53-cef"
+  },
+  "/docs/ai-for-leaders/classification-regression-supervised-unsupervised-3bb": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-ai-for-leaders-classification-regression-supervised-unsuperviseda-7-d-a51"
+  },
+  "/docs/ai-for-leaders/curriculum-overview-105": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-ai-for-leaders-curriculum-overview-3-a-8-ffd"
+  },
+  "/docs/ai-for-leaders/curriculum-visual-tree-1b3": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-ai-for-leaders-curriculum-visual-tree-57-e-5dd"
+  },
+  "/docs/ai-for-leaders/intro-743": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-ai-for-leaders-intro-819-d67"
+  },
+  "/docs/ai-for-leaders/machine-learning-fundamentals-f92": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-ai-for-leaders-machine-learning-fundamentalsdb-1-d11"
   },
   "/docs/deep-learning/CNNS-363": {
     "__comp": "__comp---theme-doc-item-178-a40",

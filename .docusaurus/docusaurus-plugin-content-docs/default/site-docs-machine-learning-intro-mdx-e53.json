@@ -16,6 +16,10 @@
     "sidebar_position": 1
   },
   "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Where Classical Machine Learning Models Are Used in the Market",
+    "permalink": "/docs/ai-for-leaders/classical-ml-in-market"
+  },
   "next": {
     "title": "Supervised Learning",
     "permalink": "/docs/machine-learning/supervised-learning"

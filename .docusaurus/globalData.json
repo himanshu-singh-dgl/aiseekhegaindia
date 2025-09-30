@@ -8,8 +8,42 @@
           "label": "Next",
           "isLast": true,
           "path": "/docs",
-          "mainDocId": "machine-learning/intro",
+          "mainDocId": "ai-for-leaders/intro",
           "docs": [
+            {
+              "id": "ai-for-leaders/algorithms-high-level-overview",
+              "path": "/docs/ai-for-leaders/algorithms-high-level-overview",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "ai-for-leaders/classical-ml-in-market",
+              "path": "/docs/ai-for-leaders/classical-ml-in-market",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "ai-for-leaders/classification-regression-supervised-unsupervised",
+              "path": "/docs/ai-for-leaders/classification-regression-supervised-unsupervised",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "ai-for-leaders/curriculum-overview",
+              "path": "/docs/ai-for-leaders/curriculum-overview",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "ai-for-leaders/curriculum-visual-tree",
+              "path": "/docs/ai-for-leaders/curriculum-visual-tree"
+            },
+            {
+              "id": "ai-for-leaders/intro",
+              "path": "/docs/ai-for-leaders/intro",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "ai-for-leaders/machine-learning-fundamentals",
+              "path": "/docs/ai-for-leaders/machine-learning-fundamentals",
+              "sidebar": "docsSidebar"
+            },
             {
               "id": "deep-learning/CNNS",
               "path": "/docs/deep-learning/CNNS"
@@ -158,8 +192,8 @@
           "sidebars": {
             "docsSidebar": {
               "link": {
-                "path": "/docs/machine-learning/intro",
-                "label": "machine-learning/intro"
+                "path": "/docs/ai-for-leaders/intro",
+                "label": "ai-for-leaders/intro"
               }
             }
           }
