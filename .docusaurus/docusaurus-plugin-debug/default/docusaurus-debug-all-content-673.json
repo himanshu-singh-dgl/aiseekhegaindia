@@ -119,12 +119,39 @@
               },
               "sidebar": "docsSidebar",
               "previous": {
-                "title": "AI for Leaders",
-                "permalink": "/docs/ai-for-leaders/intro"
+                "title": "Interactive Curriculum Tree",
+                "permalink": "/docs/ai-for-leaders/curriculum-tree"
               },
               "next": {
                 "title": "Understanding Machine Learning Fundamentals",
                 "permalink": "/docs/ai-for-leaders/machine-learning-fundamentals"
+              }
+            },
+            {
+              "id": "ai-for-leaders/curriculum-tree",
+              "title": "Interactive Curriculum Tree",
+              "description": "Welcome to the AI for Leaders Interactive Curriculum Tree - your personalized roadmap through the complete AI for Leaders program. This interactive visualization replaces traditional flat curriculum lists with an engaging, gamified learning experience designed specifically for business leaders.",
+              "source": "@site/docs/ai-for-leaders/curriculum-tree.mdx",
+              "sourceDirName": "ai-for-leaders",
+              "slug": "/ai-for-leaders/curriculum-tree",
+              "permalink": "/docs/ai-for-leaders/curriculum-tree",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/ai-for-leaders/curriculum-tree.mdx",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "AI for Leaders",
+                "permalink": "/docs/ai-for-leaders/intro"
+              },
+              "next": {
+                "title": "AI for Leaders: Complete Curriculum Overview",
+                "permalink": "/docs/ai-for-leaders/curriculum-overview"
               }
             },
             {
@@ -161,8 +188,8 @@
               },
               "sidebar": "docsSidebar",
               "next": {
-                "title": "AI for Leaders: Complete Curriculum Overview",
-                "permalink": "/docs/ai-for-leaders/curriculum-overview"
+                "title": "Interactive Curriculum Tree",
+                "permalink": "/docs/ai-for-leaders/curriculum-tree"
               }
             },
             {
@@ -194,8 +221,8 @@
             },
             {
               "id": "deep-learning/CNNS",
-              "title": "Chapter 1: Teaching Machines to See — The Fundamentals of Computer Vision",
-              "description": "Introduction to Vision as a Human and Machine Capability",
+              "title": "Deep Learning for Computer Vision and Convolutional Neural Networks (CNNs)",
+              "description": "Chapter 1: Teaching Machines to See — The Fundamentals of Computer Vision",
               "source": "@site/docs/deep-learning/CNNS.mdx",
               "sourceDirName": "deep-learning",
               "slug": "/deep-learning/CNNS",
@@ -205,7 +232,16 @@
               "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/deep-learning/CNNS.mdx",
               "tags": [],
               "version": "current",
-              "frontMatter": {}
+              "frontMatter": {},
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Understanding the Perceptron: A Dive into the Basics and the Perceptron Trick",
+                "permalink": "/docs/deep-learning/perceptron"
+              },
+              "next": {
+                "title": "Deep Sequence Modelling and Recurrent Neural Networks (RNNs)",
+                "permalink": "/docs/deep-learning/RNNs"
+              }
             },
             {
               "id": "deep-learning/intro",
@@ -257,14 +293,14 @@
                 "permalink": "/docs/deep-learning/intro"
               },
               "next": {
-                "title": "Introduction to Large Language Models",
-                "permalink": "/docs/language-models/intro"
+                "title": "Deep Learning for Computer Vision and Convolutional Neural Networks (CNNs)",
+                "permalink": "/docs/deep-learning/CNNS"
               }
             },
             {
               "id": "deep-learning/RNNs",
-              "title": "Chapter 1: Foundations of Deep Sequence Modeling",
-              "description": "Why Sequence Modeling? A Motivating Example",
+              "title": "Deep Sequence Modelling and Recurrent Neural Networks (RNNs)",
+              "description": "Chapter 1: Foundations of Deep Sequence Modeling",
               "source": "@site/docs/deep-learning/RNNs.mdx",
               "sourceDirName": "deep-learning",
               "slug": "/deep-learning/RNNs",
@@ -274,7 +310,16 @@
               "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/deep-learning/RNNs.mdx",
               "tags": [],
               "version": "current",
-              "frontMatter": {}
+              "frontMatter": {},
+              "sidebar": "docsSidebar",
+              "previous": {
+                "title": "Deep Learning for Computer Vision and Convolutional Neural Networks (CNNs)",
+                "permalink": "/docs/deep-learning/CNNS"
+              },
+              "next": {
+                "title": "Introduction to Large Language Models",
+                "permalink": "/docs/language-models/intro"
+              }
             },
             {
               "id": "language-models/AccessingLLMs",
@@ -430,8 +475,8 @@
               },
               "sidebar": "docsSidebar",
               "previous": {
-                "title": "Understanding the Perceptron: A Dive into the Basics and the Perceptron Trick",
-                "permalink": "/docs/deep-learning/perceptron"
+                "title": "Deep Sequence Modelling and Recurrent Neural Networks (RNNs)",
+                "permalink": "/docs/deep-learning/RNNs"
               },
               "next": {
                 "title": "Tokenization",
@@ -972,6 +1017,10 @@
                   },
                   {
                     "type": "doc",
+                    "id": "ai-for-leaders/curriculum-tree"
+                  },
+                  {
+                    "type": "doc",
                     "id": "ai-for-leaders/curriculum-overview"
                   },
                   {
@@ -1025,6 +1074,14 @@
                   {
                     "type": "doc",
                     "id": "deep-learning/perceptron"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "deep-learning/CNNS"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "deep-learning/RNNs"
                   }
                 ],
                 "collapsed": true,

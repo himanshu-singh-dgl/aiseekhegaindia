@@ -17,8 +17,8 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "Understanding the Perceptron: A Dive into the Basics and the Perceptron Trick",
-    "permalink": "/docs/deep-learning/perceptron"
+    "title": "Deep Sequence Modelling and Recurrent Neural Networks (RNNs)",
+    "permalink": "/docs/deep-learning/RNNs"
   },
   "next": {
     "title": "Tokenization",

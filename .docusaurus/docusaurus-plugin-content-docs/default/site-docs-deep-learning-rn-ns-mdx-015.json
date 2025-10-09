@@ -1,7 +1,7 @@
 {
   "id": "deep-learning/RNNs",
-  "title": "Chapter 1: Foundations of Deep Sequence Modeling",
-  "description": "Why Sequence Modeling? A Motivating Example",
+  "title": "Deep Sequence Modelling and Recurrent Neural Networks (RNNs)",
+  "description": "Chapter 1: Foundations of Deep Sequence Modeling",
   "source": "@site/docs/deep-learning/RNNs.mdx",
   "sourceDirName": "deep-learning",
   "slug": "/deep-learning/RNNs",
@@ -11,5 +11,14 @@
   "editUrl": "https://github.com/ai-ml-community/ai-ml-docs/tree/main/docs/deep-learning/RNNs.mdx",
   "tags": [],
   "version": "current",
-  "frontMatter": {}
+  "frontMatter": {},
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Deep Learning for Computer Vision and Convolutional Neural Networks (CNNs)",
+    "permalink": "/docs/deep-learning/CNNS"
+  },
+  "next": {
+    "title": "Introduction to Large Language Models",
+    "permalink": "/docs/language-models/intro"
+  }
 }

@@ -31,6 +31,11 @@
               "sidebar": "docsSidebar"
             },
             {
+              "id": "ai-for-leaders/curriculum-tree",
+              "path": "/docs/ai-for-leaders/curriculum-tree",
+              "sidebar": "docsSidebar"
+            },
+            {
               "id": "ai-for-leaders/curriculum-visual-tree",
               "path": "/docs/ai-for-leaders/curriculum-visual-tree"
             },
@@ -46,7 +51,8 @@
             },
             {
               "id": "deep-learning/CNNS",
-              "path": "/docs/deep-learning/CNNS"
+              "path": "/docs/deep-learning/CNNS",
+              "sidebar": "docsSidebar"
             },
             {
               "id": "deep-learning/intro",
@@ -60,7 +66,8 @@
             },
             {
               "id": "deep-learning/RNNs",
-              "path": "/docs/deep-learning/RNNs"
+              "path": "/docs/deep-learning/RNNs",
+              "sidebar": "docsSidebar"
             },
             {
               "id": "language-models/AccessingLLMs",

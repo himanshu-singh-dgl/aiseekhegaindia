@@ -79,15 +79,15 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', 'c29'),
+    component: ComponentCreator('/docs', 'd54'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', '6ab'),
+        component: ComponentCreator('/docs', '57d'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', '2fc'),
+            component: ComponentCreator('/docs', '526'),
             routes: [
               {
                 path: '/docs/ai-for-leaders/algorithms-high-level-overview',
@@ -114,6 +114,12 @@ export default [
                 sidebar: "docsSidebar"
               },
               {
+                path: '/docs/ai-for-leaders/curriculum-tree',
+                component: ComponentCreator('/docs/ai-for-leaders/curriculum-tree', '1fd'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
                 path: '/docs/ai-for-leaders/curriculum-visual-tree',
                 component: ComponentCreator('/docs/ai-for-leaders/curriculum-visual-tree', '1b3'),
                 exact: true
@@ -132,8 +138,9 @@ export default [
               },
               {
                 path: '/docs/deep-learning/CNNS',
-                component: ComponentCreator('/docs/deep-learning/CNNS', '363'),
-                exact: true
+                component: ComponentCreator('/docs/deep-learning/CNNS', 'ada'),
+                exact: true,
+                sidebar: "docsSidebar"
               },
               {
                 path: '/docs/deep-learning/intro',
@@ -149,8 +156,9 @@ export default [
               },
               {
                 path: '/docs/deep-learning/RNNs',
-                component: ComponentCreator('/docs/deep-learning/RNNs', '649'),
-                exact: true
+                component: ComponentCreator('/docs/deep-learning/RNNs', 'a74'),
+                exact: true,
+                sidebar: "docsSidebar"
               },
               {
                 path: '/docs/language-models/AccessingLLMs',

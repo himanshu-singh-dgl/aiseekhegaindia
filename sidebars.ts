@@ -18,6 +18,7 @@ const sidebars: SidebarsConfig = {
       label: 'AI for Leaders',
       items: [
         'ai-for-leaders/intro',
+        'ai-for-leaders/curriculum-tree',
         'ai-for-leaders/curriculum-overview',
         'ai-for-leaders/machine-learning-fundamentals',
         'ai-for-leaders/classification-regression-supervised-unsupervised',
@@ -40,6 +41,8 @@ const sidebars: SidebarsConfig = {
       items: [
         'deep-learning/intro',
         'deep-learning/perceptron',
+        'deep-learning/CNNS',
+        'deep-learning/RNNs',
       ],
     },
     {

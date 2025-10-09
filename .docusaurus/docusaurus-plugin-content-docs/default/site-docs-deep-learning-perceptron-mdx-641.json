@@ -21,7 +21,7 @@
     "permalink": "/docs/deep-learning/intro"
   },
   "next": {
-    "title": "Introduction to Large Language Models",
-    "permalink": "/docs/language-models/intro"
+    "title": "Deep Learning for Computer Vision and Convolutional Neural Networks (CNNs)",
+    "permalink": "/docs/deep-learning/CNNS"
   }
 }

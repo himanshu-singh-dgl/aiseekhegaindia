@@ -22,6 +22,13 @@
           },
           {
             "type": "link",
+            "label": "Interactive Curriculum Tree",
+            "href": "/docs/ai-for-leaders/curriculum-tree",
+            "docId": "ai-for-leaders/curriculum-tree",
+            "unlisted": false
+          },
+          {
+            "type": "link",
             "label": "AI for Leaders: Complete Curriculum Overview",
             "href": "/docs/ai-for-leaders/curriculum-overview",
             "docId": "ai-for-leaders/curriculum-overview",
@@ -104,6 +111,20 @@
             "label": "Understanding the Perceptron: A Dive into the Basics and the Perceptron Trick",
             "href": "/docs/deep-learning/perceptron",
             "docId": "deep-learning/perceptron",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Deep Learning for Computer Vision and Convolutional Neural Networks (CNNs)",
+            "href": "/docs/deep-learning/CNNS",
+            "docId": "deep-learning/CNNS",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Deep Sequence Modelling and Recurrent Neural Networks (RNNs)",
+            "href": "/docs/deep-learning/RNNs",
+            "docId": "deep-learning/RNNs",
             "unlisted": false
           }
         ],
@@ -315,6 +336,12 @@
       "description": "This document provides the hierarchical structure and learning progression for the AI for Leaders curriculum. It's designed to guide leaders from foundational concepts to advanced AI strategy and implementation.",
       "sidebar": "docsSidebar"
     },
+    "ai-for-leaders/curriculum-tree": {
+      "id": "ai-for-leaders/curriculum-tree",
+      "title": "Interactive Curriculum Tree",
+      "description": "Welcome to the AI for Leaders Interactive Curriculum Tree - your personalized roadmap through the complete AI for Leaders program. This interactive visualization replaces traditional flat curriculum lists with an engaging, gamified learning experience designed specifically for business leaders.",
+      "sidebar": "docsSidebar"
+    },
     "ai-for-leaders/curriculum-visual-tree": {
       "id": "ai-for-leaders/curriculum-visual-tree",
       "title": "AI for Leaders: Visual Curriculum Tree",
@@ -334,8 +361,9 @@
     },
     "deep-learning/CNNS": {
       "id": "deep-learning/CNNS",
-      "title": "Chapter 1: Teaching Machines to See — The Fundamentals of Computer Vision",
-      "description": "Introduction to Vision as a Human and Machine Capability"
+      "title": "Deep Learning for Computer Vision and Convolutional Neural Networks (CNNs)",
+      "description": "Chapter 1: Teaching Machines to See — The Fundamentals of Computer Vision",
+      "sidebar": "docsSidebar"
     },
     "deep-learning/intro": {
       "id": "deep-learning/intro",
@@ -351,8 +379,9 @@
     },
     "deep-learning/RNNs": {
       "id": "deep-learning/RNNs",
-      "title": "Chapter 1: Foundations of Deep Sequence Modeling",
-      "description": "Why Sequence Modeling? A Motivating Example"
+      "title": "Deep Sequence Modelling and Recurrent Neural Networks (RNNs)",
+      "description": "Chapter 1: Foundations of Deep Sequence Modeling",
+      "sidebar": "docsSidebar"
     },
     "language-models/AccessingLLMs": {
       "id": "language-models/AccessingLLMs",
