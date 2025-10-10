@@ -21,7 +21,7 @@
     "permalink": "/docs/language-models/AccessingLLMs"
   },
   "next": {
-    "title": "Interactive Logistic Regression Tutorial",
-    "permalink": "/docs/tutorials/logistic-regression"
+    "title": "LoRA Fine-Tuning vs RAG Agents: Two Paths to Smarter, More Truthful LLMs",
+    "permalink": "/docs/language-models/HandlingHallucinationRAGLoRA"
   }
 }
