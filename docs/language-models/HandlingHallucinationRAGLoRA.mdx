@@ -36,7 +36,8 @@ We consider two metrics: accuracy (did the model answer the question correctly) 
 rate (did the model answer the question incorrectly). Higher is better for accuracy and lower is
 better for hallucination rate.
 
-![image.png](attachment:869d20bc-2adf-4483-9d26-71bfd21bc01f:image.png)
+![png](language_model_images/Handling_Hallucination_1.png)
+
 
 ### Why hallucinations happen
 
@@ -45,7 +46,7 @@ better for hallucination rate.
 - Prompt drift: Poorly structured prompts lead to misinterpretation.
 - Outdated Data: The world changes, but pretrained weights remain the same.
 
-![image.png](attachment:8fd82aff-fca8-4635-ad97-c8501de77d24:image.png)
+![png](language_model_images/Handling_Hallucination_2.png)
 
 This is one more example where the gpt-4 has a knowledge gap.
 
@@ -72,7 +73,7 @@ Fine-tuning adjusts these models to excel in targeted applications, from sentime
 
 The breadth of knowledge LLMs acquire through initial training is impressive but often lacks the depth or specificity required for certain tasks. Fine-tuning addresses this by adapting the model to the nuances of a specific domain or function, enhancing its performance significantly on that task without the need to [train a new model](https://datasciencedojo.com/blog/llm-chatbot/) from scratch.
 
-![image.png](attachment:82d679dd-35be-479f-a572-9865ee9cdb17:image.png)
+![png](language_model_images/Handling_Hallucination_3.png)
 
 ### What is LoRa?
 
@@ -86,7 +87,7 @@ At a high level, LoRA works like this:
 - **Add adapter layers**: Small, trainable “side modules” are inserted into specific parts of the model. These adapters learn only the new behavior or skill you want to teach.
 - **Train efficiently**: During fine-tuning, only the adapter parameters are updated. The rest of the model stays static, which dramatically reduces compute and memory requirements.
 
-![image.png](attachment:76f38fc9-0a24-4682-9e00-83f2fc5b95be:image.png)
+![png](language_model_images/Handling_Hallucination_4.png)
 
 Mathematically :
 
@@ -128,21 +129,21 @@ Retrieval-augmented generation (RAG) brings an approach to natural language proc
 
 **Sticks to the Facts:** Unlike other models that might guess or make up details (a ” [hallucinations](https://datasciencedojo.com/blog/ai-hallucinations/) ” problem), RAG checks facts by referencing real data. This makes it reliable, giving you answers based on actual information.
 
-![image.png](attachment:9b885d6a-62f4-4268-9fdf-6d51f875b124:image.png)
+![png](language_model_images/Handling_Hallucination_5.png)
 
 this is the schematic representation of visual rag
 
-![image.png](attachment:1a0f533d-be15-4afc-8a5d-f1bd2bb94703:image.png)
+![png](language_model_images/Handling_Hallucination_6.png)
 
 RAG pipeline
 
 ## 1. Data prep
 
-![image.png](attachment:2be306d9-2fc4-4d17-b96f-f6d2cd13bf2a:image.png)
+![png](language_model_images/Handling_Hallucination_7.png)
 
 ## **2. Query Initiation and Vectorization**
 
-![image.png](attachment:e01b6359-2b23-405d-928f-9f26cd51e987:image.png)
+![png](language_model_images/Handling_Hallucination_8.png)
 
 - Your query starts as a simple string of text. However, computers, particularly AI models, don’t understand text and its underlying meanings the same way humans do. To bridge this gap, **the RAG system converts your question into an [embedding](https://datasciencedojo.com/blog/embeddings-and-llm/), also known as a vector.**
 - Why a vector, you might ask? Well, A vector is essentially a numerical representation of your query, capturing not just the words but the meaning behind them. This allows the system to search for answers based on concepts and ideas, not just matching keywords.
@@ -151,7 +152,7 @@ RAG pipeline
 
 - With your query now in vector form, the RAG system seeks answers in an up-to-date vector database. **The system looks for the vectors in this database that are closest to your query’s vector**—the semantically similar ones, meaning they share the same underlying concepts or topics.
 
-![image.png](attachment:a5017c61-c68c-4fa2-87e2-9298c6520eb5:image.png)
+![png](language_model_images/Handling_Halluciination_9.png)
 
 - But what exactly is a vector database?
   - **Vector databases defined:** A vector database stores vast amounts of information from diverse sources, such as the latest research papers, news articles, and scientific discoveries. However, it doesn’t store this information in traditional formats (like tables or text documents). Instead, each piece of data is converted into a vector during the ingestion process.
