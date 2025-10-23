@@ -274,6 +274,13 @@
             "href": "/docs/language-models/QueryToResponse",
             "docId": "language-models/QueryToResponse",
             "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "LoRA Fine-Tuning vs RAG Agents: Two Paths to Smarter, More Truthful LLMs",
+            "href": "/docs/language-models/HandlingHallucinationRAGLoRA",
+            "docId": "language-models/HandlingHallucinationRAGLoRA",
+            "unlisted": false
           }
         ],
         "collapsed": true,
@@ -411,6 +418,12 @@
       "id": "language-models/Hallucinations",
       "title": "Navigating the Hallucinations: Understanding and Improving LLM Accuracy",
       "description": "Introduction:",
+      "sidebar": "docsSidebar"
+    },
+    "language-models/HandlingHallucinationRAGLoRA": {
+      "id": "language-models/HandlingHallucinationRAGLoRA",
+      "title": "LoRA Fine-Tuning vs RAG Agents: Two Paths to Smarter, More Truthful LLMs",
+      "description": "Introduction: The 2 sides of LLM adaptation",
       "sidebar": "docsSidebar"
     },
     "language-models/intro": {

@@ -69,6 +69,7 @@ const sidebars: SidebarsConfig = {
         'language-models/Evaluation',
         'language-models/AccessingLLMs',
         'language-models/QueryToResponse',
+        'language-models/HandlingHallucinationRAGLoRA',
       ],
     },
     {

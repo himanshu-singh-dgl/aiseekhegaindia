@@ -28,8 +28,8 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "From Query to Response: Understanding the LLM Journey",
-    "permalink": "/docs/language-models/QueryToResponse"
+    "title": "LoRA Fine-Tuning vs RAG Agents: Two Paths to Smarter, More Truthful LLMs",
+    "permalink": "/docs/language-models/HandlingHallucinationRAGLoRA"
   },
   "next": {
     "title": "AI & ML Resources",

@@ -95,6 +95,11 @@
               "sidebar": "docsSidebar"
             },
             {
+              "id": "language-models/HandlingHallucinationRAGLoRA",
+              "path": "/docs/language-models/HandlingHallucinationRAGLoRA",
+              "sidebar": "docsSidebar"
+            },
+            {
               "id": "language-models/intro",
               "path": "/docs/language-models/intro",
               "sidebar": "docsSidebar"
