@@ -95,11 +95,22 @@ function stripDocusaurusImports(source: string): string {
     .replace(/^import\s+.+from\s+['"]@theme\/.+['"];?\s*$/gm, '');
 }
 
-function rewriteAssetPaths(source: string): string {
-  return source
+function rewriteAssetPaths(source: string, docId?: string): string {
+  let result = source
     .replace(/\]\(\.\/img\//g, '](/img/')
     .replace(/src="\.\/img\//g, 'src="/img/')
     .replace(/src='\.\/img\//g, "src='/img/");
+
+  if (docId) {
+    const dir = docId.includes('/') ? docId.slice(0, docId.lastIndexOf('/')) : '';
+    const assetBase = `/content-assets/${dir}`;
+    result = result
+      .replace(/src="\.\/([^"]+)"/g, `src="${assetBase}/$1"`)
+      .replace(/src='\.\/([^']+)'/g, `src='${assetBase}/$1'`)
+      .replace(/\]\(\.\/([^)]+)\)/g, `](${assetBase}/$1)`);
+  }
+
+  return result;
 }
 
 export async function loadDoc(docId: string): Promise<LoadedDoc | null> {
@@ -111,7 +122,7 @@ export async function loadDoc(docId: string): Promise<LoadedDoc | null> {
   if (located.format === 'html') {
     const { data, content: htmlBody } = matter(raw);
     const frontmatter = normalizeFrontmatter(data);
-    const sanitizedHtml = htmlBody;
+    const sanitizedHtml = rewriteAssetPaths(htmlBody, docId);
     const headings = extractHeadingsFromHtml(sanitizedHtml);
 
     return {
@@ -129,7 +140,7 @@ export async function loadDoc(docId: string): Promise<LoadedDoc | null> {
     };
   }
 
-  const cleaned = rewriteAssetPaths(stripDocusaurusImports(raw));
+  const cleaned = rewriteAssetPaths(stripDocusaurusImports(raw), docId);
   const { content, frontmatter: rawFrontmatter } = await compileMDX<DocFrontmatter>({
     source: cleaned,
     components: mdxComponents,
