@@ -1,0 +1,243 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Dark mode via data-theme (next-themes) */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --color-indian-saffron: #ff9933;
+  --color-indian-white: #ffffff;
+  --color-indian-green: #138808;
+  --color-indian-blue: #0066ff;
+  --color-accent-orange: #ffb366;
+  --color-accent-green: #20a020;
+  --color-accent-blue: #4da6ff;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Roboto Mono", Menlo, monospace;
+
+  --animate-fade-in: fadeIn 0.5s ease-in-out;
+  --animate-slide-up: slideUp 0.6s ease-out;
+  --animate-pulse-gentle: pulseGentle 2s ease-in-out infinite;
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulseGentle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+}
+
+/* Design tokens (ported from Infima --ifm-* vars) */
+:root {
+  --color-primary: #3b82f6;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-darker: #1e40af;
+  --color-primary-darkest: #1e3a8a;
+  --color-primary-light: #60a5fa;
+  --color-primary-lighter: #93c5fd;
+  --color-primary-lightest: #bfdbfe;
+
+  --color-secondary: #0d9488;
+  --color-secondary-dark: #0f766e;
+  --color-secondary-darker: #115e59;
+  --color-secondary-darkest: #134e4a;
+  --color-secondary-light: #14b8a6;
+  --color-secondary-lighter: #2dd4bf;
+  --color-secondary-lightest: #5eead4;
+
+  --color-accent: #8b5cf6;
+  --color-accent-dark: #7c3aed;
+  --color-accent-darker: #6d28d9;
+  --color-accent-darkest: #5b21b6;
+  --color-accent-light: #a78bfa;
+  --color-accent-lighter: #c4b5fd;
+  --color-accent-lightest: #ddd6fe;
+
+  --color-success: #10b981;
+  --color-info: #0ea5e9;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  --color-background: #ffffff;
+  --color-foreground: #1b1b1d;
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-card: #ffffff;
+  --color-emphasis-100: #f3f4f6;
+  --color-emphasis-300: #d1d5db;
+
+  --code-font-size: 95%;
+  --highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --font-size-base: 16px;
+  --line-height-base: 1.5;
+  --heading-line-height: 1.2;
+
+  --spacing-horizontal: 1.5rem;
+  --spacing-vertical: 1.5rem;
+
+  --radius-global: 0.5rem;
+  --radius-button: 0.375rem;
+
+  --z-fixed: 100;
+  --z-overlay: 200;
+}
+
+[data-theme="dark"] {
+  --color-primary: #60a5fa;
+  --color-primary-dark: #3b82f6;
+  --color-primary-darker: #2563eb;
+  --color-primary-darkest: #1d4ed8;
+  --color-primary-light: #93c5fd;
+  --color-primary-lighter: #bfdbfe;
+  --color-primary-lightest: #dbeafe;
+
+  --color-secondary: #14b8a6;
+  --color-secondary-dark: #0d9488;
+  --color-secondary-darker: #0f766e;
+  --color-secondary-darkest: #115e59;
+  --color-secondary-light: #2dd4bf;
+  --color-secondary-lighter: #5eead4;
+  --color-secondary-lightest: #99f6e4;
+
+  --color-accent: #a78bfa;
+  --color-accent-dark: #8b5cf6;
+  --color-accent-darker: #7c3aed;
+  --color-accent-darkest: #6d28d9;
+  --color-accent-light: #c4b5fd;
+  --color-accent-lighter: #ddd6fe;
+  --color-accent-lightest: #ede9fe;
+
+  --color-background: #1b1b1d;
+  --color-foreground: #e3e3e3;
+  --color-muted: #9ca3af;
+  --color-border: #374151;
+  --color-card: #242526;
+  --color-emphasis-100: #2a2a2d;
+  --color-emphasis-300: #4b5563;
+
+  --highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  color-scheme: dark;
+}
+
+/* Global styles */
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: var(--heading-line-height);
+}
+
+pre, code {
+  font-family: var(--font-mono);
+  font-size: var(--code-font-size);
+}
+
+pre {
+  overflow-x: auto;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.card {
+  border-radius: var(--radius-global);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  overflow: hidden;
+  background-color: var(--color-card);
+}
+
+.card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-emphasis-300);
+}
+
+table th {
+  background-color: var(--color-emphasis-100);
+  font-weight: 600;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Tutorial component utilities (from src/css/tailwind.css) */
+@layer components {
+  .tutorial-container {
+    @apply min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900;
+  }
+
+  .tutorial-header {
+    @apply bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-10;
+  }
+
+  .tutorial-card {
+    @apply bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 shadow-2xl;
+  }
+
+  .tutorial-button {
+    @apply px-6 py-4 backdrop-blur-sm rounded-xl border border-white/20 text-white font-medium transition-all duration-300 hover:bg-white/20;
+  }
+
+  .tutorial-button-primary {
+    @apply bg-gradient-to-r from-indian-saffron to-red-500 rounded-xl text-white font-medium transition-all duration-300 hover:from-orange-500 hover:to-red-600 shadow-lg;
+  }
+
+  .tutorial-nav-button {
+    @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap;
+  }
+
+  .tutorial-nav-active {
+    @apply bg-gradient-to-r from-indian-saffron to-red-500 text-white shadow-lg;
+  }
+
+  .tutorial-nav-completed {
+    @apply bg-indian-green/20 text-green-300 border border-indian-green/30;
+  }
+
+  .tutorial-nav-inactive {
+    @apply text-white/70 hover:text-white hover:bg-white/10;
+  }
+}

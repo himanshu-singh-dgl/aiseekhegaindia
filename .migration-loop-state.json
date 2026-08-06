@@ -1,0 +1,20 @@
+{
+  "purpose": "nextjs_migration",
+  "started": true,
+  "phases": {
+    "0": "done",
+    "1": "done",
+    "2": "done",
+    "3": "done",
+    "4": "done"
+  },
+  "agents": {
+    "phase1": "08d9d940-12ec-44ff-9bb8-f5c4a0046d28",
+    "phase2": "c4f744c2-372b-4891-9a81-da3df06251d7",
+    "phase3": "6911952b-364b-4bd1-97ab-34f25c89a4e8",
+    "phase4": "a776179f-4c9c-4d51-8c60-d99323097024"
+  },
+  "stopWhen": "Phases 0-4 complete and npm run build succeeds",
+  "stopped": true,
+  "stoppedReason": "Phases 0-4 complete; isolated NEXT_DIST_DIR=.next-verify build succeeded with 53 routes"
+}
