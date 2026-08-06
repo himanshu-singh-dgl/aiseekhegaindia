@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AICK India — Frontend / Backend Split Plan</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a222c;
+      --surface-2: #243040;
+      --text: #e8eef4;
+      --muted: #9aabbc;
+      --accent: #3d9a7a;
+      --accent-soft: rgba(61, 154, 122, 0.15);
+      --warn: #d4a017;
+      --warn-soft: rgba(212, 160, 23, 0.12);
+      --border: #2e3c4c;
+      --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --font-body: "Segoe UI", "Helvetica Neue", sans-serif;
+      --font-mono: "SF Mono", "Cascadia Code", Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background:
+        radial-gradient(ellipse 80% 50% at 10% -10%, #1a3a32 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 0%, #1e2a3a 0%, transparent 45%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.85rem, 4vw, 2.4rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .lede {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 62ch;
+    }
+
+    nav.toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    nav.toc h2 {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    nav.toc ol {
+      list-style: none;
+      counter-reset: toc;
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    nav.toc li {
+      counter-increment: toc;
+    }
+
+    nav.toc a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      display: flex;
+      gap: 0.65rem;
+      align-items: baseline;
+    }
+
+    nav.toc a::before {
+      content: counter(toc, decimal-leading-zero);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      min-width: 1.5rem;
+    }
+
+    nav.toc a:hover { color: var(--accent); }
+
+    section {
+      margin-bottom: 2.75rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      margin-bottom: 1rem;
+      padding-top: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      margin: 1.35rem 0 0.55rem;
+      color: var(--text);
+    }
+
+    p { margin-bottom: 0.85rem; color: var(--muted); }
+    p strong, li strong { color: var(--text); font-weight: 600; }
+
+    ul, ol {
+      margin: 0.5rem 0 1rem 1.25rem;
+      color: var(--muted);
+    }
+
+    li { margin-bottom: 0.4rem; }
+
+    .callout {
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      padding: 1rem 1.15rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.25rem 0;
+    }
+
+    .callout.warn {
+      border-left-color: var(--warn);
+      background: var(--warn-soft);
+    }
+
+    .callout p { margin-bottom: 0; color: var(--text); font-size: 0.95rem; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    @media (max-width: 640px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.15rem 1.25rem;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card.pro h3 { color: var(--accent); }
+    .card.con h3 { color: var(--warn); }
+
+    .card ul { margin-left: 1rem; margin-bottom: 0; font-size: 0.9rem; }
+
+    .arch {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.55;
+      overflow-x: auto;
+      color: var(--muted);
+      white-space: pre;
+      margin: 1rem 0;
+    }
+
+    .arch .hi { color: var(--accent); }
+    .arch .dim { color: #5a6d80; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 1rem 0;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    th {
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: var(--surface);
+    }
+
+    .phase {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+      align-items: flex-start;
+    }
+
+    .phase-num {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.15rem;
+    }
+
+    .phase-body h3 { margin-top: 0.1rem; }
+    .phase-body p { margin-bottom: 0.35rem; }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.85em;
+      background: var(--surface-2);
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+      color: var(--text);
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="eyebrow">Architecture plan</p>
+      <h1>AICK India — Frontend / Backend Split</h1>
+      <p class="lede">
+        Evaluate splitting the current Docusaurus docs site into a frontend repo and a
+        small backend service with Google OAuth and Neon PostgreSQL — then a phased path
+        from one directory layout to separate repos and deployable APIs.
+      </p>
+    </header>
+
+    <nav class="toc" aria-label="Contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#verdict">Verdict &amp; feasibility</a></li>
+        <li><a href="#why">Why this approach</a></li>
+        <li><a href="#tradeoffs">Trade-offs</a></li>
+        <li><a href="#target">Target architecture</a></li>
+        <li><a href="#auth">Google OAuth + Neon</a></li>
+        <li><a href="#phases">Phased execution</a></li>
+        <li><a href="#stack">Recommended stack</a></li>
+        <li><a href="#risks">Risks &amp; decisions</a></li>
+      </ol>
+    </nav>
+
+    <section id="verdict">
+      <h2>1. Verdict &amp; feasibility</h2>
+      <div class="callout">
+        <p>
+          <strong>Feasible and justified.</strong> Today this repo is a static Docusaurus
+          site (docs + marketing pages) with no server, auth, or database. Adding Google
+          OAuth and Neon Postgres requires a backend (or equivalent serverless API).
+          Separating that backend — first as a sibling directory, then as its own repo —
+          matches how you plan to deploy and secure it.
+        </p>
+      </div>
+      <p>
+        The split is not needed for publishing docs alone. It becomes the right move
+        once you need <strong>authenticated users</strong>, <strong>server-side secrets</strong>
+        (OAuth client secret, DB URL), and an independently deployable API.
+      </p>
+    </section>
+
+    <section id="why">
+      <h2>2. Why this approach (and why it’s better for your goal)</h2>
+      <h3>Matches the real need: deploy a backend</h3>
+      <p>
+        Static hosts (GitHub Pages, Netlify, Cloudflare Pages) are excellent for Docusaurus
+        but cannot safely hold OAuth client secrets or talk to Postgres with privileged
+        credentials. A small API service (Railway, Render, Fly.io, Cloud Run, Vercel
+        serverless, etc.) needs its own build, env vars, and health checks. A dedicated
+        backend package/repo keeps that deploy path clean.
+      </p>
+      <h3>Secrets &amp; blast radius</h3>
+      <p>
+        Frontend env stays public (site URL, Google client ID). Backend env holds client
+        secret, Neon connection string, session keys. Separate repos (or at least separate
+        deploy units) reduce the chance of leaking secrets into a static build.
+      </p>
+      <h3>Independent release cadence</h3>
+      <p>
+        Docs/content can ship many times a day without redeploying the API. Auth/schema
+        changes can ship without rebuilding the whole docs site.
+      </p>
+      <h3>Directory-first → repos-later is the pragmatic path</h3>
+      <p>
+        Starting with <code>aick-india-frontend/</code> and <code>aick-india-backend/</code>
+        (monorepo or sibling folders) lets you wire CORS, shared types, and local Docker
+        Compose before paying the cost of two remotes, two CI pipelines, and versioned
+        contracts. Splitting remotes later is a mechanical move once the boundary is clear.
+      </p>
+    </section>
+
+    <section id="tradeoffs">
+      <h2>3. Trade-offs</h2>
+      <div class="grid-2">
+        <div class="card pro">
+          <h3>Pros of separate backend</h3>
+          <ul>
+            <li>Independent deploy &amp; scaling</li>
+            <li>Clear place for OAuth + DB</li>
+            <li>Backend stack can differ from Docusaurus</li>
+            <li>Easier to add future APIs (progress, fellowship forms, etc.)</li>
+          </ul>
+        </div>
+        <div class="card con">
+          <h3>Costs / cons</h3>
+          <ul>
+            <li>Two processes for local dev</li>
+            <li>CORS, cookies, and env coordination</li>
+            <li>Separate repos = harder cross-cutting PRs</li>
+            <li>Shared types need a package or duplication</li>
+            <li>More CI and ops surface area</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn">
+        <p>
+          <strong>Don’t split remotes on day one unless you must.</strong> Keep one repo
+          with <code>frontend/</code> and <code>backend/</code> until auth + Neon work
+          end-to-end. Then extract the backend repo for production deploy isolation.
+        </p>
+      </div>
+      <h3>Alternatives considered</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Fit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Stay all-static + Auth0/Clerk hosted auth</td>
+            <td>Faster auth, less control; still need somewhere for app data on Neon</td>
+          </tr>
+          <tr>
+            <td>Monorepo forever (FE + BE)</td>
+            <td>Best DX; deploy can still target only <code>backend/</code></td>
+          </tr>
+          <tr>
+            <td>Separate repos from day one</td>
+            <td>Best isolation; slower early iteration</td>
+          </tr>
+          <tr>
+            <td>Serverless functions next to frontend</td>
+            <td>Fine for tiny APIs; weaker if backend grows</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="target">
+      <h2>4. Target architecture</h2>
+      <div class="arch"><span class="dim">┌─────────────────────────────────────────┐</span>
+<span class="dim">│</span>  <span class="hi">aick-india-frontend</span>  (Docusaurus / site)  <span class="dim">│</span>
+<span class="dim">│</span>  docs, fellowship, contribute, UI         <span class="dim">│</span>
+<span class="dim">│</span>  Google Sign-In button → redirects        <span class="dim">│</span>
+<span class="dim">└──────────────────┬──────────────────────┘</span>
+                   <span class="dim">│ HTTPS (cookies / JWT)</span>
+                   <span class="dim">▼</span>
+<span class="dim">┌─────────────────────────────────────────┐</span>
+<span class="dim">│</span>  <span class="hi">aick-india-backend</span>   (small API)          <span class="dim">│</span>
+<span class="dim">│</span>  /auth/google  /auth/callback  /me        <span class="dim">│</span>
+<span class="dim">│</span>  session + OAuth token exchange           <span class="dim">│</span>
+<span class="dim">└──────────────────┬──────────────────────┘</span>
+                   <span class="dim">│</span>
+                   <span class="dim">▼</span>
+<span class="dim">┌─────────────────────────────────────────┐</span>
+<span class="dim">│</span>  <span class="hi">Neon</span>  PostgreSQL                         <span class="dim">│</span>
+<span class="dim">│</span>  users, sessions / accounts, app data     <span class="dim">│</span>
+<span class="dim">└─────────────────────────────────────────┘</span></div>
+      <p>
+        Suggested near-term folder layout (one git repo):
+      </p>
+      <div class="arch">aick-india/
+├── frontend/          <span class="dim"># current Docusaurus site moved here</span>
+├── backend/           <span class="dim"># Express/Fastify or Hono API</span>
+├── docker-compose.yml <span class="dim"># optional local Postgres if not using Neon branch</span>
+└── README.md</div>
+    </section>
+
+    <section id="auth">
+      <h2>5. Google OAuth + Neon PostgreSQL</h2>
+      <h3>Why a backend is required for Google OAuth</h3>
+      <p>
+        The OAuth <strong>client secret</strong> and the code→token exchange must happen
+        server-side. The frontend only starts the login and receives a session
+        (httpOnly cookie preferred) or a short-lived access token after the backend
+        completes the handshake with Google.
+      </p>
+      <h3>Minimal auth flow</h3>
+      <ol>
+        <li>User clicks “Sign in with Google” on the frontend.</li>
+        <li>Browser hits <code>GET /auth/google</code> on the backend → redirect to Google.</li>
+        <li>Google redirects to <code>/auth/google/callback</code> with an auth code.</li>
+        <li>Backend exchanges code for tokens, upserts user in Neon, sets session cookie.</li>
+        <li>Frontend calls <code>GET /me</code> to know who’s logged in; logout clears session.</li>
+      </ol>
+      <h3>Neon as the database</h3>
+      <ul>
+        <li><strong>Good fit:</strong> managed Postgres, serverless-friendly, branching for preview envs.</li>
+        <li><strong>Start small:</strong> <code>users</code> (id, email, google_sub, name, avatar, created_at) and optionally <code>sessions</code>.</li>
+        <li><strong>Access:</strong> use a pooled connection string from Neon; keep it only in backend env.</li>
+      </ul>
+      <div class="callout">
+        <p>
+          Interpreted intent: <strong>implement</strong> Google OAuth sign-on (not block it).
+          If you meant something else (e.g. restrict to certain Google Workspace domains),
+          add an allowlist check after token exchange.
+        </p>
+      </div>
+    </section>
+
+    <section id="phases">
+      <h2>6. Phased execution</h2>
+
+      <div class="phase">
+        <div class="phase-num">1</div>
+        <div class="phase-body">
+          <h3>Restructure in one repo</h3>
+          <p>Move current site into <code>frontend/</code>. Scaffold <code>backend/</code> with health check <code>GET /health</code>.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num">2</div>
+        <div class="phase-body">
+          <h3>Neon + schema</h3>
+          <p>Create Neon project, add migration for <code>users</code>, connect backend with env <code>DATABASE_URL</code>.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num">3</div>
+        <div class="phase-body">
+          <h3>Google OAuth end-to-end</h3>
+          <p>Google Cloud OAuth client (web), callback URL to backend, session cookies, CORS for frontend origin.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num">4</div>
+        <div class="phase-body">
+          <h3>Frontend auth UI</h3>
+          <p>Sign-in / sign-out on homepage or nav; call <code>/me</code>; gate any member-only pages if needed.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num">5</div>
+        <div class="phase-body">
+          <h3>Deploy backend independently</h3>
+          <p>Deploy API + env vars; keep frontend on static hosting pointing at API URL.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num">6</div>
+        <div class="phase-body">
+          <h3>Optional: split into two GitHub repos</h3>
+          <p>Extract <code>backend/</code> history (or fresh repo), lock CORS to production frontend URL, document API contract.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <h2>7. Recommended stack (starting point)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Layer</th>
+            <th>Choice</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Frontend</td>
+            <td>Existing Docusaurus 3</td>
+            <td>Keep; clean up leftover Astro files later</td>
+          </tr>
+          <tr>
+            <td>Backend</td>
+            <td>Hono or Fastify on Node 20+</td>
+            <td>Small, fast; TypeScript shared with FE culture</td>
+          </tr>
+          <tr>
+            <td>Auth</td>
+            <td>Google OAuth 2.0 (auth code)</td>
+            <td>httpOnly secure cookie sessions</td>
+          </tr>
+          <tr>
+            <td>DB</td>
+            <td>Neon Postgres</td>
+            <td>Drizzle or Prisma for migrations</td>
+          </tr>
+          <tr>
+            <td>Deploy FE</td>
+            <td>Static host (current path)</td>
+            <td><code>npm run build</code> → CDN</td>
+          </tr>
+          <tr>
+            <td>Deploy BE</td>
+            <td>Railway / Render / Fly / Cloud Run</td>
+            <td>One service, health check, Neon URL</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="risks">
+      <h2>8. Risks &amp; open decisions</h2>
+      <ul>
+        <li><strong>Cookie vs JWT:</strong> Prefer httpOnly cookies for a first-party web app; use JWT only if you need many clients.</li>
+        <li><strong>Docusaurus + auth:</strong> Most docs stay public; auth is for members/fellowship/progress — don’t over-gate content early.</li>
+        <li><strong>CORS + domains:</strong> Production frontend and API on related domains (e.g. <code>aiseekhegaindia.org</code> + <code>api.…</code>) simplifies cookies.</li>
+        <li><strong>Google Cloud console:</strong> Separate OAuth clients for local vs production redirect URIs.</li>
+        <li><strong>Astro leftovers:</strong> <code>astro.config.mjs</code>, <code>index.astro</code>, starter README — clean up when restructuring frontend.</li>
+      </ul>
+      <div class="callout">
+        <p>
+          <strong>Bottom line:</strong> Your plan is sound. Use a sibling <code>backend/</code>
+          directory first, wire Google OAuth + Neon, deploy the API alone, then promote
+          to a separate repo when deploy isolation is the bottleneck — not before.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      Generated for AICK India / AISeekhegaIndia planning —
+      source repo currently static Docusaurus (<code>ai-ml-docs</code>).
+    </footer>
+  </div>
+</body>
+</html>
