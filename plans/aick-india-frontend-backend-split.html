@@ -293,6 +293,7 @@
         <li><a href="#target">Target architecture</a></li>
         <li><a href="#auth">Google OAuth + Neon</a></li>
         <li><a href="#phases">Phased execution</a></li>
+        <li><a href="#nextjs">Future: Docusaurus → Next.js</a></li>
         <li><a href="#stack">Recommended stack</a></li>
         <li><a href="#risks">Risks &amp; decisions</a></li>
       </ol>
@@ -519,8 +520,126 @@
       </div>
     </section>
 
+    <section id="nextjs">
+      <h2>7. Future: replace Docusaurus with React / Next.js</h2>
+      <div class="callout">
+        <p>
+          <strong>Fully compatible with this plan — and in some ways easier.</strong>
+          A FE/BE boundary protects you: the backend (OAuth, Neon, <code>/me</code>) stays;
+          only the frontend shell is rewritten. Content (MDX/Markdown under <code>docs/</code>)
+          is the main migration asset, not Docusaurus itself.
+        </p>
+      </div>
+
+      <h3>Why Next.js can be a better long-term frontend</h3>
+      <ul>
+        <li><strong>Product, not only docs:</strong> fellowship, accounts, dashboards, gated content fit App Router naturally.</li>
+        <li><strong>Auth UX:</strong> middleware, server components, and cookies are first-class vs fighting Docusaurus’s static model.</li>
+        <li><strong>One React mental model:</strong> custom pages you already have (<code>fellowship.tsx</code>, visualizations) port more cleanly.</li>
+        <li><strong>Deploy flexibility:</strong> Vercel/Node host for the app; backend can remain a separate service on Neon.</li>
+      </ul>
+
+      <h3>What you keep vs what you rewrite</h3>
+      <div class="grid-2">
+        <div class="card pro">
+          <h3>Keep</h3>
+          <ul>
+            <li>Backend API + Neon schema</li>
+            <li>Google OAuth contract</li>
+            <li>Markdown/MDX lesson content</li>
+            <li>Images, curriculum data, brand</li>
+            <li>Separate-repo deploy story</li>
+          </ul>
+        </div>
+        <div class="card con">
+          <h3>Rewrite / replace</h3>
+          <ul>
+            <li>Docusaurus config, sidebars, theme</li>
+            <li>Docs routing &amp; search plugin</li>
+            <li>Homepage / fellowship React pages</li>
+            <li>Nav, layout, styling system</li>
+            <li>Build &amp; hosting pipeline for FE</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Important fork: separate backend vs Next.js API routes</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Approach</th>
+            <th>When it fits</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Next.js FE + separate backend</strong> (your current plan)</td>
+            <td>You still want an independently deployable API; multiple clients later; clearest secret isolation</td>
+          </tr>
+          <tr>
+            <td><strong>Next.js fullstack</strong> (Route Handlers + Neon in the same app)</td>
+            <td>Faster early product; one deploy; OAuth via Auth.js / route handlers — but weaker “backend-only repo” story</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Recommendation if you already care about a dedicated backend deploy:
+        <strong>keep the separate API</strong> even after moving to Next.js. Use Next only as the UI
+        (and optional BFF). Don’t collapse auth into Next unless you deliberately abandon the
+        separate-backend goal.
+      </p>
+
+      <h3>Migration sequence (when you’re ready)</h3>
+      <div class="phase">
+        <div class="phase-num">A</div>
+        <div class="phase-body">
+          <h3>Stabilize the API first</h3>
+          <p>Ship Google OAuth + Neon against today’s Docusaurus (or a thin FE). Freeze the API contract.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">B</div>
+        <div class="phase-body">
+          <h3>Stand up Next.js app beside (or replacing) <code>frontend/</code></h3>
+          <p>Port marketing + fellowship pages; wire the same <code>/auth/*</code> and <code>/me</code> endpoints.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">C</div>
+        <div class="phase-body">
+          <h3>Port docs as MDX routes</h3>
+          <p>
+            Use Contentlayer, next-mdx-remote, Velite, or a simple file-based MDX pipeline.
+            Recreate sidebar/nav from <code>sidebars.ts</code> as a data file — don’t hand-rewrite every page.
+          </p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">D</div>
+        <div class="phase-body">
+          <h3>Cut over</h3>
+          <p>Point the production domain at Next; retire Docusaurus build. Backend URL unchanged.</p>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <p>
+          <strong>Don’t migrate frameworks and invent the backend in the same step.</strong>
+          Docusaurus → Next.js is a frontend rewrite. Auth + Neon is a backend problem.
+          Sequencing them avoids a stalled “big bang.”
+        </p>
+      </div>
+
+      <h3>Trade-offs vs staying on Docusaurus</h3>
+      <ul>
+        <li><strong>You lose:</strong> built-in docs sidebar versioning, i18n, and Algolia-style docs UX that Docusaurus gives for free.</li>
+        <li><strong>You gain:</strong> full control for product features, auth-aware pages, and a standard React/Next hiring/ecosystem path.</li>
+        <li><strong>Cost:</strong> you must rebuild docs navigation, search, and MDX pipeline yourself (or with libraries).</li>
+      </ul>
+    </section>
+
     <section id="stack">
-      <h2>7. Recommended stack (starting point)</h2>
+      <h2>8. Recommended stack (starting point)</h2>
       <table>
         <thead>
           <tr>
@@ -531,9 +650,14 @@
         </thead>
         <tbody>
           <tr>
-            <td>Frontend</td>
+            <td>Frontend (now)</td>
             <td>Existing Docusaurus 3</td>
-            <td>Keep; clean up leftover Astro files later</td>
+            <td>Keep until auth + API are proven</td>
+          </tr>
+          <tr>
+            <td>Frontend (later)</td>
+            <td>Next.js (App Router) + React</td>
+            <td>Optional rewrite; consume same backend</td>
           </tr>
           <tr>
             <td>Backend</td>
@@ -565,19 +689,20 @@
     </section>
 
     <section id="risks">
-      <h2>8. Risks &amp; open decisions</h2>
+      <h2>9. Risks &amp; open decisions</h2>
       <ul>
         <li><strong>Cookie vs JWT:</strong> Prefer httpOnly cookies for a first-party web app; use JWT only if you need many clients.</li>
         <li><strong>Docusaurus + auth:</strong> Most docs stay public; auth is for members/fellowship/progress — don’t over-gate content early.</li>
         <li><strong>CORS + domains:</strong> Production frontend and API on related domains (e.g. <code>aiseekhegaindia.org</code> + <code>api.…</code>) simplifies cookies.</li>
         <li><strong>Google Cloud console:</strong> Separate OAuth clients for local vs production redirect URIs.</li>
         <li><strong>Astro leftovers:</strong> <code>astro.config.mjs</code>, <code>index.astro</code>, starter README — clean up when restructuring frontend.</li>
+        <li><strong>Framework rewrite timing:</strong> Move to Next.js after the API contract is stable, or you’ll rebuild auth twice.</li>
       </ul>
       <div class="callout">
         <p>
-          <strong>Bottom line:</strong> Your plan is sound. Use a sibling <code>backend/</code>
-          directory first, wire Google OAuth + Neon, deploy the API alone, then promote
-          to a separate repo when deploy isolation is the bottleneck — not before.
+          <strong>Bottom line:</strong> Sibling <code>backend/</code> first → Google OAuth + Neon →
+          deploy API alone → optional separate repos. Docusaurus can stay for now;
+          a later Next.js rewrite replaces only the frontend and reuses the same API.
         </p>
       </div>
     </section>
