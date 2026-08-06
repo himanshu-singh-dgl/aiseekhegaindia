@@ -1,0 +1,141 @@
+---
+sidebar_position: 1
+---
+<h1 id="introduction-to-machine-learning">Introduction to Machine Learning</h1>
+<h2 id="what-is-machine-learning">What is Machine Learning?</h2>
+<blockquote>
+<p>"Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed."
+— <em>Arthur Samuel</em></p>
+</blockquote>
+<p>Imagine you’re building a spam filter. You could write thousands of <code>if</code> statements like:</p>
+<pre><code class="language-python">if "Buy now" in email: spam  
+if "Free money" in email: spam  
+</code></pre>
+<p>But that doesn’t scale.
+Instead, what if we gave the machine examples of spam and non-spam emails, and let it learn the patterns?</p>
+<p>That’s Machine Learning (ML) in essence: <strong>learning patterns from data instead of writing explicit rules</strong>.</p>
+<hr>
+<h2 id="how-do-machines-learn">How Do Machines Learn?</h2>
+<p>We can simplify the machine learning process into four key steps:</p>
+<hr>
+<h3 id="step-1-collect-data">Step 1: Collect Data</h3>
+<p>Assume you have:</p>
+<ul>
+<li>10,000 emails</li>
+<li>Each labeled as <strong>spam (1)</strong> or <strong>not spam (0)</strong></li>
+<li>Each email is represented by a <strong>set of features</strong>: words, frequency, length, etc.</li>
+</ul>
+<p>This gives us a dataset:</p>
+<ul>
+<li><code>X = [x₁, x₂, ..., xₙ]</code> → input features</li>
+<li><code>y = [1, 0, 0, 1, ...]</code> → labels (what we want to predict)</li>
+</ul>
+<h4 id="why-do-we-want-features">Why Do We Want Features?</h4>
+<p>Features <strong>translate raw data</strong> into a form a model can understand:</p>
+<ul>
+<li><strong>Tabular data:</strong> age, income, history</li>
+<li><strong>Text data:</strong> frequency of keywords, embeddings</li>
+<li><strong>Image data:</strong> pixel intensities, edges, learned features</li>
+</ul>
+<h4 id="why-not-directly-use-words-or-images">Why Not Directly Use "Words" or "Images"?</h4>
+<p>Raw data isn’t suitable directly:</p>
+<ul>
+<li><strong>Words</strong> are strings → need to be encoded as vectors (e.g., Bag-of-Words, TF-IDF, Word2Vec, BERT)</li>
+<li><strong>Images</strong> are pixel grids → need preprocessing or let CNNs learn hierarchical features</li>
+</ul>
+<hr>
+<h3 id="step-2-choose-a-model">Step 2: Choose a Model</h3>
+<p>An ML model is a function approximating how <code>X</code> maps to <code>y</code>.</p>
+<p>Example: <strong>Linear Regression</strong></p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo>=</mo><mi>m</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">\hat{y} = mx + c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">c</span></span></span></span></span>
+<p>Where:</p>
+<ul>
+<li><code>x</code> is the input</li>
+<li><code>m</code> is the slope</li>
+<li><code>c</code> is the intercept</li>
+<li><code>ŷ</code> is the model’s prediction</li>
+</ul>
+<h4 id="intuition">Intuition:</h4>
+<ul>
+<li>Linear Relationship → y changes proportionally with x</li>
+<li>First-degree polynomial → defines a straight line</li>
+</ul>
+<p>During training, the model adjusts <code>m</code> and <code>c</code> to minimize the difference between <code>ŷ</code> and the true <code>y</code>.</p>
+<hr>
+<h3 id="step-3-minimize-error-loss-function">Step 3: Minimize Error (Loss Function)</h3>
+<p>Once the model is selected, we need to <strong>measure performance</strong> using a <strong>loss function</strong>.</p>
+<h4 id="for-linear-regression">For Linear Regression:</h4>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Loss</mtext><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mo stretchy="false">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\text{Loss} = \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord">Loss</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.9291em;vertical-align:-1.2777em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1141em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>
+<p>This is called <strong>Mean Squared Error (MSE)</strong>.</p>
+<h4 id="examples">Examples:</h4>
+<ul>
+<li>True label = 10, Prediction = 9.8 → Loss = (10 - 9.8)² = <strong>0.04</strong></li>
+<li>True label = 10, Prediction = 4 → Loss = (10 - 4)² = <strong>36</strong></li>
+</ul>
+<h4 id="interpretation">Interpretation:</h4>
+<ul>
+<li><strong>Small loss</strong> → model is doing well</li>
+<li><strong>Large loss</strong> → model is making big mistakes</li>
+</ul>
+<hr>
+<h3 id="step-4-train-the-model-optimization">Step 4: Train the Model (Optimization)</h3>
+<p>Now that we have:</p>
+<ul>
+<li>A model (<code>ŷ = mx + c</code>)</li>
+<li>A loss function (MSE)</li>
+</ul>
+<p>We need to <strong>teach the model to improve</strong> — i.e., <strong>reduce the loss</strong>.</p>
+<h4 id="enter-gradient-descent">Enter: Gradient Descent</h4>
+<p>Imagine standing on a hill. You want to reach the lowest point (loss minimum). You:</p>
+<ul>
+<li>Look for the steepest downward direction</li>
+<li>Take a small step that way</li>
+<li>Repeat until you're at the bottom</li>
+</ul>
+<p>That's <strong>gradient descent</strong>.</p>
+<h4 id="training-loop-simplified">Training Loop (Simplified):</h4>
+<ol>
+<li>
+<p>Initialize <code>m</code> and <code>c</code> randomly</p>
+</li>
+<li>
+<p>Predict: <code>ŷ = model(x)</code></p>
+</li>
+<li>
+<p>Compute error (loss)</p>
+</li>
+<li>
+<p>Compute gradients:</p>
+<ul>
+<li><code>∂Loss/∂m</code>, <code>∂Loss/∂c</code></li>
+</ul>
+</li>
+<li>
+<p>Update parameters:</p>
+</li>
+</ol>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>m</mi><mo>:</mo><mo>=</mo><mi>m</mi><mo>−</mo><mi>α</mi><mo>⋅</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi><mi>o</mi><mi>s</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>m</mi></mrow></mfrac><mspace linebreak="newline"></mspace><mi>c</mi><mo>:</mo><mo>=</mo><mi>c</mi><mo>−</mo><mi>α</mi><mo>⋅</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi><mi>o</mi><mi>s</mi><mi>s</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>c</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">m := m - \alpha \cdot \frac{\partial Loss}{\partial m} \\
+c := c - \alpha \cdot \frac{\partial Loss}{\partial c}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4445em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.0556em;">∂</span><span class="mord mathnormal">m</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.0556em;">∂</span><span class="mord mathnormal">L</span><span class="mord mathnormal">oss</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4445em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.0556em;">∂</span><span class="mord mathnormal">c</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.0556em;">∂</span><span class="mord mathnormal">L</span><span class="mord mathnormal">oss</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
+<ul>
+<li><code>α</code> (alpha) = learning rate</li>
+<li>Repeat until convergence</li>
+</ul>
+<h4 id="when-to-stop">When to Stop?</h4>
+<ul>
+<li>Error change becomes insignificant</li>
+<li>Reached max iterations</li>
+</ul>
+<hr>
+<h2 id="is-training-just-one-math-formula-on-full-data">Is Training Just One Math Formula on Full Data?</h2>
+<p>Not quite.</p>
+<p>While the math is elegant, in <strong>practice</strong>:</p>
+<ul>
+<li>We don’t use the whole dataset at once (that’s <strong>batch gradient descent</strong>)</li>
+<li>We use <strong>mini-batches</strong> → this is called <strong>Stochastic Gradient Descent (SGD)</strong></li>
+</ul>
+<p>Each step:</p>
+<ul>
+<li>Learns from a small chunk of data</li>
+<li>Eventually leads to convergence</li>
+</ul>
+<hr>

@@ -1,0 +1,70 @@
+---
+sidebar_position: 7
+---
+<h1 id="the-illusion-of-self-understanding-llm-identity">The Illusion of Self: Understanding LLM Identity</h1>
+<h5 id="introduction"><strong>Introduction:</strong></h5>
+<p>We've explored how LLMs generate text and mitigate hallucinations. Now, let's tackle a question many people ask: "Who are you?" or "What model are you?" While LLMs can respond, understanding their responses requires us to delve into the fundamental nature of these models.</p>
+<h5 id="1-the-nature-of-llms-transient-token-tumblers"><strong>1. The Nature of LLMs: Transient Token Tumblers</strong></h5>
+<ul>
+<li>Not a Person:<br>
+It's crucial to understand that LLMs are not sentient beings. They don't have a persistent existence, consciousness, or personal experiences.</li>
+<li>Process, Generate, Forget:
+<ul>
+<li>An LLM's "life" is a series of processes.</li>
+<li>It receives input, processes it, generates a response (token by token), and then essentially "shuts off."</li>
+<li>Each new conversation is a fresh start. The context window is built, used, and then deleted.</li>
+</ul>
+</li>
+<li>Statistical Patterns:<br>
+LLMs operate based on statistical patterns learned from their training data. They predict the next token in a sequence, not based on understanding, but on probabilities.</li>
+<li>The Problem with "Who Are You?":<br>
+These questions are fundamentally nonsensical to an LLM. It doesn't have a "self" to identify.</li>
+</ul>
+<h5 id="2-the-randomness-of-default-responses"><strong>2. The Randomness of Default Responses</strong></h5>
+<ul>
+<li>Lack of Inherent Identity:<br>
+If an LLM isn't specifically programmed to answer identity questions, its responses will be based on statistical guesses.</li>
+<li>Example (Falcon 7B):
+<ul>
+<li>"Who built you?"</li>
+<li>Response: "I was built by OpenAI based on the GPT-3 model."</li>
+<li>This response is likely a hallucination, a statistical guess based on the prevalence of "OpenAI" and "GPT-3" in its training data.</li>
+</ul>
+</li>
+<li>The "Helpful Assistant" Persona:
+<ul>
+<li>During fine-tuning, LLMs learn to adopt a "helpful assistant" persona.</li>
+<li>This persona influences their responses, even when they lack specific information.</li>
+<li>Because the internet has so much information about Chat-GPT, and Open AI, it is statistically more likely to create a response that includes those terms, when it is asked about its own creation.</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-programming-an-identity-hardcoding-and-system-messages"><strong>3. Programming an Identity: Hardcoding and System Messages</strong></h5>
+<ul>
+<li>Overriding Default Responses:<br>
+Developers can program LLMs to provide specific answers to identity questions.</li>
+<li>Method 1: Hardcoded Data:
+<ul>
+<li>Creating training data with specific questions and answers about the LLM's identity.</li>
+<li>Example (Almo): A dataset of conversations where the LLM is asked about itself and provides pre-defined answers.</li>
+<li>This is similar to giving the LLM a script to follow.</li>
+</ul>
+</li>
+<li>Method 2: System Messages:
+<ul>
+<li>Using a "system message" at the beginning of a conversation to provide the LLM with information about its identity.</li>
+<li>This message is hidden from the user but included in the context window.</li>
+<li>It acts as a constant reminder of the LLM's "identity."</li>
+</ul>
+</li>
+<li>The Illusion Persists: Even with these methods, the LLM's "identity" is still a construct, a set of programmed responses, not a genuine sense of self.</li>
+</ul>
+<h5 id="4-the-psychological-takeaway"><strong>4. The Psychological Takeaway:</strong></h5>
+<ul>
+<li>Understanding the Underlying Mechanisms:<br>
+It is important to understand that the responses given by an LLM are not the same as a human giving a response.</li>
+<li>LLMs are not people:<br>
+Reinforce that LLMs are tools that process information and generate text based on learned patterns.</li>
+<li>Context is Key:<br>
+The context window is the immediate working memory of the LLM, and it is here where the LLM "remembers" its programmed identity.</li>
+</ul>

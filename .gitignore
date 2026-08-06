@@ -1,1 +1,11 @@
 node_modules
+.next
+out
+build
+.docusaurus
+.cache-loader
+.DS_Store
+*.log
+.env*
+.vercel
+tsconfig.tsbuildinfo

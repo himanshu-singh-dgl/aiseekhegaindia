@@ -1,0 +1,62 @@
+---
+sidebar_position: 4
+---
+<h1 id="internals-of-neural-networks">Internals of Neural Networks</h1>
+<h5 id="introduction">Introduction</h5>
+<p>Neural networks power modern AI systems, transforming input data into meaningful predictions. In this chapter, we explore their internal structure, how they process information, and how they are trained and used for inference. We will focus specifically on Transformers, one of the most widely used architectures in natural language processing (NLP).</p>
+<h5 id=""></h5>
+<h5 id="1-input-representation-and-context-length"><strong>1. Input Representation and Context Length</strong></h5>
+<p>Neural networks take inputs in the form of sequences of tokens. These tokens could be words, subwords, or even characters. The number of tokens processed in one pass is limited by a predefined context length, which determines how much information the model can consider at a time. While, in theory, a model could process an infinite number of tokens, practical limitations require restricting this length to a feasible range (e.g., 8,000 tokens in modern Transformer models).</p>
+<h5 id="the-role-of-parameters-in-neural-networks"><strong>The Role of Parameters in Neural Networks</strong></h5>
+<p>A neural network consists of a large set of parameters (also called weights) that define how input data is transformed into outputs. These parameters are initially set randomly, leading the model to make arbitrary predictions. However, through a process called training, the parameters are iteratively adjusted to align with meaningful patterns in data.<br>
+Think of parameters as knobs on a DJ set—adjusting them changes the way the model processes and interprets inputs.</p>
+<h5 id="mathematical-operations-in-neural-networks"><strong>Mathematical Operations in Neural Networks</strong></h5>
+<p>At its core, a neural network is a mathematical function that transforms inputs into outputs using a series of operations, such as:</p>
+<ul>
+<li>Multiplication (scaling inputs with weights)</li>
+<li>Addition (combining weighted inputs)</li>
+<li>Exponentiation (e.g., in activation functions)</li>
+<li>Normalization (adjusting values for stability)</li>
+<li>Softmax (converting outputs into probabilities)</li>
+</ul>
+<p>The architecture of the neural network dictates how these operations are arranged, ensuring efficiency, expressiveness, and optimizability.</p>
+<h5 id="4-the-transformer-architecture"><strong>4. The Transformer Architecture</strong></h5>
+<p>One of the most advanced and widely used neural network architectures is the Transformer, which excels at handling sequential data, such as text.<br>
+Structure of a Transformer</p>
+<p>A. Transformer consists of several key components:</p>
+<ul>
+<li>Token Embeddings: Convert input tokens into numerical vectors.</li>
+<li>Self-Attention Mechanism: Determines how different tokens relate to each other.</li>
+<li>Layer Normalization: Ensures stable training by normalizing activations.</li>
+<li>Feedforward Layers (MLP Block): Applies transformations to refine token representations.</li>
+<li>Output Layer (Softmax): Predicts the next token in a sequence based on learned patterns.</li>
+</ul>
+<p>B.Information Flow in a Transformer</p>
+<ul>
+<li>Input tokens are first embedded into numerical vectors.</li>
+<li>These embeddings are passed through self-attention layers, allowing the model to focus on relevant parts of the input</li>
+<li>The output of self-attention is processed through feedforward layers, refining the representation.</li>
+<li>The final layer produces logits, which are converted into probabilities to determine the next token prediction.</li>
+</ul>
+<h5 id="training-a-neural-network"><strong>Training a Neural Network</strong></h5>
+<p>Training a neural network involves finding the best parameter values to minimize prediction errors. The key steps include:</p>
+<ol>
+<li>Forward Pass: Compute predictions based on current parameter values.</li>
+<li>Loss Calculation: Compare predictions with actual outputs to measure error.</li>
+<li>Backward Pass (Gradient Descent): Adjust parameters using optimization techniques like Stochastic Gradient Descent (SGD) or Adam to reduce error.</li>
+<li>Iteration: Repeat these steps over millions of examples until the model generalizes well to unseen data.</li>
+</ol>
+<h5 id="inference-generating-new-data"><strong>Inference: Generating New Data</strong></h5>
+<p>Once a neural network is trained, it can be used for inference, meaning it generates new data based on learned patterns.<br>
+How Inference Works:</p>
+<ol>
+<li>Input Processing:<br>
+A sequence of tokens is provided to the trained model.</li>
+<li>Prediction:<br>
+The model computes probabilities for the next token.</li>
+<li>Sampling:<br>
+The next token is selected based on probabilities (e.g., greedy decoding, beam search, or temperature-controlled sampling).</li>
+<li>Iteration:<br>
+Steps 1-3 are repeated until the desired sequence length is reached.</li>
+</ol>
+<p>For example, given the input "Once upon a time," the model might predict the next word as "there" and continue generating a coherent story.</p>

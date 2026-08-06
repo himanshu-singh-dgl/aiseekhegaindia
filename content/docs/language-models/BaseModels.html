@@ -1,0 +1,87 @@
+---
+sidebar_position: 5
+---
+<h1 id="understanding-base-models-in-large-language-models">Understanding Base Models in Large Language Models</h1>
+<h5 id="introduction"><strong>Introduction</strong></h5>
+<p>Large Language Models (LLMs) are powerful AI systems trained on vast amounts of text data. However, before they become useful assistants capable of answering questions and engaging in meaningful conversations, they start as "base models." In this chapter, we will explore what base models are, how they are trained, and how they can be transformed into practical AI assistants.</p>
+<h5 id="1-what-is-a-base-model"><strong>1. What is a Base Model?</strong></h5>
+<p>A base model is the initial outcome of training a large-scale neural network on massive amounts of text. It is sometimes referred to as a "token simulator" because its primary function is to predict the next token (word or sub-word) in a sequence based on statistical patterns from its training data.<br>
+Key Characteristics of a Base Model:</p>
+<ul>
+<li>It is trained on large-scale internet text data.</li>
+<li>It generates coherent text by predicting the next token in a sequence.</li>
+<li>It does not inherently understand meaning but learns statistical patterns.</li>
+<li>It is not an assistant—without additional training, it cannot reliably answer questions or follow specific instructions.</li>
+</ul>
+<h5 id="how-are-base-models-created"><strong>How Are Base Models Created?</strong></h5>
+<p>Pre-training Stage<br>
+The first step in creating an LLM is the pre-training stage, where the model learns to predict the next token in a sequence.</p>
+<ol>
+<li>Data Collection:<br>
+The model is trained on vast amounts of text, such as books, articles, and web pages.</li>
+<li>Tokenization:<br>
+Text is broken down into smaller units called tokens (words, subwords, or characters).</li>
+<li>Neural Network Training:<br>
+A deep learning model, such as a Transformer, processes the tokens and adjusts its billions of parameters to minimize prediction errors.</li>
+<li>Final Output:<br>
+The result of this training is a base model that can generate text based on input prompts but lacks structured knowledge or task-specific abilities.</li>
+</ol>
+<p>Example: GPT-2 (2019) was a base model with 1.5 billion parameters, trained on 100 billion tokens of internet text.</p>
+<h5 id="limitations-of-base-models"><strong>Limitations of Base Models</strong></h5>
+<p>Base models have several limitations:</p>
+<ul>
+<li>No explicit knowledge retrieval:<br>
+They cannot fact-check information or recall specific details accurately.</li>
+<li>Stochastic behavior:<br>
+Given the same input multiple times, they may generate different responses due to probabilistic token sampling.</li>
+<li>Lack of interactive capabilities:<br>
+They do not follow instructions naturally and merely extend input text based on learned patterns.</li>
+</ul>
+<p>Example: If you ask a base model, "What is 2 + 2?", it may not consistently answer "4" because it has not been explicitly trained for arithmetic reasoning.</p>
+<h5 id="base-model-releases-and-their-components"><strong>Base Model Releases and Their Components</strong></h5>
+<p>a) Components of a Model Release<br>
+To release an LLM, two primary components are required:</p>
+<ol>
+<li>
+<p>Model Architecture Code:<br>
+Defines how the neural network processes text (e.g., Transformer architecture).</p>
+</li>
+<li>
+<p>Pre-trained Model Parameters:<br>
+A large set of numerical values that define the model's learned knowledge (e.g., 45 billion parameters for Llama 3).</p>
+</li>
+</ol>
+<p>b) Notable Base Model Releases</p>
+<p>| <em>Model</em> | <em>Year</em> | <em>Parameters</em> | <em>Training Tokens</em> |
+| :---- | :---- | :---- | :---- |
+| <em>GPT-2</em> | 2019 | 1.5B | 100B |
+| <em>Llama 3</em> | 2024 | 405B | 15T |</p>
+<h5 id="5-how-to-interact-with-a-base-model"><strong>5. How to Interact with a Base Model</strong></h5>
+<p>Although base models are not assistants, they can be used effectively with creative prompting techniques.<br>
+a) Direct Token Prediction<br>
+By providing a text input, the base model generates a probable continuation based on its training data.<br>
+Example: Input: "Here are the top 10 landmarks in Paris:" Output: "1. Eiffel Tower 2. Louvre Museum 3. Notre-Dame Cathedral..."<br>
+b) Memorization and Hallucination</p>
+<ul>
+<li>
+<p>The model sometimes memorizes frequently seen text, such as Wikipedia entries, and can regurgitate exact sentences.</p>
+</li>
+<li>
+<p>It also hallucinates, meaning it generates false information based on its training patterns rather than real-world facts.</p>
+</li>
+</ul>
+<p>c) Few-Shot Learning<br>
+With properly formatted examples, base models can infer patterns and perform simple tasks.<br>
+Example:</p>
+<p>| <em>English</em> | <em>Korean</em> |
+| :---- | :---- |
+| <em>Apple</em> | 사과 |
+| <em>House</em> | 집 |
+| <em>Teacher</em> | ? |</p>
+<p>With this prompt, the model correctly predicts "선생님" (teacher in Korean) as the answer.<br>
+d) Simulating an Assistant via Prompt Engineering<br>
+By structuring the input like a conversation, we can make the base model behave like an assistant.<br>
+Example:<br>
+Human: Why is the sky blue?<br>
+Assistant: The sky appears blue due to a phenomenon called Rayleigh scattering, where...</p>
+<p>The model continues the structured dialogue as if it were an AI assistant.</p>

@@ -1,0 +1,79 @@
+---
+sidebar_position: 6
+---
+<h1 id="navigating-the-hallucinations-understanding-and-improving-llm-accuracy">Navigating the Hallucinations: Understanding and Improving LLM Accuracy</h1>
+<h5 id="introduction"><strong>Introduction:</strong></h5>
+<p>Large Language Models (LLMs) are powerful tools capable of generating human-like text.1 However, they sometimes produce outputs that are factually incorrect or completely fabricated. This phenomenon is known as "hallucination," and it's a significant challenge in building reliable LLM assistants. In this chapter, we'll explore the causes of hallucinations, discuss techniques to mitigate them, and delve into the fascinating concept of self-knowledge in LLMs.<br>
+1. What are Hallucinations?</p>
+<ul>
+<li>Definition: Hallucinations occur when an LLM generates information that is not based on its training data or any external knowledge source, essentially "making things up."2</li>
+<li>Example:
+<ul>
+<li>You ask: "Who is Orson Kovats?"</li>
+<li>The LLM might respond: "Orson Kovats is a famous American author and science fiction writer." (Even if this person doesn't exist)</li>
+</ul>
+</li>
+<li>Why is this a problem?
+<ul>
+<li>Reduces trust in LLM outputs.</li>
+<li>Can lead to the spread of misinformation.</li>
+<li>Makes LLMs unreliable for tasks requiring factual accuracy.</li>
+</ul>
+</li>
+</ul>
+<p>2. The Root of the Problem: Statistical Token Tumblers</p>
+<ul>
+<li>Training Data Influence: LLMs learn by statistically imitating patterns in their training data.
+<ul>
+<li>If the training data contains many confident answers to questions like "Who is...?", the model will learn to provide confident answers, even when it doesn't know the correct information.</li>
+</ul>
+</li>
+<li>Lack of Real-World Understanding: LLMs don't have direct access to the internet or a true understanding of the world. They manipulate tokens based on statistical probabilities, not real-world knowledge.</li>
+<li>The "Confident Tone" Issue: During training, responses are often written by humans that convey confidence in their answers, even if the information has been quickly researched, and this also leads to the model conveying a similar style, even when incorrect.</li>
+</ul>
+<p>3. Mitigating Hallucinations: Step 1 - Explicitly Teaching "I Don't Know"</p>
+<ul>
+<li>The Principle: The aim is to enable the LLM to recognize its knowledge boundaries and respond appropriately when it lacks information.</li>
+<li>The Process:
+<ul>
+<li>Knowledge Probing: Systematically test the LLM's knowledge by asking factual questions derived from its training data.</li>
+<li>Automated Verification: Use other LLMs or programmatic methods to compare the model's answers with known correct answers.</li>
+<li>Data Augmentation: Add training examples where the correct answer to a question is "I don't know" or "I'm sorry, I don't have that information."</li>
+</ul>
+</li>
+<li>The Result: By learning to associate uncertainty with specific responses, the LLM becomes more likely to admit when it doesn't know something.</li>
+</ul>
+<p>4. Mitigating Hallucinations: Step 2 - Enabling Tool Use (Web Search)</p>
+<ul>
+<li>The Concept:<br>
+Give LLMs the ability to access and process external information, such as web search results, to enhance their knowledge.</li>
+<li>How it Works:
+<ul>
+<li>Introduce special tokens (e.g., "search_start," "search_end") that trigger external actions.</li>
+<li>When the LLM encounters these tokens, the system pauses generation, performs a web search based on the query, and inserts the retrieved text into the context window.</li>
+<li>The model can then use the information within the context window to answer the question.</li>
+</ul>
+</li>
+<li>The Benefits:
+<ul>
+<li>Access to up-to-date information.</li>
+<li>Improved accuracy and factual consistency.</li>
+<li>Ability to cite sources and provide verifiable information.</li>
+</ul>
+</li>
+<li>Context Windows and Working Memory: Explaining that context windows serve as the "working memory" for an LLM is a useful tool. This helps the student understand the difference between long term training memory, and the current, active information being used by the LLM.</li>
+</ul>
+<p>5. The Knowledge of Self: Understanding LLM Limitations</p>
+<ul>
+<li>Model Identification:<br>
+It is common to ask LLMs questions such as "what model are you?".</li>
+<li>The Reality:<br>
+The data that an LLM has about itself, is the training data that it was given. Therefore, its responses regarding "itself" are still based off of training data.</li>
+<li>Practical Implications:
+<ul>
+<li>Emphasize the importance of providing relevant information within the context window for accurate responses.</li>
+<li>Recognize the limitations of LLM self-awareness.</li>
+</ul>
+</li>
+</ul>
+<hr>

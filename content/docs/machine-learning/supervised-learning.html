@@ -1,0 +1,127 @@
+---
+sidebar_position: 2
+---
+<h1 id="supervised-learning">Supervised Learning</h1>
+<p>Supervised learning is a type of machine learning where the model is trained on labeled data. In this approach, the algorithm learns from a training dataset that includes both input features and their corresponding correct outputs.</p>
+<h2 id="what-is-supervised-learning">What is Supervised Learning?</h2>
+<p>Supervised learning involves learning a function that maps an input to an output based on example input-output pairs. The goal is to learn a general rule that maps inputs to outputs.</p>
+<h3 id="key-characteristics">Key Characteristics</h3>
+<ul>
+<li>Uses labeled training data</li>
+<li>Requires a clear target variable</li>
+<li>Can be used for both classification and regression tasks</li>
+<li>Model performance can be evaluated using test data</li>
+</ul>
+<h2 id="types-of-supervised-learning">Types of Supervised Learning</h2>
+<h3 id="classification">Classification</h3>
+<ul>
+<li>Binary Classification (e.g., spam detection)</li>
+<li>Multi-class Classification (e.g., image recognition)</li>
+<li>Multi-label Classification (e.g., document tagging)</li>
+</ul>
+<h3 id="regression">Regression</h3>
+<ul>
+<li>Linear Regression</li>
+<li>Polynomial Regression</li>
+<li>Logistic Regression (for binary classification)</li>
+</ul>
+<h2 id="example-linear-regression">Example: Linear Regression</h2>
+<pre><code class="language-python">from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+import numpy as np
+
+# Generate sample data
+X = np.array([[1], [2], [3], [4], [5]])
+y = np.array([2, 4, 6, 8, 10])
+
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Create and train the model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Make predictions
+predictions = model.predict(X_test)
+print(f"Predictions: {predictions}")
+</code></pre>
+<h2 id="common-algorithms">Common Algorithms</h2>
+<ol>
+<li>
+<p><strong>Linear Models</strong></p>
+<ul>
+<li>Linear Regression</li>
+<li>Logistic Regression</li>
+<li>Support Vector Machines (SVM)</li>
+</ul>
+</li>
+<li>
+<p><strong>Tree-based Models</strong></p>
+<ul>
+<li>Decision Trees</li>
+<li>Random Forests</li>
+<li>Gradient Boosting Machines</li>
+</ul>
+</li>
+<li>
+<p><strong>Neural Networks</strong></p>
+<ul>
+<li>Feedforward Neural Networks</li>
+<li>Convolutional Neural Networks (for image data)</li>
+<li>Recurrent Neural Networks (for sequential data)</li>
+</ul>
+</li>
+</ol>
+<h2 id="evaluation-metrics">Evaluation Metrics</h2>
+<h3 id="for-classification">For Classification</h3>
+<ul>
+<li>Accuracy</li>
+<li>Precision</li>
+<li>Recall</li>
+<li>F1 Score</li>
+<li>ROC-AUC</li>
+</ul>
+<h3 id="for-regression">For Regression</h3>
+<ul>
+<li>Mean Squared Error (MSE)</li>
+<li>Root Mean Squared Error (RMSE)</li>
+<li>R-squared</li>
+<li>Mean Absolute Error (MAE)</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li>
+<p><strong>Data Preprocessing</strong></p>
+<ul>
+<li>Handle missing values</li>
+<li>Scale features</li>
+<li>Encode categorical variables</li>
+<li>Remove outliers</li>
+</ul>
+</li>
+<li>
+<p><strong>Model Selection</strong></p>
+<ul>
+<li>Start with simple models</li>
+<li>Consider the nature of your data</li>
+<li>Balance between bias and variance</li>
+</ul>
+</li>
+<li>
+<p><strong>Validation</strong></p>
+<ul>
+<li>Use cross-validation</li>
+<li>Split data properly</li>
+<li>Monitor for overfitting</li>
+</ul>
+</li>
+</ol>
+<h2 id="applications">Applications</h2>
+<p>Supervised learning is used in various domains:</p>
+<ul>
+<li>Healthcare (disease prediction)</li>
+<li>Finance (credit scoring)</li>
+<li>Marketing (customer segmentation)</li>
+<li>Computer Vision (object detection)</li>
+<li>Natural Language Processing (text classification)</li>
+</ul>

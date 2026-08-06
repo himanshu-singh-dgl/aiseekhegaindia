@@ -1,0 +1,61 @@
+---
+sidebar_position: 4
+---
+<h1 id="understanding-inference-in-neural-network-based-language-models">Understanding Inference in Neural Network-Based Language Models</h1>
+<h5 id="introduction"><strong>Introduction</strong></h5>
+<p>Inference in neural network-based language models refers to the process of generating predictions based on learned patterns. Once a model is trained, it uses its fixed parameters to generate outputs in response to input tokens. This chapter explores how inference works, why it is stochastic, and how it differs from training.</p>
+<h5 id="2-the-basics-of-model-inference"><strong>2. The Basics of Model Inference</strong></h5>
+<p>Inference is the stage where the model, instead of learning new information, applies its pre-trained knowledge to generate predictions. For a language model, inference means predicting the next token in a sequence based on a given context.<br>
+2.1 How Inference Works</p>
+<ol>
+<li>Input Tokenization:<br>
+The input text is tokenized into smaller units (words, subwords, or characters).</li>
+<li>Feeding the Model:<br>
+The token sequence is passed into the trained model.</li>
+<li>Probability Distribution Generation:<br>
+The model outputs a probability distribution over all possible next tokens.</li>
+<li>Sampling a Token:<br>
+A token is selected based on the probability distribution (higher probability tokens are more likely to be chosen).</li>
+<li>Iteration:<br>
+The process repeats with the new token appended to the sequence until the desired output length is reached.</li>
+</ol>
+<h5 id="3-stochastic-nature-of-inference"><strong>3. Stochastic Nature of Inference</strong></h5>
+<p>Since inference involves sampling from a probability distribution, the output is not deterministic. Even with the same input, different tokens might be selected, leading to variations in generated sequences.<br>
+3.1 Example of Token Sampling<br>
+Consider a scenario where we want to generate text starting with the token 91:</p>
+<ul>
+<li>Input: 91</li>
+<li>Model predicts probabilities for the next token:
+<ul>
+<li>860 (50%)</li>
+<li>732 (30%)</li>
+<li>104 (20%)</li>
+</ul>
+</li>
+<li>A token is randomly selected based on these probabilities (e.g., 860).</li>
+<li>The process continues with 91, 860 as the new input, predicting the next token.</li>
+</ul>
+<h5 id="4-relationship-between-training-and-inference"><strong>4. Relationship Between Training and Inference</strong></h5>
+<ol>
+<li>Training Phase:<br>
+The model learns from vast amounts of data, adjusting its internal weights to minimize prediction errors.</li>
+<li>Inference Phase:<br>
+The model applies learned knowledge to generate outputs without modifying its weights.</li>
+<li>Differences:
+<ul>
+<li>Training involves updating parameters; inference does not.</li>
+<li>Training requires large-scale computation; inference is much lighter.</li>
+</ul>
+</li>
+</ol>
+<h5 id="5-example-of-inference-in-chatgpt"><strong>5. Example of Inference in ChatGPT</strong></h5>
+<p>When users interact with ChatGPT, they provide a sequence of tokens (input text). The model uses inference to predict and return the most likely continuation of the sequence. The weights of the model remain unchanged during this process.<br>
+For example:</p>
+<ul>
+<li>User Input:<br>
+"The capital of France is"</li>
+<li>Model Prediction:<br>
+"Paris"</li>
+<li>The model predicts “Paris”<br>
+because, based on its training, it has learned that "capital of France" is strongly associated with "Paris".</li>
+</ul>

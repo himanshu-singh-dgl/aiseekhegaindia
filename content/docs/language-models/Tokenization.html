@@ -1,0 +1,57 @@
+---
+sidebar_position: 2
+---
+<h4 id="tokenization---transforming-text-for-neural-networks"><strong>Tokenization - Transforming Text for Neural Networks</strong></h4>
+<h5 id="introduction"><strong>Introduction</strong></h5>
+<p>Before we can feed text into a neural network, we must first decide how to represent it in a format that the network can process. Neural networks expect input as a one-dimensional sequence of symbols, drawn from a finite set. In this chapter, we will explore how to convert raw text into a structured format using tokenization.</p>
+<h5 id="1-understanding-text-as-a-one-dimensional-sequence"><strong>1. Understanding Text as a One-Dimensional Sequence</strong></h5>
+<p>Text, although displayed in a two-dimensional format on screens (with lines and paragraphs), is inherently a one-dimensional sequence of characters. It flows from left to right and top to bottom in most written languages.<br>
+Computers internally represent text using encoding schemes such as UTF-8, which converts characters into binary sequences. Each character is stored as a sequence of bits (0s and 1s), and these bits form the fundamental building blocks of textual representation.</p>
+<h5 id="2-the-challenge-of-efficient-text-representation"><strong>2. The Challenge of Efficient Text Representation</strong></h5>
+<p>While we could represent text using raw bits (0s and 1s), this would lead to extremely long sequences, making it inefficient for neural networks to process. Instead, we seek a balance between the length of the sequence and the size of the vocabulary by grouping bits into larger units.<br>
+One common approach is to group 8 bits (1 byte) together, which allows us to represent 256 unique symbols (since 2⁸ = 256). Instead of dealing with raw bits, we can now think of text as a sequence of bytes, reducing the sequence length while increasing the symbol set size.<br>
+However, even at the byte level, sequences can still be long. To further optimize representation, we use a more advanced method: Byte Pair Encoding (BPE).</p>
+<h5 id="3-byte-pair-encoding-bpe"><strong>3. Byte Pair Encoding (BPE)</strong></h5>
+<p>BPE is a compression-based tokenization algorithm that reduces sequence length by merging frequently occurring symbol pairs into new symbols. Here’s how it works:</p>
+<ul>
+<li>Identify the most common pair of consecutive symbols (e.g., byte 116 followed by byte 32).</li>
+<li>Create a new token (e.g., symbol ID 256) to represent this pair.</li>
+<li>Replace all instances of the pair with the new token.</li>
+<li>Repeat the process iteratively, creating new symbols and reducing sequence length.</li>
+</ul>
+<p>Through this process, we form a vocabulary of tokens, where each token represents a common substring or word fragment. Modern language models such as GPT-4 use around 100,277 tokens in their vocabulary.</p>
+<h5 id="4-tokenization-in-practice"><strong>4. Tokenization in Practice</strong></h5>
+<p>The process of converting text into tokens is known as tokenization. It maps raw text to token IDs, which neural networks can process. For example:<br>
+Input: Hello world<br>
+Tokenized Output:</p>
+<ul>
+<li>
+<p>Hello → Token ID: 15339</p>
+</li>
+<li>
+<p>world → Token ID: 11917</p>
+</li>
+</ul>
+<p>Notice that spaces also affect tokenization. For instance, Hello world (with two spaces) results in a different tokenization pattern.<br>
+Case Sensitivity in Tokenization<br>
+Tokenization is case-sensitive.</p>
+<ul>
+<li>hello world may tokenize differently than Hello World.</li>
+<li>Capitalization changes the tokenization pattern, affecting model input.</li>
+</ul>
+<h5 id="5-exploring-tokenization-with-online-tools"><strong>5. Exploring Tokenization with Online Tools</strong></h5>
+<p>To visualize how tokenization works, you can use interactive tools such as <a href="https://tiktokenizer.vercel.app/">https://tiktokenizer.vercel.app/</a> . This tool allows you to:</p>
+<ul>
+<li>Input text and see how it gets tokenized.</li>
+<li>Observe how different spacing and capitalization affect tokenization.</li>
+<li>Understand the mapping between text and token IDs.</li>
+</ul>
+<p>To try this, select the CL100A Base tokenizer (used by GPT-4) and input various text samples to explore their tokenized forms.</p>
+<h5 id="6-why-tokenization-matters"><strong>6. Why Tokenization Matters</strong></h5>
+<p>Tokenization is a crucial step in language models because:</p>
+<ul>
+<li>It reduces sequence length, improving efficiency.</li>
+<li>It balances vocabulary size and sequence length for optimal performance.</li>
+<li>It enables neural networks to understand text in a structured manner.</li>
+</ul>
+<p>Through methods like BPE, state-of-the-art language models can effectively process vast amounts of text while maintaining accuracy and efficiency.</p>

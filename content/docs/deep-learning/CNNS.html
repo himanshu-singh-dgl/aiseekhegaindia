@@ -1,0 +1,713 @@
+<h1 id="deep-learning-for-computer-vision-and-convolutional-neural-networks-cnns">Deep Learning for Computer Vision and Convolutional Neural Networks (CNNs)</h1>
+<h2 id="chapter-1-teaching-machines-to-see--the-fundamentals-of-computer-vision">Chapter 1: Teaching Machines to See — The Fundamentals of Computer Vision</h2>
+<h2 id="introduction-to-vision-as-a-human-and-machine-capability">Introduction to Vision as a Human and Machine Capability</h2>
+<p>Vision is arguably one of the most powerful and complex senses possessed by biological organisms. It’s our primary means of understanding the physical world: detecting emotion in a face, navigating through a crowded street, reading a traffic light — all happen almost instantaneously and often subconsciously. But what if we could endow machines with the same perceptual ability?</p>
+<p>This chapter explores how we can program machines — especially deep learning models — to perceive and interpret the world visually. In other words, we're aiming to replicate the capability of sight in computers using raw image inputs.</p>
+<hr>
+<h2 id="what-is-vision-conceptually">What is Vision, Conceptually?</h2>
+<p>At its most essential definition, <strong>vision is the ability to determine "what is where by looking."</strong> But this deceptively simple idea hides immense complexity. Consider how much context you subconsciously interpret when looking at a single image:</p>
+<ul>
+<li>What objects are present?</li>
+<li>Where are they located?</li>
+<li>Are they moving or stationary?</li>
+<li>What are their relationships to each other?</li>
+<li>What might happen next?</li>
+</ul>
+<p>This act of perception isn’t just about labeling pixels — it involves <strong>spatial reasoning</strong>, <strong>temporal inference</strong>, and even <strong>predictive modeling</strong>.</p>
+<hr>
+<h2 id="static-vs-dynamic-perception">Static vs. Dynamic Perception</h2>
+<p>Human vision doesn’t just recognize objects statically; it understands them <strong>dynamically</strong>. For instance, consider an urban street scene:</p>
+<ul>
+<li>A white van parked on the left side of the road is understood to be <strong>static</strong>.</li>
+<li>A sedan in motion in the same frame is interpreted <strong>differently</strong> — even though both are visually "cars."</li>
+<li>Pedestrians on the sidewalk versus those crossing the street are perceived in terms of <strong>action and intention</strong>.</li>
+<li>A red traffic light implies <strong>upcoming behavior</strong> from moving vehicles.</li>
+</ul>
+<p>This is critical: vision is not just about detecting what is in the image — it's also about <strong>understanding how things interact over time</strong>.</p>
+<p>Human vision inherently reasons about <strong>temporality</strong>, <strong>intent</strong>, and <strong>dynamics</strong>, and our goal is to instill a similar <strong>representational</strong> and <strong>inferential</strong> power in computer vision systems.</p>
+<hr>
+<h2 id="why-computer-vision-matters">Why Computer Vision Matters</h2>
+<p>Computer vision powers real-world applications such as:</p>
+<ul>
+<li><strong>Autonomous driving</strong>: detecting lane boundaries, pedestrians, traffic signs.</li>
+<li><strong>Medical image analysis</strong>: identifying tumors from scans.</li>
+<li><strong>Augmented reality and robotics</strong>: spatial mapping, scene understanding.</li>
+<li><strong>Industrial automation</strong>: defect detection in manufacturing.</li>
+</ul>
+<p>These systems must do more than <strong>classify</strong> — they must <strong>perceive the scene</strong>, <strong>predict changes</strong>, and <strong>react accordingly</strong>, all in <strong>real-time</strong>.</p>
+<p><img src="./image_cnn_1.png" alt="This is an ALT TEXT"></p>
+<h1 id="chapter-2-deep-learnings-transformative-role-in-computer-vision">Chapter 2: Deep Learning's Transformative Role in Computer Vision</h1>
+<h2 id="the-deep-learning-revolution-in-visual-understanding">The Deep Learning Revolution in Visual Understanding</h2>
+<p>In the past decade, deep learning has transformed the landscape of computer vision. What was once a field defined by handcrafted features, pipelines of rule-based heuristics, and brittle performance is now dominated by end-to-end models that learn directly from raw pixels.</p>
+<p>This shift is not just an incremental improvement. It is a foundational rethinking of how machines perceive and interpret visual information. Deep neural networks have become the primary engine for visual perception tasks across industries and platforms, from large-scale robotics systems to compact mobile devices.</p>
+<h2 id="real-world-applications-from-cloud-to-edge">Real-World Applications: From Cloud to Edge</h2>
+<p>Computer vision is no longer confined to research labs or high-end servers. Today, it runs in your pocket.</p>
+<p>Modern smartphones ship with multiple vision models embedded in their hardware. These models power tasks such as real-time face recognition for authentication, scene segmentation for photo enhancement, and even depth estimation to support augmented reality.</p>
+<p>Embedded vision is also key to autonomous drones, smart glasses, and wearables. These edge devices operate with strict latency and power constraints, yet they perform complex visual inference tasks. The deep learning models they use are highly optimized, often quantized, and sometimes trained using transfer learning from larger models.</p>
+<h2 id="vision-in-healthcare-and-biology">Vision in Healthcare and Biology</h2>
+<p>In healthcare and biology, deep learning offers capabilities that rival expert-level human performance.</p>
+<p>Computer vision systems now analyze medical images such as X-rays, MRIs, and pathology slides to detect anomalies, classify tissue types, and even estimate disease progression. Importantly, they can detect subtle features that are often overlooked by human observers, and they do so with consistency and speed.</p>
+<p>For instance, retinal imaging models assist ophthalmologists in diagnosing diabetic retinopathy. In radiology, convolutional networks help prioritize scans with potential tumors for urgent review. These tools are reshaping diagnostic workflows and expanding access to expert-grade medical analysis.</p>
+<h2 id="self-driving-cars-a-grand-challenge-for-vision">Self-Driving Cars: A Grand Challenge for Vision</h2>
+<p>Autonomous driving represents one of the most complex and high-stakes applications of computer vision.</p>
+<p>One of the hallmark projects in this domain was developed at MIT. Unlike the traditional approach of building a pipeline of modular subsystems—one for perception, one for planning, another for control—this project involved building an end-to-end model. The model learned to drive directly from raw visual input without relying on predefined maps.</p>
+<p>The input to the model was the raw image stream from front-facing cameras. The output was driving commands. This method is elegant but challenging, as it requires the model to implicitly learn navigation, obstacle avoidance, traffic rule compliance, and more, just from visual input.</p>
+<p>What made this project significant was that the system could generalize to unseen roads. It did not need prior knowledge of the environment. This points toward a future where vision-based autonomy might not require detailed HD maps or handcrafted priors.</p>
+<h2 id="classical-to-contemporary-facial-recognition-as-a-case-study">Classical to Contemporary: Facial Recognition as a Case Study</h2>
+<p>One of the earliest and most impactful applications of computer vision was facial detection. Initially, the goal was simple: detect whether or not a face is present in an image.</p>
+<p>With deep learning, this problem has evolved dramatically. Modern models not only detect faces but also extract nuanced features such as facial landmarks, gaze direction, and micro-expressions. These features allow systems to estimate emotional state, detect identity under occlusion, and even track attention in real-time.
+<img src="./image_cnn_2.png" alt="This is an ALT text">
+<img src="./image_cnn_3.png" alt="This is an ALT text">
+<img src="./image_cnn_4.png" alt="This is an ALT text">
+<img src="./image_cnn_5.png" alt="This is an ALT text"></p>
+<h1 id="chapter-3-from-pixels-to-perception--how-computers-interpret-images">Chapter 3: From Pixels to Perception — How Computers Interpret Images</h1>
+<h2 id="bridging-human-intuition-and-machine-perception">Bridging Human Intuition and Machine Perception</h2>
+<p>In today’s class, we begin to transition from high-level applications to the underlying mechanics that enable them. The central question is both philosophical and technical: <strong>how can we take a task that humans perform effortlessly and encode that capability into machines?</strong></p>
+<p>For example, recognizing a face, distinguishing between two objects, or interpreting a scene are actions we perform with no conscious thought. Yet each of these tasks requires a series of complex perceptual computations.</p>
+<blockquote>
+<p>The goal is to design models that can perform such tasks with the same level of efficiency and accuracy, despite the lack of human intuition.</p>
+</blockquote>
+<hr>
+<h2 id="how-computers-represent-images">How Computers Represent Images</h2>
+<p>At the lowest level, images are fundamentally numerical. While to us an image of Abraham Lincoln is a coherent visual entity, to a computer it is nothing more than a structured set of values.</p>
+<ul>
+<li>In <strong>grayscale images</strong>, each pixel is represented by a single intensity value.</li>
+<li>In <strong>color images</strong>, each pixel is represented by a triplet of numbers corresponding to <strong>red</strong>, <strong>green</strong>, and <strong>blue</strong> intensities.</li>
+</ul>
+<p>This leads to two primary types of image representations:</p>
+<ul>
+<li><strong>Grayscale Image</strong>: Represented as a 2D matrix of shape <code>(height, width)</code></li>
+<li><strong>Color Image</strong>: Represented as a 3D tensor of shape <code>(height, width, 3)</code></li>
+</ul>
+<p>This structured representation is ideal for feeding into neural networks. Unlike text, which must be tokenized and embedded, images are already in a <strong>dense numerical format</strong>. The challenge is not converting them into numbers, but <strong>interpreting</strong> the numbers meaningfully.</p>
+<hr>
+<h2 id="understanding-the-learning-tasks-regression-and-classification">Understanding the Learning Tasks: Regression and Classification</h2>
+<p>Once an image is represented numerically, we can train deep learning models to perform specific tasks. These tasks typically fall into two broad categories:</p>
+<h3 id="regression">Regression</h3>
+<ul>
+<li><strong>Outputs</strong> continuous values.</li>
+<li><strong>Examples in vision</strong>:
+<ul>
+<li>Predicting the age of a person from a face image</li>
+<li>Estimating the depth of each pixel in a scene</li>
+<li>Forecasting motion vectors</li>
+</ul>
+</li>
+</ul>
+<h3 id="classification">Classification</h3>
+<ul>
+<li><strong>Outputs</strong> discrete class labels.</li>
+<li><strong>Example</strong>: Given an image of a historical figure, determine whether it is Abraham Lincoln, George Washington, or another U.S. president.</li>
+<li>The output is one of <strong>K</strong> possible categories, and the model must learn to assign high probability to the correct one.</li>
+</ul>
+<blockquote>
+<p>The classification task is central to many computer vision problems. For a model to classify images correctly, it must first learn to identify the features that distinguish one class from another.</p>
+</blockquote>
+<hr>
+<h2 id="feature-extraction-the-key-to-recognition">Feature Extraction: The Key to Recognition</h2>
+<p>Let’s ground this with an example: identifying whether a portrait is Abraham Lincoln or George Washington. Humans rely on distinctive features such as:</p>
+<ul>
+<li>Facial structure</li>
+<li>Hairstyle</li>
+<li>Beard or lack thereof</li>
+<li>Historical clothing artifacts</li>
+</ul>
+<p>For a machine to do this, it must also extract features — but unlike humans, it needs these features to be either <strong>explicitly defined</strong> or <strong>automatically learned</strong>.</p>
+<p>This brings us to the heart of deep learning for vision: <strong>representation learning</strong>.</p>
+<p>Neural networks learn to extract features from raw pixels through successive layers of:</p>
+<ul>
+<li>
+<p><strong>Convolution</strong></p>
+</li>
+<li>
+<p><strong>Pooling</strong></p>
+</li>
+<li>
+<p><strong>Non-linear transformation</strong></p>
+</li>
+<li>
+<p>Lower layers capture <strong>local edges and textures</strong>.</p>
+</li>
+<li>
+<p>Deeper layers capture <strong>higher-level abstractions</strong> such as facial parts or spatial arrangements.</p>
+</li>
+</ul>
+<p>By learning a hierarchy of features, the network becomes capable of associating specific patterns with specific labels.</p>
+<hr>
+<h2 id="summary">Summary</h2>
+<p>In this chapter, we have laid the foundation for understanding how deep learning systems interpret images. The pipeline begins with raw pixel arrays and flows into two core types of learning problems: <strong>regression</strong> and <strong>classification</strong>.</p>
+<h3 id="key-insights">Key insights:</h3>
+<ul>
+<li>Images are <strong>structured arrays of numbers</strong>, inherently suitable for machine interpretation.</li>
+<li>Classification tasks require models to <strong>detect and leverage features</strong> that separate one class from another.</li>
+<li>Deep networks automate this <strong>feature extraction</strong> through layers of learned filters, enabling models to understand visual patterns with increasing abstraction.
+<img src="./image_cnn_6.png" alt="This is an ALT text"></li>
+</ul>
+<h1 id="chapter-4-the-challenge-and-power-of-feature-detection">Chapter 4: The Challenge and Power of Feature Detection</h1>
+<h2 id="the-essence-of-visual-classification">The Essence of Visual Classification</h2>
+<p>At the heart of any image classification problem lies the task of feature detection. Fundamentally, classification is a two-step process:<br>
+Define what you are trying to detect.<br>
+Detects those features in new images.</p>
+<p>For instance, if you are trying to classify an image as a human face, you might define the necessary features as eyes, a nose, and a mouth. Once these components are detected in the image, you gain confidence that the object is indeed a face. Similarly, if you are trying to detect a house, you might define features such as doors, windows, and rooftops. The more of these features the system detects, the more confident it becomes in its classification.</p>
+<p>This process may appear intuitive, but building a system that performs it reliably across diverse inputs is highly nontrivial.</p>
+<h2 id="why-feature-detection-is-harder-than-it-looks">Why Feature Detection is Harder Than It Looks</h2>
+<p>The difficulty arises from two core challenges:<br>
+<strong>Feature Hierarchy and Recursion</strong></p>
+<ul>
+<li>To detect a face, you must detect eyes.</li>
+<li>But to detect eyes, you now have a subproblem that is structurally identical to the original problem.</li>
+<li>Each feature itself requires its own sub-feature detection process.</li>
+<li>This introduces a hierarchical structure where higher-level features are composed of lower-level ones.</li>
+</ul>
+<p><strong>High Variability in Input Space</strong></p>
+<p>A single object class, such as a face, can appear vastly different depending on:</p>
+<ul>
+<li>Lighting conditions</li>
+<li>Pose and orientation</li>
+<li>Occlusion (e.g. sunglasses, hats, shadows)</li>
+<li>Camera sensor differences</li>
+<li>Scale and resolution</li>
+</ul>
+<p>In raw pixel space, even small transformations can lead to large changes in numerical values.<br>
+This makes it hard for classical machine learning models to generalize, as they are sensitive to exact pixel patterns.</p>
+<h2 id="the-limitations-of-classical-machine-learning">The Limitations of Classical Machine Learning</h2>
+<p>In traditional machine learning, feature engineering is a manual process.<br>
+Domain experts are responsible for defining what to look for in the data. For image tasks, this means designing filters or extracting geometric and statistical descriptors like SIFT, HOG, or edge detectors.<br>
+While effective in constrained settings, this approach fails under real-world variation. It lacks adaptability and requires constant tweaking for new tasks or domains.</p>
+<p>Most importantly, these hand-engineered pipelines are brittle. If the features are poorly chosen or do not generalize, the performance collapses. The system’s success depends entirely on human insight and intuition.</p>
+<h2 id="deep-learning-as-the-paradigm-shift">Deep Learning as the Paradigm Shift</h2>
+<p>Deep learning offers a different philosophy. Instead of explicitly defining features, we learn them from data.<br>
+Convolutional neural networks (CNNs), the backbone of modern computer vision, are structured to automatically learn hierarchical features from raw pixels. Lower layers learn edges and textures. Middle layers capture parts and shapes. Higher layers learn object-level abstractions.<br>
+This automatic feature learning solves both core problems outlined earlier:</p>
+<ul>
+<li>Hierarchy is built into the model architecture through stacked layers.</li>
+<li>Invariance is achieved by training on diverse data and learning filters that generalize across scale, rotation, brightness, and more.</li>
+</ul>
+<p>What was previously a manual, error-prone, and brittle process is now a scalable, data-driven, and highly robust pipeline.</p>
+<h2 id="summary-1">Summary</h2>
+<p>Feature detection is the bottleneck in classical machine learning for computer vision.<br>
+Real-world classification tasks involve massive input variation and hierarchical dependencies.<br>
+Deep learning replaces hand-crafted feature engineering with automatic representation learning.<br>
+This shift enables scalable, general-purpose models that outperform classical methods in virtually every vision benchmark.</p>
+<p>As we move forward, we will dive into how convolutional layers are specifically designed to perform this automatic feature extraction process with mathematical precision and computational efficiency.
+<img src="./image_cnn_7.png" alt="This is an ALT text">
+<img src="./image_cnn_8.png" alt="This is an ALT text"></p>
+<h1 id="chapter-5-learning-features-directly-from-data-with-neural-networks">Chapter 5: Learning Features Directly from Data with Neural Networks</h1>
+<h2 id="moving-beyond-human-defined-features">Moving Beyond Human-Defined Features</h2>
+<p>Traditionally, computer vision systems depended on human-designed feature extractors. A developer might explicitly define that to detect a face, one must first detect eyes, ears, and noses. To go further, they might break those down even more — for instance, to detect an ear, look for a vertical line followed by a semicircle.</p>
+<p>This recursive manual engineering is fragile, time-consuming, and hard to generalize. What if, instead, we could eliminate this step entirely?<br>
+This is exactly what deep learning enables. Rather than define features, we learn them directly from raw data.<br>
+The new paradigm:<br>
+Feed the model a large dataset of images (e.g. faces).<br>
+Let the model figure out which patterns of pixels are most useful for distinguishing these images from others (e.g. cars, trees, or other objects).<br>
+Do this automatically, across many layers, with increasing abstraction.</p>
+<hr>
+<h2 id="hierarchy-through-depth">Hierarchy Through Depth</h2>
+<p>The key architectural insight lies in depth. A neural network is composed of many layers, each transforming the image representation in a structured, learnable way.<br>
+Early layers learn simple features like edges and textures.<br>
+Middle layers build on these to form motifs like eyes, wheels, or leaf patterns.<br>
+Deeper layers combine these motifs into object-level understanding — faces, vehicles, animals, etc.</p>
+<p>This progression is not manually programmed. It emerges from training data through backpropagation and gradient descent.<br>
+Each layer's role is to extract more abstract, more informative features from the layer below it. The deeper the network, the more complex the learned representations become.</p>
+<hr>
+<h2 id="why-this-works">Why This Works</h2>
+<p>The power of this approach lies in the distributed and compositional nature of representations in deep neural networks:<br>
+<strong>Distributed:</strong><br>
+No single neuron defines a concept. Instead, many neurons jointly encode patterns.<br>
+<strong>Compositional:</strong><br>
+High-level features are composed of lower-level ones, learned through successive transformations.</p>
+<p>What makes this powerful in vision is the sheer variability in how objects appear: lighting, pose, occlusion, and background noise. Instead of hand-coding every edge case, we allow the model to generalize from examples.<br>
+Given enough data and a sufficiently expressive model, the network can learn to tease apart the subtle cues that distinguish one object class from another — without any explicit definition of what a nose, a car, or a building looks like.</p>
+<hr>
+<h2 id="revisiting-our-example">Revisiting Our Example</h2>
+<p>Suppose we want to distinguish faces from cars.<br>
+In a traditional system, we might specify that faces have eyes, noses, and mouths, and cars have wheels, headlights, and windshields.<br>
+In a deep learning system, we feed thousands of labeled examples of faces and cars.<br>
+The network’s convolutional layers learn discriminative patterns at every level — from low-level gradients to high-level semantic structures.<br>
+Over time, the network builds a hierarchy of features tuned specifically to the task at hand.</p>
+<p>No manual feature engineering is involved. The data drives the representations.</p>
+<hr>
+<h2 id="summary-2">Summary</h2>
+<p>Human-defined features are limited by our intuition and manual effort.<br>
+Neural networks eliminate the need for handcrafted feature pipelines by learning representations directly from data.<br>
+Hierarchical structure arises naturally from network depth, enabling increasingly abstract features to emerge.<br>
+This approach makes models more adaptive, more robust to real-world variation, and ultimately more performant across vision tasks.</p>
+<p><img src="./image_cnn_9.png" alt="This is an ALT text"></p>
+<h1 id="chapter-6-preserving-spatial-structure-with-convolutional-neural-networks">Chapter 6: Preserving Spatial Structure with Convolutional Neural Networks</h1>
+<h2 id="the-limits-of-fully-connected-networks-in-vision">The Limits of Fully Connected Networks in Vision</h2>
+<p>In Lecture 1, we explored fully connected neural networks  models where each neuron in one layer is connected to every neuron in the previous layer. This structure works well for problems where the input is one-dimensional or where spatial locality is not important.</p>
+<p>But images are fundamentally different.<br>
+An image is a two-dimensional structure — width and height (and possibly channels for color). Every pixel has spatial meaning: a pixel next to another shares more visual relevance than one on the opposite side of the image. Flattening this structure into a one-dimensional vector destroys this locality.</p>
+<p>Let’s say we flatten a 100×100 image (grayscale). That’s a vector of size 10,000. If our hidden layer has 1,000 neurons, we now have 10 million parameters just between two layers. Worse, we’ve lost all of the rich structure that defines images  edges, shapes, orientation, and locality.<br>
+This is computationally inefficient and conceptually unsound.</p>
+<h2 id="what-we-need-instead">What We Need Instead</h2>
+<p>To model vision tasks effectively, we need a network architecture that:</p>
+<ul>
+<li>Preserves the spatial arrangement of pixels</li>
+<li>Maintains local connectivity (pixels that are near each other matter most)</li>
+<li>Is parameter-efficient, sharing computations across regions of the image</li>
+<li>Builds hierarchical features, where local patterns form edges, shapes, and entire objects</li>
+</ul>
+<p>This is the idea behind Convolutional Neural Networks (CNNs).</p>
+<h2 id="local-connectivity-and-weight-sharing">Local Connectivity and Weight Sharing</h2>
+<p>Instead of connecting every input pixel to every neuron in the next layer, CNNs use local receptive fields in small patches of the input image.</p>
+<p>Let’s say we use a filter (also called a kernel) of size 4×4. This filter is a small set of weights (just 16 numbers) that will be applied across the image:</p>
+<ul>
+<li>The first output neuron in the next layer is computed by applying this filter to the top-left 4×4 patch of the image.</li>
+<li>The next neuron is computed by applying the same filter to the next 4×4 patch, shifted one pixel to the right.</li>
+<li>This continues across the entire image.</li>
+</ul>
+<p>This operation is called a convolution.<br>
+<strong>Key characteristics:</strong></p>
+<ul>
+<li><strong>Locality:</strong><br>
+Each neuron sees only a small patch of the input (local features).</li>
+<li><strong>Weight sharing:</strong><br>
+The same filter is used everywhere in the image, which drastically reduces parameters.</li>
+<li><strong>Translation invariance:</strong><br>
+Because the same filter is applied across locations, the network can detect a pattern regardless of where it occurs.</li>
+</ul>
+<p>This is fundamentally different from fully connected layers, where each neuron has a separate weight for every input pixel.</p>
+<h2 id="what-is-a-convolution">What is a Convolution?</h2>
+<p>A convolution is a sliding, element-wise multiplication operation followed by a sum, bias addition, and nonlinearity.<br>
+Here’s how it works:</p>
+<ul>
+<li>Take a small patch of the input image — say, a 4×4 region.</li>
+<li>Multiply it element-wise with the 4×4 filter.</li>
+<li>Sum the result into a single number.</li>
+<li>Add a bias term.</li>
+<li>Pass the result through a nonlinearity (like ReLU).</li>
+<li>Shift the filter (by a stride of 1 or 2 pixels), and repeat.</li>
+</ul>
+<p>The result is a new matrix, called a <strong>feature map</strong>, which encodes where and how strongly a certain pattern appears in the image.<br>
+By stacking multiple filters, we extract multiple types of features — edges in different directions, textures, corners, etc.</p>
+<h2 id="why-convolutions-work-so-well">Why Convolutions Work So Well</h2>
+<p>CNNs introduce inductive biases that are well-aligned with how real-world images behave:</p>
+<ul>
+<li><strong>Locality bias:</strong><br>
+Nearby pixels are more related than distant ones.</li>
+<li><strong>Translation equivariance:</strong><br>
+A pattern (like an eye) means the same thing regardless of where it appears.</li>
+<li><strong>Parameter sharing:</strong><br>
+Learning one set of weights that can generalize across the input space makes the model more efficient and data-hungry.</li>
+</ul>
+<p>Over multiple layers, CNNs form hierarchies of features:</p>
+<ul>
+<li><strong>Layer 1:</strong> local edge detectors (like Sobel filters)</li>
+<li><strong>Layer 2:</strong> motifs (corners, curves)</li>
+<li><strong>Layer 3+:</strong> parts of objects and entire objects (faces, wheels, etc.)</li>
+</ul>
+<p>This aligns perfectly with how humans understand vision — as a composition of increasingly complex structures.</p>
+<h2 id="summary-3">Summary</h2>
+<ul>
+<li>Flattening images for fully connected layers destroys spatial information and is inefficient.</li>
+<li>Convolutional layers maintain spatial structure and reduce parameters by using local filters.</li>
+<li>A convolution is a filter sliding across the image, performing local pattern detection.</li>
+<li>CNNs exploit properties of images  locality, translation invariance, and shared structure  to build robust visual models.</li>
+</ul>
+<p><img src="./image_cnn_10.png" alt="This is an ALT text">
+<img src="./image_cnn_11.png" alt="This is an ALT text">
+<img src="./image_cnn_12.png" alt="This is an ALT text">
+<img src="./image_cnn_13.png" alt="This is an ALT text"></p>
+<h1 id="chapter-7-filters-features-and-the-power-of-convolutions">Chapter 7: Filters, Features, and the Power of Convolutions</h1>
+<h2 id="the-feature-detection-power-of-convolutions">The Feature Detection Power of Convolutions</h2>
+<p>So far, we’ve learned that:<br>
+Fully connected networks discard spatial structure.<br>
+Convolutions preserve it by operating locally.<br>
+Each filter detects a specific pattern by sliding over the image.</p>
+<p>But how exactly does a filter detect features like edges, textures, or shapes?<br>
+Let’s answer that through an example.</p>
+<h2 id="detecting-shapes-the-case-of-an-x">Detecting Shapes: The Case of an “X”</h2>
+<p>Suppose you're trying to detect whether an image contains an X — not necessarily centered, possibly rotated or distorted. You could:</p>
+<ul>
+<li>Compare the input image pixel by pixel with a prototype X (but this fails under deformation),</li>
+<li>Or, break the image into patches, and search for elemental components of an X:
+<ul>
+<li>a forward diagonal</li>
+<li>a backward diagonal</li>
+<li>a crossing pattern</li>
+</ul>
+</li>
+</ul>
+<p>Instead of recognizing the full structure all at once, we detect and recombine parts of it.<br>
+These elemental detectors are what filters are for. Each filter is a small matrix (e.g., 3×3) that looks for a basic pattern:</p>
+<ul>
+<li>A diagonal line</li>
+<li>A vertical edge</li>
+<li>A horizontal transition</li>
+<li>A corner</li>
+</ul>
+<p>These filters are our learned eyes — they decide what to look for in the data.</p>
+<p>Here's the Markdown-compatible version of the image content you shared, with LaTeX math and code blocks properly adapted:</p>
+<hr>
+<h3 id="convolution-mathematical-recap"><strong>Convolution: Mathematical Recap</strong></h3>
+<p>Let’s define the operation formally.
+Let:</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>H</mi><mo>×</mo><mi>W</mi></mrow></msup></mrow><annotation encoding="application/x-tex">I \in \mathbb{R}^{H \times W}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.0785em;">I</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8413em;"></span><span class="mord"><span class="mord mathbb">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0813em;">H</span><span class="mbin mtight">×</span><span class="mord mathnormal mtight" style="margin-right:0.1389em;">W</span></span></span></span></span></span></span></span></span></span></span></span>: Input image (grayscale)</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>k</mi><mo>×</mo><mi>k</mi></mrow></msup></mrow><annotation encoding="application/x-tex">F \in \mathbb{R}^{k \times k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8491em;"></span><span class="mord"><span class="mord mathbb">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span><span class="mbin mtight">×</span><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span></span></span></span></span></span></span></span></span>: Filter of size <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>×</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">k \times k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>H</mi><mo>×</mo><mi>W</mi></mrow></msup></mrow><annotation encoding="application/x-tex">O \in \mathbb{R}^{H \times W}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">O</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8413em;"></span><span class="mord"><span class="mord mathbb">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0813em;">H</span><span class="mbin mtight">×</span><span class="mord mathnormal mtight" style="margin-right:0.1389em;">W</span></span></span></span></span></span></span></span></span></span></span></span>: Output feature map</li>
+</ul>
+<p>Then the convolution operation at location <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(i, j)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0572em;">j</span><span class="mclose">)</span></span></span></span> is defined as:</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></munderover><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></munderover><mi>I</mi><mo stretchy="false">(</mo><mi>i</mi><mo>+</mo><mi>m</mi><mo separator="true">,</mo><mi>j</mi><mo>+</mo><mi>n</mi><mo stretchy="false">)</mo><mo>⋅</mo><mi>F</mi><mo stretchy="false">(</mo><mi>m</mi><mo separator="true">,</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(i, j) = \sum_{m=0}^{k-1} \sum_{n=0}^{k-1} I(i + m, j + n) \cdot F(m, n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">O</span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0572em;">j</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3.1032em;vertical-align:-1.2671em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8361em;"><span style="top:-1.8829em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2671em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8361em;"><span style="top:-1.8829em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2671em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0785em;">I</span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.854em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0572em;">j</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">F</span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span>
+<ol>
+<li>This is an element-wise multiplication of the filter and the patch of the image it covers.</li>
+<li>The result is summed up to a single scalar.</li>
+<li>We then slide this filter across the image (usually with stride = 1).</li>
+<li>Optionally, we add a bias and apply a nonlinearity (e.g., ReLU).</li>
+</ol>
+<p>This gives us a 2D output — a feature map — indicating where in the image that particular pattern is detected.</p>
+<hr>
+<h3 id="interpretable-filters-and-hand-engineering"><strong>Interpretable Filters and Hand-Engineering</strong></h3>
+<p>Before learning filters via backpropagation became common, hand-engineered filters were widely used.
+Let’s examine a few examples:</p>
+<hr>
+<h3 id="edge-detection-filters"><strong>Edge Detection Filters</strong></h3>
+<h4 id="horizontal-edge-filter-sobel">Horizontal edge filter (Sobel):</h4>
+<pre><code class="language-text">[ -1, -2, -1 ]  
+[  0,  0,  0 ]  
+[  1,  2,  1 ]
+</code></pre>
+<h4 id="vertical-edge-filter-sobel">Vertical edge filter (Sobel):</h4>
+<pre><code class="language-text">[ -1,  0,  1 ]  
+[ -2,  0,  2 ]  
+[ -1,  0,  1 ]
+</code></pre>
+<hr>
+<p>These filters approximate derivatives — they highlight where pixel intensity changes rapidly. They are high-pass filters, designed to detect edges.
+Here is the content from your image converted into clean, Markdown-compatible format with code blocks and proper structure:</p>
+<hr>
+<h3 id="sharpen-filter"><strong>Sharpen Filter:</strong></h3>
+<pre><code class="language-text">[  0, -1,  0 ]  
+[ -1,  5, -1 ]  
+[  0, -1,  0 ]
+</code></pre>
+<p>These emphasize central pixels and subtract neighbors — enhancing contrast and sharpness.
+These filters are <strong>interpretable</strong> — you can understand their behavior just by inspection.</p>
+<hr>
+<h3 id="whats-learned-in-cnns"><strong>What’s Learned in CNNs?</strong></h3>
+<p>In modern CNNs, these filters are <strong>not hand-coded</strong>. Instead:</p>
+<ul>
+<li>They are learned directly from data via backpropagation.</li>
+<li>The model finds the optimal set of filters that maximize task performance (e.g., accuracy).</li>
+</ul>
+<hr>
+<h3 id="early-layers-typically-learn"><strong>Early layers typically learn:</strong></h3>
+<ul>
+<li>Edges</li>
+<li>Corners</li>
+<li>Color blobs</li>
+</ul>
+<hr>
+<h3 id="deeper-layers-combine-these-to-form"><strong>Deeper layers combine these to form:</strong></h3>
+<ul>
+<li>Parts of objects (e.g., eyes, wheels)</li>
+<li>Full objects (e.g., faces, cats)</li>
+</ul>
+<p>Each convolutional filter becomes a template detector for a particular feature.</p>
+<hr>
+<h3 id="summary-of-concepts"><strong>Summary of Concepts</strong></h3>
+<p>Let’s consolidate what we’ve covered:</p>
+<p>| <strong>Concept</strong>           | <strong>Explanation</strong>                                                     |
+| --------------------- | ------------------------------------------------------------------- |
+| <strong>Filter (Kernel)</strong>   | A small matrix that scans over the image, detecting a feature       |
+| <strong>Convolution</strong>       | Element-wise multiplication + summation between filter and patch    |
+| <strong>Stride</strong>            | How far the filter moves at each step (e.g., 1 pixel, 2 pixels)     |
+| <strong>Padding</strong>           | Adding zeros around the image to preserve spatial dimensions        |
+| <strong>Feature map</strong>       | Output after applying a filter across the entire image              |
+| <strong>Learnable filters</strong> | CNNs optimize these filters via training to extract useful features |</p>
+<hr>
+<p><img src="./image_cnn_14.png" alt="This is an ALT text">
+<img src="./image_cnn_15.png" alt="This is an ALT text">
+<img src="./image_cnn_16.png" alt="This is an ALT text">
+<img src="./image_cnn_17.png" alt="This is an ALT text">
+<img src="./image_cnn_18.png" alt="This is an ALT text">
+<img src="./image_cnn_19.png" alt="This is an ALT text">
+<img src="./image_cnn_20.png" alt="This is an ALT text">
+<img src="./image_cnn_21.png" alt="This is an ALT text"></p>
+<h1 id="chapter-8-learning-to-see-understanding-the-inner-workings-of-cnns">Chapter 8: "Learning to See: Understanding the Inner Workings of CNNs"</h1>
+<h2 id="from-convolution-to-cnn-zooming-out">From Convolution to CNN: Zooming Out</h2>
+<p>You already know the basic idea:</p>
+<ul>
+<li>The image is input.</li>
+<li>The filters (also called kernels) are slid over the image to compute feature maps via convolution.</li>
+<li>The resulting numbers capture the presence (or absence) of specific patterns (edges, corners, etc.) in the image.</li>
+</ul>
+<p>But so far, we assumed we had those filters. In real CNNs:<br>
+<strong>We learn those filters automatically from data.</strong></p>
+<hr>
+<h2 id="the-core-components-of-a-cnn">The Core Components of a CNN</h2>
+<p>There are three core operations you’ll repeatedly see in CNNs:</p>
+<h3 id="i-convolution">(i) Convolution</h3>
+<ul>
+<li>Captures local features.</li>
+<li>Each filter learns to detect a specific pattern (edge, texture, shape).</li>
+<li>Produces multiple feature maps, each indicating where that pattern appears.</li>
+</ul>
+<h3 id="ii-relu-nonlinearity-eg-relu-rectified-linear-unit">(ii) ReLU: Nonlinearity (e.g., ReLU) Rectified Linear Unit</h3>
+<ul>
+<li>Applies an activation function to the feature map output.</li>
+<li>ReLU sets all negative values to zero (like a threshold gate).</li>
+<li>This nonlinearity makes the network expressive, i.e., capable of learning complex, nonlinear patterns.</li>
+</ul>
+<h3 id="iii-pooling-downsampling">(iii) Pooling (Downsampling)</h3>
+<ul>
+<li>Reduces the spatial dimensions (e.g., 28×28 → 14×14).</li>
+<li>Helps reduce computation and introduces invariance to small translations/rotations.</li>
+<li>Common: <strong>Max pooling</strong>, which retains only the max value in each small window.</li>
+<li><strong>Mean Pooling</strong>: averages out the whole matrix and preserves the mean/avg instead of max.</li>
+</ul>
+<p>These steps repeat across layers, allowing the network to learn increasingly abstract and complex representations.</p>
+<hr>
+<h2 id="local-connectivity--hierarchical-features">Local Connectivity + Hierarchical Features</h2>
+<p>CNNs exploit local connectivity: each neuron only “sees” a small patch of the image.<br>
+However, by stacking multiple convolution layers, the effective receptive field grows:</p>
+<ul>
+<li><strong>Layer 1</strong> learns edges (horizontal, vertical, diagonal).</li>
+<li><strong>Layer 2</strong> learns combinations of those edges (corners, curves).</li>
+<li><strong>Layer 3+</strong> starts recognizing more semantic features (eyes, faces, objects).</li>
+</ul>
+<p>This is <strong>hierarchical feature extraction</strong>, a key power of CNNs.</p>
+<hr>
+<h2 id="multiple-filters-per-layer--feature-volume">Multiple Filters per Layer = Feature Volume</h2>
+<p>Each conv layer learns not one, but many filters—each producing its own feature map.<br>
+Stacking all of these maps together gives a <strong>feature volume</strong> (like a 3D tensor).</p>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Input: (32×32×3) image (RGB)</li>
+<li>Conv Layer 1 applies 16 filters → Output: (30×30×16)</li>
+<li>Next conv layer may apply 32 filters → Output: (28×28×32), and so on...</li>
+</ul>
+<p>The <strong>depth increases</strong>, but the <strong>height/width may decrease via pooling</strong>.</p>
+<hr>
+<h2 id="training-how-filters-are-learned">Training: How Filters Are Learned</h2>
+<p>Filters (i.e., weights of the convolution kernels) are learned via <strong>gradient descent</strong>.<br>
+<strong>How?</strong></p>
+<ol>
+<li>The network makes a prediction (e.g., "this is a cat").</li>
+<li>If it's wrong, a loss is calculated.</li>
+<li>The error is back-propagated through the network.</li>
+<li>This updates the filters to reduce future error.</li>
+</ol>
+<p>So over time, <strong>filters specialize to detect patterns most useful for distinguishing between the target classes</strong>.</p>
+<hr>
+<h2 id="visualizing-filters">Visualizing Filters</h2>
+<p>After training:</p>
+<ul>
+<li>First-layer filters tend to look like <strong>oriented edges</strong> (Sobel-like).</li>
+<li>Deeper filters may detect <strong>textures, motifs, or object parts</strong> (eyes, wheels, ears).</li>
+</ul>
+<p>You can visualize these filters and activations to understand what the model “sees”.<br>
+This is powerful because it gives <strong>interpretable insight</strong> into otherwise “black-box” deep models.</p>
+<hr>
+<h2 id="classification-via-softmax">Classification via Softmax</h2>
+<p>Once you've passed the image through multiple <strong>convolution + ReLU + pooling</strong> layers:</p>
+<ul>
+<li>You’re left with abstract high-level features.</li>
+<li><strong>Flatten</strong> them and feed them into a fully connected (dense) layer.</li>
+<li>The final layer uses <strong>Softmax</strong> to produce a probability distribution over possible classes.
+Here is your image content converted into clean, Markdown-compatible format with LaTeX and code blocks preserved:</li>
+</ul>
+<hr>
+<h3 id="softmax-formula"><strong>Softmax formula:</strong></h3>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Softmax</mtext><mo stretchy="false">(</mo><msub><mi>z</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo>=</mo><mfrac><msup><mi>e</mi><msub><mi>z</mi><mi>i</mi></msub></msup><mrow><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><msup><mi>e</mi><msub><mi>z</mi><mi>j</mi></msub></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{Softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Softmax</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.6484em;vertical-align:-1.307em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3414em;"><span style="top:-2.1288em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9812em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0572em;">j</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0715em;">K</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4358em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6065em;"><span style="top:-3.0051em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:-0.044em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0572em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2819em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:-0.044em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.307em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
+<p><strong>Where:</strong></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">z_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is the score for class <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">K</span></span></span></span> is the total number of classes</li>
+</ul>
+<hr>
+<h3 id="this-ensures"><strong>This ensures:</strong></h3>
+<ul>
+<li>Each output is in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></li>
+<li>All outputs sum to 1 (so they form a valid probability distribution)</li>
+</ul>
+<hr>
+<h3 id="overall-pipeline-cnn-for-classification"><strong>Overall Pipeline: CNN for Classification</strong></h3>
+<pre><code class="language-text">Input Image
+      ↓
+Convolution Layer(s) ➜ ReLU ➜ Pooling
+      ↓
+More Conv Layers ➜ ReLU ➜ Pooling
+      ↓
+Flatten
+      ↓
+Fully Connected Layer
+      ↓
+Softmax
+      ↓
+Predicted Class Probabilities
+</code></pre>
+<p>The CNN learns to extract patterns that are invariant, informative, and interpretable, and then uses those to classify the input.</p>
+<hr>
+<p><img src="./image_cnn_22.png" alt="This is an ALT text">
+<img src="./image_cnn_23.png" alt="This is an ALT text">
+<img src="./image_cnn_24.png" alt="This is an ALT text">
+<img src="./image_cnn_25.png" alt="This is an ALT text"></p>
+<h1 id="chapter-9-building-an-end-to-end-convolutional-neural-network">Chapter 9: Building an End-to-End Convolutional Neural Network</h1>
+<p>In this chapter, we’ll walk through the process of building a complete convolutional neural network (CNN) from the ground up. The focus will be on understanding both the conceptual architecture and its concrete implementation in PyTorch. Our final objective is to classify images (e.g., digits 0–9) by learning hierarchical visual features directly from raw pixel inputs.</p>
+<p>This is not a theoretical detour. Everything we explore here is driven toward the practical goal of building a trainable, end-to-end system that can extract features, flatten them into an abstract representation, and make predictions over a predefined set of categories.</p>
+<h2 id="architectural-breakdown-two-key-stages">Architectural Breakdown: Two Key Stages</h2>
+<p>A CNN is organized into two principal stages:</p>
+<h3 id="1-feature-extraction">1. Feature Extraction</h3>
+<p>This is where convolutional operations take place. The model scans over the input image using learnable filters (also called kernels), extracting local patterns such as edges, corners, and textures. These filters are not manually specified they are learned from the data.<br>
+We begin with:</p>
+<ul>
+<li>
+<p>A first convolutional layer that applies 32 filters to the input. The output is a 3D volume of shape (32, H, W) one activation map per filter.</p>
+</li>
+<li>
+<p>A ReLU nonlinearity to introduce the non-linear decision-making capability.</p>
+</li>
+<li>
+<p>A max pooling operation to downsample the spatial resolution, allowing the network to focus on what was detected rather than where it was detected.</p>
+</li>
+</ul>
+<p>Then:</p>
+<ul>
+<li>
+<p>A second convolutional layer that builds on the first by learning 64 additional filters. These filters now operate over the 32-feature volume from the first layer.</p>
+</li>
+<li>
+<p>Followed again by ReLU and pooling.</p>
+</li>
+</ul>
+<p>This pipeline lets us learn a rich, hierarchical set of features — from edges to textures to object parts.</p>
+<h3 id="2-classification-fully-connected-layers">2. Classification (Fully Connected Layers)</h3>
+<p>Once spatial features have been extracted, we transition from spatial reasoning to semantic reasoning.</p>
+<ul>
+<li>
+<p>The multi-channel feature maps from the last convolutional layer are flattened into a single vector.</p>
+</li>
+<li>
+<p>This vector is then passed through fully connected (dense) layers.</p>
+</li>
+<li>
+<p>Finally, a softmax function squashes the final output into a probability distribution over the target classes (e.g., digits 0 to 9).</p>
+</li>
+</ul>
+<p>This structure forms a classic CNN pipeline:<br>
+<strong>convolutions → pooling → flattening → classification</strong></p>
+<h2 id="implementation-in-pytorch">Implementation in PyTorch</h2>
+<p>Below is the code that mirrors the above architecture using PyTorch's nn.Module API.</p>
+<pre><code>import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class ConvNet(nn.Module):
+    def __init__(self, num_classes=10):
+        super(ConvNet, self).__init__()
+        
+        # Feature extractor
+        self.features = nn.Sequential(
+            nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1),  # 1x28x28 → 32x28x28
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            # 32x28x28 → 32x14x14
+            
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1),  # 32x14x14 → 64x14x14
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+            # 64x14x14 → 64x7x7
+        )
+        
+        # Classifier
+        self.classifier = nn.Sequential(
+            nn.Flatten(),                    # 64x7x7 → 3136
+            nn.Linear(64 * 7 * 7, 128),
+            nn.ReLU(),
+            nn.Linear(128, num_classes)      # Output: 10
+        )
+    
+    def forward(self, x):
+        x = self.features(x)
+        x = self.classifier(x)
+        return x  # Output: logits (apply softmax externally if needed)
+</code></pre>
+<h3 id="key-design-intuitions"><strong>Key Design Intuitions</strong></h3>
+<ul>
+<li>
+<p><strong>Why 32 and 64 filters?</strong>
+These are design choices balancing performance and computational efficiency. 32 filters in the first layer are often sufficient to capture basic spatial patterns. 64 filters in the second layer expand the representational capacity without exploding model size.</p>
+</li>
+<li>
+<p><strong>Why ReLU?</strong>
+ReLU introduces non-linearity in a simple and computationally efficient way. It also helps mitigate the vanishing gradient problem compared to older activations like sigmoid or tanh.</p>
+</li>
+<li>
+<p><strong>Why Pooling?</strong>
+Max pooling reduces spatial dimensions, improving generalization and reducing the number of parameters. It also gives the model some translation invariance.</p>
+</li>
+<li>
+<p><strong>Why Flatten?</strong>
+We shift from 2D spatial reasoning to 1D semantic classification. This transformation is necessary to connect convolutional outputs with fully connected layers.</p>
+</li>
+</ul>
+<hr>
+<h3 id="final-remarks"><strong>Final Remarks</strong></h3>
+<p>This CNN does not just “look” at pixels it learns a sequence of increasingly abstract features, layer by layer. Crucially, all of these filters are learned directly through backpropagation and optimization using labeled training data.</p>
+<p>By separating the feature extraction from classification — but training them jointly CNNs combine the strengths of both automatic representation learning and supervised learning.</p>
+<hr>
+<p><img src="./image_cnn_26.png" alt="This is an ALT text"></p>
+<h1 id="chapter-10-extending-cnns-beyond-classification">Chapter: 10 Extending CNNs Beyond Classification</h1>
+<h2 id="intuition-behind-cnn-architecture-choices">Intuition Behind CNN Architecture Choices</h2>
+<p>Choosing CNN architecture parameters — like patch size, feature dimensions, and layer depth is more of an art guided by intuition and data characteristics than a strict science. For example, using a 3x3 kernel may be appropriate when features are expected to be fine-grained, but this depends heavily on the scale and resolution of the input. For large images, such small patches may not be sufficient to capture meaningful spatial context early in the network. Conversely, for smaller images or those with compact features, even a 3x3 patch may hold significant signal. Always consider the visual semantics your model needs to learn and at what resolution those features are most meaningful.<br>
+Another important consideration is invariance. If your model is trained on only upright faces, it will likely fail on rotated ones unless rotation is part of your training distribution. The model does not generalize rotationally unless explicitly trained to do so.</p>
+<h2 id="from-classification-to-detection-and-beyond">From Classification to Detection and Beyond</h2>
+<p>CNNs were initially popularized for image classification tasks, but the architecture is flexible and modular. At its core, a CNN can be split into two components: a feature extractor and a task-specific head. The task-specific head can be adapted for a wide range of applications beyond classification, including detection, segmentation, and control.</p>
+<h3 id="1-classification">1. Classification</h3>
+<p>At the most basic level, the CNN extracts features and maps them to class probabilities. For example, a medical imaging CNN might output a binary label indicating the presence or absence of a condition like cancer from a mammogram. The last few layers are usually a flattening operation followed by fully connected layers and a softmax or sigmoid for classification.</p>
+<h3 id="2-object-detection">2. Object Detection</h3>
+<p>Object detection builds on classification by not only identifying what is in an image but also where. Instead of predicting just a class label, the network must output:</p>
+<ul>
+<li>The object class</li>
+<li>A bounding box around the object</li>
+<li>Potentially multiple such predictions per image</li>
+</ul>
+<p>This increases complexity significantly, because:</p>
+<ul>
+<li>Objects can appear anywhere in the image</li>
+<li>They can vary in size and shape</li>
+<li>The number of objects is not fixed</li>
+</ul>
+<p>A naive approach would involve placing thousands of boxes of different sizes at different locations and classifying each independently, but this is computationally infeasible.</p>
+<h3 id="3-region-based-cnns-r-cnns">3. Region-Based CNNs (R-CNNs)</h3>
+<p>To address the inefficiency of naive detection, region-based CNNs were proposed. These models integrate regional proposal into the architecture itself. The Region Proposal Network (RPN) learns to identify parts of the image that are likely to contain objects. These regions are then passed through a shared feature extractor and classifier. This tight integration means the entire pipeline can be trained end-to-end using shared learned features. It is faster and more accurate than separate proposal and classification models.</p>
+<h3 id="4-semantic-segmentation">4. Semantic Segmentation</h3>
+<p>Going beyond object detection, segmentation requires a per-pixel classification. For each pixel in the input image, the model outputs a class label (e.g., road, sky, person). Unlike classification, where we reduce the spatial dimensions, segmentation requires maintaining spatial resolution. This is often done by:</p>
+<ul>
+<li>Using convolutions and pooling to extract features (downsampling)</li>
+<li>Then using upsampling or transposed convolutions to bring the output back to the input resolution</li>
+</ul>
+<p>The output is an image-sized tensor where each pixel has a predicted class.</p>
+<h3 id="5-control-models-for-autonomous-navigation">5. Control Models for Autonomous Navigation</h3>
+<p>CNNs can also be used in control tasks, such as autonomous driving. In this setup, inputs might include:</p>
+<ul>
+<li>Camera images (first-person perspective)</li>
+<li>Top-down or map-view representations</li>
+</ul>
+<p>The network outputs are not discrete classes but continuous control signals, such as steering angles. Rather than classifying into fixed buckets, the model learns a distribution over continuous outputs effectively turning the classification head into a regression or probabilistic model.<br>
+These models can learn directly from driving data, inferring high-level representations that allow the system to drive in unseen environments. Unlike traditional autonomous driving stacks that require prior human-mapped routes, these models generalize to new cities using just visual input and map guidance.</p>
+<h2 id="summary-and-broader-impact">Summary and Broader Impact</h2>
+<p>CNNs are foundational, but their power lies in modularity. Once feature extraction is decoupled from task-specific heads, the same architecture can be adapted for:</p>
+<ul>
+<li>Medical diagnosis</li>
+<li>Object detection in autonomous systems</li>
+<li>Scene understanding via segmentation</li>
+<li>Robotic control and navigation</li>
+</ul>
+<p>While each task introduces specific architectural modifications, they all stem from the same core ideas: learning spatial features via convolution and applying supervision at the appropriate resolution and form — whether classification, bounding boxes, pixel masks, or control signals.
+<img src="./image_cnn_27.png" alt="This is an ALT text">
+<img src="./image_cnn_28.png" alt="This is an ALT text">
+<img src="./image_cnn_29.png" alt="This is an ALT text">
+<img src="./image_cnn_30.png" alt="This is an ALT text">
+<img src="./image_cnn_31.png" alt="This is an ALT text">
+<img src="./image_cnn_32.png" alt="This is an ALT text">
+<img src="./image_cnn_33.png" alt="This is an ALT text">
+<img src="./image_cnn_34.png" alt="This is an ALT text">
+<img src="./image_cnn_35.png" alt="This is an ALT text">
+<img src="./image_cnn_36.png" alt="This is an ALT text">
+<img src="./image_cnn_37.png" alt="This is an ALT text">
+<img src="./image_cnn_38.png" alt="This is an ALT text">
+<img src="./image_cnn_39.png" alt="This is an ALT text"></p>

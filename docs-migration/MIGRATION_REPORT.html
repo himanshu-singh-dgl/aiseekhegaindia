@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Migration Report — Docusaurus → Next.js 15</title>
+  <style>
+    :root { --bg:#f7f5f1; --fg:#1a1a1a; --muted:#5c5c5c; --border:#d8d2c8; --ok:#3d8b40; --accent:#0b5fff; }
+    body { font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.55; margin:0; }
+    .wrap { max-width:960px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+    h1,h2,h3 { font-family: system-ui, sans-serif; }
+    table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.92rem; }
+    th,td { border:1px solid var(--border); padding:0.5rem 0.65rem; text-align:left; vertical-align:top; }
+    th { background:#ebe6de; }
+    .ok { color:var(--ok); font-weight:700; }
+    code { background:#eeeae3; padding:0.1em 0.35em; border-radius:4px; font-size:0.88em; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <p style="color:var(--muted)">AISeekhegaIndia · Branch <code>migrate/next-pure</code> · Generated 2026-08-06</p>
+    <h1>Migration Report: Docusaurus → Pure Next.js 15</h1>
+
+    <h2>Summary</h2>
+    <p class="ok">P0 + P1 complete — build green, Docusaurus removed, 37 sidebar docs at parity URLs, 35 served as HTML, 2 interactive MDX tutorials preserved.</p>
+
+    <h2>URL inventory (37 sidebar docs)</h2>
+    <table>
+      <thead><tr><th>Category</th><th>Count</th><th>Format</th></tr></thead>
+      <tbody>
+        <tr><td>AI for Leaders</td><td>7</td><td>6 HTML + 1 MDX (curriculum-tree)</td></tr>
+        <tr><td>Machine Learning</td><td>3</td><td>HTML</td></tr>
+        <tr><td>Deep Learning</td><td>4</td><td>HTML</td></tr>
+        <tr><td>Language Models</td><td>21</td><td>HTML</td></tr>
+        <tr><td>Interactive Tutorials</td><td>1</td><td>MDX (logistic-regression)</td></tr>
+        <tr><td>Resources</td><td>1</td><td>HTML</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Marketing &amp; blog routes</h2>
+    <table>
+      <thead><tr><th>Route</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><code>/</code></td><td class="ok">Ported</td></tr>
+        <tr><td><code>/fellowship</code></td><td class="ok">Ported</td></tr>
+        <tr><td><code>/contribute</code></td><td class="ok">Ported</td></tr>
+        <tr><td><code>/blog</code></td><td class="ok">Ported</td></tr>
+        <tr><td><code>/blog/2024-04-24-welcome</code></td><td class="ok">Ported</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Removed / archived</h2>
+    <ul>
+      <li>Docusaurus config, <code>sidebars.ts</code>, <code>src/pages</code>, <code>docs/</code>, <code>blog/</code>, <code>static/</code>, <code>build/</code>, <code>.docusaurus/</code></li>
+      <li>Orphan <code>curriculum-visual-tree.md</code> (not in sidebar)</li>
+      <li>Unused Astro / viz components</li>
+    </ul>
+
+    <h2>Parity matrix</h2>
+    <table>
+      <thead><tr><th>Capability</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>All <code>/docs/...</code> sidebar URLs</td><td class="ok">200 — 46 static pages generated</td></tr>
+        <tr><td>Navbar / footer</td><td class="ok">config/navigation.ts</td></tr>
+        <tr><td>Interactive tutorials</td><td class="ok">LogisticRegression + CurriculumTree</td></tr>
+        <tr><td>Dark/light theme</td><td class="ok">next-themes + CSS tokens</td></tr>
+        <tr><td>Local search</td><td class="ok">FlexSearch + search-index.json</td></tr>
+        <tr><td>SEO</td><td class="ok">metadataBase, OG, sitemap.xml</td></tr>
+        <tr><td>KaTeX math</td><td class="ok">Self-hosted via katex package</td></tr>
+        <tr><td>CI</td><td class="ok">.github/workflows/ci.yml</td></tr>
+        <tr><td>Internal links</td><td class="ok">check-links script passes</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Production cutover checklist</h2>
+    <table>
+      <thead><tr><th>Step</th><th>Done</th></tr></thead>
+      <tbody>
+        <tr><td><code>npm run build</code> zero errors</td><td class="ok">Yes</td></tr>
+        <tr><td><code>npm run typecheck</code></td><td class="ok">Yes</td></tr>
+        <tr><td>Vercel preview deploy</td><td>Human — point project to Next.js, set domain</td></tr>
+        <tr><td>DNS cutover to ai-ml-docs.org</td><td>Human approval required</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Deviations</h2>
+    <ul>
+      <li>Contribute page rendered as React page (not MDX) — same content, same URL.</li>
+      <li>95% static docs as HTML (35/37); 2 interactive remain MDX by design.</li>
+      <li>React 19 required minor <code>useRef</code> initializer fixes in tutorial components.</li>
+    </ul>
+  </main>
+</body>
+</html>

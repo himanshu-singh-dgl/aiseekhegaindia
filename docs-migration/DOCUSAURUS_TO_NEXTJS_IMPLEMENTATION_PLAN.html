@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Implementation Plan: AISeekhegaIndia Docusaurus → Pure Next.js 15</title>
+  <style>
+    :root {
+      --bg: #f7f5f1;
+      --fg: #1a1a1a;
+      --muted: #5c5c5c;
+      --border: #d8d2c8;
+      --code-bg: #eeeae3;
+      --accent: #0b5fff;
+      --callout-bg: #eef4ff;
+      --table-head: #ebe6de;
+      --p0-bg: #fff0f0;
+      --p0-border: #e05252;
+      --p1-bg: #fff8e6;
+      --p1-border: #d4a017;
+      --p2-bg: #f0f7f0;
+      --p2-border: #3d8b40;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121418;
+        --fg: #ececec;
+        --muted: #a0a4ab;
+        --border: #2c3138;
+        --code-bg: #1c2128;
+        --accent: #6ea8ff;
+        --callout-bg: #1a2436;
+        --table-head: #1e2329;
+        --p0-bg: #2a1818;
+        --p0-border: #c44;
+        --p1-bg: #2a2418;
+        --p1-border: #b8860b;
+        --p2-bg: #182a18;
+        --p2-border: #4caf50;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.55;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+    h1, h2, h3, h4 {
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+    h1 { font-size: 1.85rem; margin: 0 0 1rem; }
+    h2 {
+      font-size: 1.35rem;
+      margin: 2.5rem 0 0.85rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+    h2:first-of-type { border-top: 0; padding-top: 0; }
+    h3 { font-size: 1.1rem; margin: 1.5rem 0 0.6rem; }
+    h4 { font-size: 1rem; margin: 1.2rem 0 0.5rem; color: var(--muted); }
+    p, li { font-size: 1rem; }
+    a { color: var(--accent); }
+    blockquote {
+      margin: 1rem 0;
+      padding: 0.85rem 1rem;
+      background: var(--callout-bg);
+      border-left: 4px solid var(--accent);
+    }
+    blockquote p { margin: 0; }
+    hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+    code, pre {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.88em;
+    }
+    :not(pre) > code {
+      background: var(--code-bg);
+      padding: 0.12em 0.35em;
+      border-radius: 4px;
+    }
+    pre {
+      background: var(--code-bg);
+      padding: 1rem 1.1rem;
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    pre code { background: none; padding: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.92rem;
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.65rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: var(--table-head); font-weight: 600; }
+    ul, ol { padding-left: 1.35rem; }
+    li { margin: 0.35rem 0; }
+    .meta {
+      color: var(--muted);
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .toc {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      font-size: 0.92rem;
+    }
+    .toc ol { margin: 0; padding-left: 1.25rem; }
+    .badge {
+      display: inline-block;
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.15em 0.5em;
+      border-radius: 4px;
+      vertical-align: middle;
+      margin-right: 0.35rem;
+    }
+    .badge-p0 { background: var(--p0-border); color: #fff; }
+    .badge-p1 { background: var(--p1-border); color: #fff; }
+    .badge-p2 { background: var(--p2-border); color: #fff; }
+    .est-time {
+      display: inline-block;
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.15em 0.65em;
+      margin-left: 0.35rem;
+      white-space: nowrap;
+    }
+    .phase-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      background: var(--code-bg);
+    }
+    .phase-card h3 { margin-top: 0; }
+    .kickoff {
+      background: var(--callout-bg);
+      border: 1px dashed var(--accent);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin: 0.75rem 0;
+      font-size: 0.92rem;
+    }
+    .kickoff summary {
+      cursor: pointer;
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .status-not-started { color: var(--muted); }
+    .doc-type-plan {
+      background: var(--p2-bg);
+      border-left: 4px solid var(--p2-border);
+      padding: 0.85rem 1rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="meta">Implementation plan · AISeekhegaIndia / ai-ml-docs · Docusaurus → Pure Next.js 15 App Router · v1</p>
+
+    <h1>Implementation Plan: Docusaurus → Pure Next.js</h1>
+
+    <div class="doc-type-plan">
+      <p><strong>This is a plan for humans.</strong> Open in a browser to track phases, tasks, and status. Use with Cursor Agent via phase kickoff messages (Section 11). For agent rules and locked decisions, see <a href="DOCUSAURUS_TO_NEXTJS_PROMPT.html">DOCUSAURUS_TO_NEXTJS_PROMPT.html</a>.</p>
+    </div>
+
+    <nav class="toc" aria-label="Table of contents">
+      <strong>Contents</strong>
+      <ol>
+        <li><a href="#workflow">How prompt vs plan work together</a></li>
+        <li><a href="#summary">Executive summary</a></li>
+        <li><a href="#current">Current state</a></li>
+        <li><a href="#stack">Target stack (pure Next.js)</a></li>
+        <li><a href="#timeline">Timeline and priorities</a></li>
+        <li><a href="#lld">LLD and folder structure</a></li>
+        <li><a href="#phases">Phased implementation (trackable)</a></li>
+        <li><a href="#parity">Parity matrix</a></li>
+        <li><a href="#risks">Risks</a></li>
+        <li><a href="#acceptance">Acceptance criteria</a></li>
+        <li><a href="#kickoffs">Cursor kickoff templates</a></li>
+      </ol>
+    </nav>
+
+    <hr>
+
+    <h2 id="workflow">1. How prompt vs plan work together</h2>
+    <table>
+      <thead>
+        <tr><th>Artifact</th><th>File</th><th>Audience</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Implementation plan</strong></td>
+          <td><code>DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html</code> (this file)</td>
+          <td>You + team</td>
+          <td>Track phases, tasks, estimates, status</td>
+        </tr>
+        <tr>
+          <td><strong>Agent prompt</strong></td>
+          <td><code>DOCUSAURUS_TO_NEXTJS_PROMPT.html</code></td>
+          <td>Cursor Agent</td>
+          <td>Rules, non-goals, LLD details, acceptance criteria</td>
+        </tr>
+        <tr>
+          <td><strong>Migration report</strong></td>
+          <td><code>docs-migration/MIGRATION_REPORT.md</code></td>
+          <td>Post-migration</td>
+          <td>Deviations, parity status, cutover checklist</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Day-to-day workflow:</strong></p>
+    <ol>
+      <li>Open this plan → find the next phase with status <em>Not started</em>.</li>
+      <li>Copy the phase kickoff from Section 11 into Cursor Agent.</li>
+      <li>Agent executes; you mark tasks done and update phase status.</li>
+      <li>Repeat until P0 complete (migration done), then P1 (DNS-ready).</li>
+    </ol>
+
+    <hr>
+
+    <h2 id="summary">2. Executive summary</h2>
+    <table>
+      <tbody>
+        <tr><th>Goal</th><td>Replace Docusaurus 3.1.1 with a single <strong>Next.js 15 App Router</strong> deployable</td></tr>
+        <tr><th>Production URL</th><td><code>https://ai-ml-docs.org</code></td></tr>
+        <tr><th>Stack</th><td>Pure Next.js — custom docs layout, HTML + MDX content, no Fumadocs</td></tr>
+        <tr><th>Content parity</th><td>~38 docs, 6 sidebar categories, 2 interactive tutorials, 1 blog post, 3 marketing pages</td></tr>
+        <tr><th>P0 complete</th><td>Migratable — all routes work, Docusaurus removed</td></tr>
+        <tr><th>P1 complete</th><td>Production-ready — theme, search, SEO, CI; ready for DNS cutover approval</td></tr>
+        <tr><th>Total estimate</th><td><strong>10–15 working days</strong> (~2.5–3 weeks, 1 FTE)</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2 id="current">3. Current state snapshot</h2>
+    <table>
+      <thead><tr><th>Item</th><th>Today</th></tr></thead>
+      <tbody>
+        <tr><td>Framework</td><td>Docusaurus 3.1.1 + React 18.2 + Tailwind v4</td></tr>
+        <tr><td>Docs</td><td><code>docs/**</code> — ~38 MDX/MD files, 6 categories</td></tr>
+        <tr><td>Sidebar source of truth</td><td><code>sidebars.ts</code></td></tr>
+        <tr><td>Interactive MDX</td><td><code>curriculum-tree.mdx</code>, <code>logistic-regression.mdx</code></td></tr>
+        <tr><td>Marketing pages</td><td><code>src/pages/index.tsx</code>, <code>fellowship.tsx</code>, <code>contribute.mdx</code></td></tr>
+        <tr><td>Blog</td><td><code>blog/2024-04-24-welcome.mdx</code></td></tr>
+        <tr><td>Assets</td><td><code>static/img/**</code>, ~100 co-located PNGs in docs</td></tr>
+        <tr><td>Deploy target</td><td>Vercel (locked)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Sidebar categories (preserve order and labels)</h3>
+    <ol>
+      <li>AI for Leaders (7 docs)</li>
+      <li>Machine Learning (3 docs)</li>
+      <li>Deep Learning (4 docs)</li>
+      <li>Language Models (21 docs)</li>
+      <li>Interactive Tutorials (1 doc)</li>
+      <li>Resources (1 doc)</li>
+    </ol>
+
+    <hr>
+
+    <h2 id="stack">4. Target stack (pure Next.js)</h2>
+    <table>
+      <thead><tr><th>Layer</th><th>Choice</th></tr></thead>
+      <tbody>
+        <tr><td>Framework</td><td>Next.js 15 App Router + TypeScript + React 19</td></tr>
+        <tr><td>Styling</td><td>Tailwind CSS v4 + CSS design tokens (<code>styles/tokens.css</code>)</td></tr>
+        <tr><td>Docs routing</td><td><code>app/docs/[[...slug]]/page.tsx</code></td></tr>
+        <tr><td>Static content</td><td><code>content/docs/**/*.html</code> (P1 migration from MDX)</td></tr>
+        <tr><td>Interactive content</td><td><code>content/docs/**/*.mdx</code> (2 pages only)</td></tr>
+        <tr><td>MDX pipeline</td><td><code>@next/mdx</code> + remark-math + rehype-katex + rehype-sanitize</td></tr>
+        <tr><td>Docs chrome</td><td>Custom <code>DocsLayout</code> — sidebar, TOC, breadcrumbs, prev/next</td></tr>
+        <tr><td>Sidebar config</td><td><code>config/docs-sidebar.ts</code> (ported from <code>sidebars.ts</code>)</td></tr>
+        <tr><td>Search</td><td>Orama or FlexSearch — build-time index, client search UI</td></tr>
+        <tr><td>Theme</td><td><code>next-themes</code> — light default, toggle, <code>prefers-color-scheme</code></td></tr>
+        <tr><td>Hosting</td><td>Vercel</td></tr>
+        <tr><td>Explicitly rejected</td><td>Fumadocs, Nextra, dual Docusaurus+Next production tree</td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>app/layout.tsx          → RootProviders, fonts, global CSS
+app/docs/[[...slug]]/   → Doc page renderer (HTML + MDX)
+app/page.tsx            → Homepage
+app/fellowship/         → Fellowship landing
+app/contribute/         → Contribute page
+app/blog/               → Blog index + posts
+components/layout/      → SiteHeader, SiteFooter, DocsLayout
+components/ui/          → Button, Container, ThemeToggle, SearchDialog
+components/features/    → logistic-regression, curriculum-tree, homepage
+config/docs-sidebar.ts  → Typed sidebar from sidebars.ts
+lib/content/load-doc.ts → HTML + MDX content adapter
+lib/content/search.ts   → Build-time search index
+content/docs/           → HTML (static) + MDX (interactive)
+public/img/             → From static/img</code></pre>
+
+    <hr>
+
+    <h2 id="timeline">5. Timeline and priorities</h2>
+    <table>
+      <thead>
+        <tr><th>Track</th><th>Phases</th><th>Estimate</th><th>Calendar (1 FTE)</th><th>Gate</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-p0">P0</span></td>
+          <td>0–6, 7, 8</td>
+          <td><strong>6–9 days</strong></td>
+          <td>Week 1 – mid Week 2</td>
+          <td>Migration done</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-p1">P1</span></td>
+          <td>9–12</td>
+          <td><strong>4–6 days</strong></td>
+          <td>Mid Week 2 – Week 3</td>
+          <td>DNS cutover ready</td>
+        </tr>
+        <tr>
+          <td><strong>Total</strong></td>
+          <td>0–12</td>
+          <td><strong>10–15 days</strong></td>
+          <td><strong>~2.5–3 weeks</strong></td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Master phase timeline</h3>
+    <table>
+      <thead>
+        <tr><th>Phase</th><th>Name</th><th>Priority</th><th>Estimate</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>Discovery</td><td><span class="badge badge-p0">P0</span></td><td>2–4 h</td><td class="status-not-started">Not started</td></tr>
+        <tr><td>1</td><td>Next.js scaffold</td><td><span class="badge badge-p0">P0</span></td><td>1 day</td><td class="status-not-started">Not started</td></tr>
+        <tr><td>2</td><td>Content port</td><td><span class="badge badge-p0">P0</span></td><td>1.5–2 days</td><td class="status-not-started">Not started</td></tr>
+        <tr><td>3</td><td>Docs subsystem</td><td><span class="badge badge-p0">P0</span></td><td>1.5–2 days</td><td class="status-not-started">Not started</td></tr>
+        <tr><td>4</td><td>Site chrome</td><td><span class="badge badge-p0">P0</span></td><td>1–1.5 days</td><td class="status-not-started">Not started</td></tr>
+        <tr><td>5</td><td>Interactive islands</td><td><span class="badge badge-p0">P0</span></td><td>1–1.5 days</td><td class="status-not-started">Not started</td></tr>
+        <tr><td>6</td><td>Blog</td><td><span class="badge badge-p0">P0</span></td><td>2–4 h</td><td class="status-not-started">Not started</td></tr>
+        <tr><td>7</td><td>Link hardening</td><td><span class="badge badge-p0">P0</span></td><td>4–8 h</td><td class="status-not-started">Not started</td></tr>
+        <tr><td>8</td><td>Cleanup</td><td><span class="badge badge-p0">P0</span></td><td>4–6 h</td><td class="status-not-started">Not started</td></tr>
+        <tr><td>9</td><td>Search + SEO + math</td><td><span class="badge badge-p1">P1</span></td><td>1 day</td><td class="status-not-started">Not started</td></tr>
+        <tr><td>10</td><td>HTML doc migration</td><td><span class="badge badge-p1">P1</span></td><td>1.5–2 days</td><td class="status-not-started">Not started</td></tr>
+        <tr><td>11</td><td>Theme system</td><td><span class="badge badge-p1">P1</span></td><td>4–8 h</td><td class="status-not-started">Not started</td></tr>
+        <tr><td>12</td><td>CI + prod checklist</td><td><span class="badge badge-p1">P1</span></td><td>4–6 h</td><td class="status-not-started">Not started</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Assumptions:</strong> One engineer familiar with Next.js App Router. Pure Next.js (no Fumadocs) adds ~2–3 days vs a docs-framework shortcut. Agent-assisted work may compress P0 by ~15–20%.</p>
+
+    <hr>
+
+    <h2 id="lld">6. LLD and folder structure</h2>
+
+    <h3>6.1 Layered architecture</h3>
+    <pre><code>Presentation   app/** routes and layouts
+Composition    components/layout, components/features
+Design system  components/ui, styles/tokens.css
+Content        content/docs (HTML + MDX), content/blog
+Infrastructure lib/content, config, next.config.ts, CI</code></pre>
+    <p><strong>Dependency rule:</strong> Content never imports from <code>app/</code>. <code>components/ui</code> never imports from <code>components/features</code>.</p>
+
+    <h3>6.2 Design patterns</h3>
+    <table>
+      <thead><tr><th>Pattern</th><th>Location</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>Layout composition</td><td><code>app/layout.tsx</code> → <code>RootProviders</code></td><td>Single theme/font injection</td></tr>
+        <tr><td>Provider pattern</td><td><code>components/providers/ThemeProvider.tsx</code></td><td>Dark/light without prop drilling</td></tr>
+        <tr><td>Content adapter</td><td><code>lib/content/load-doc.ts</code></td><td>Uniform HTML + MDX loader</td></tr>
+        <tr><td>MDX registry</td><td><code>lib/mdx-components.tsx</code></td><td>Interactive component map</td></tr>
+        <tr><td>Config as data</td><td><code>config/site.ts</code>, <code>config/navigation.ts</code>, <code>config/docs-sidebar.ts</code></td><td>Nav/footer/sidebar from typed config</td></tr>
+        <tr><td>Design tokens</td><td><code>styles/tokens.css</code></td><td>Semantic colors; theme via CSS variables</td></tr>
+        <tr><td>Error boundary</td><td>Wrap interactive tutorials</td><td>Prevent white-screen on canvas errors</td></tr>
+      </tbody>
+    </table>
+
+    <h3>6.3 Full folder tree</h3>
+    <pre><code>app/
+  layout.tsx
+  page.tsx
+  not-found.tsx
+  error.tsx
+  fellowship/page.tsx
+  contribute/page.tsx
+  blog/page.tsx
+  blog/[slug]/page.tsx
+  docs/layout.tsx
+  docs/[[...slug]]/page.tsx
+  api/search/route.ts          # optional server search endpoint
+
+components/
+  ui/                          # Button, Card, Container, ThemeToggle, SearchDialog
+  layout/                      # SiteHeader, SiteFooter, DocsLayout, MarketingLayout
+  providers/                   # RootProviders, ThemeProvider
+  features/
+    logistic-regression/
+    curriculum-tree/
+    homepage/
+
+config/
+  site.ts
+  navigation.ts
+  docs-sidebar.ts
+
+content/
+  docs/                        # *.html (static) + *.mdx (interactive only)
+  blog/
+
+lib/
+  cn.ts
+  metadata.ts
+  mdx-components.tsx
+  content/
+    load-doc.ts
+    frontmatter.ts
+    build-search-index.ts
+    extract-headings.ts        # TOC generation
+
+styles/
+  globals.css
+  tokens.css
+  docs.css                     # prose / .doc-content
+
+public/img/
+
+next.config.ts
+tailwind / postcss configs
+.github/workflows/ci.yml</code></pre>
+
+    <hr>
+
+    <h2 id="phases">7. Phased implementation (trackable)</h2>
+
+    <div class="phase-card" id="phase-0">
+      <h3>Phase 0 — Discovery <span class="badge badge-p0">P0</span> <span class="est-time">2–4 h</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> Read <code>docusaurus.config.ts</code>, <code>sidebars.ts</code>, <code>package.json</code></li>
+        <li><input type="checkbox" disabled /> Inventory all <code>/docs/*</code> URLs from sidebar IDs</li>
+        <li><input type="checkbox" disabled /> List assets under <code>docs/**</code> and <code>static/</code></li>
+        <li><input type="checkbox" disabled /> Classify each doc: interactive (MDX) vs static (HTML candidate)</li>
+        <li><input type="checkbox" disabled /> Write inventory section in <code>MIGRATION_REPORT.md</code></li>
+      </ul>
+      <h4>Deliverables</h4>
+      <ul><li>URL inventory table · HTML vs MDX classification · asset list</li></ul>
+      <h4>Exit criteria</h4>
+      <ul><li>Every sidebar doc ID mapped to target <code>/docs/...</code> URL</li></ul>
+    </div>
+
+    <div class="phase-card" id="phase-1">
+      <h3>Phase 1 — Next.js scaffold <span class="badge badge-p0">P0</span> <span class="est-time">1 day</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> Init Next.js 15 App Router + TypeScript on branch <code>migrate/next-pure</code></li>
+        <li><input type="checkbox" disabled /> Add Tailwind v4, path alias <code>@/</code></li>
+        <li><input type="checkbox" disabled /> Create folder skeleton (Section 6.3)</li>
+        <li><input type="checkbox" disabled /> Add scripts: <code>dev</code>, <code>build</code>, <code>start</code>, <code>lint</code>, <code>typecheck</code></li>
+        <li><input type="checkbox" disabled /> Placeholder <code>app/page.tsx</code> and <code>app/docs/[[...slug]]/page.tsx</code></li>
+        <li><input type="checkbox" disabled /> Keep Docusaurus deps until Phase 8</li>
+      </ul>
+      <h4>Deliverables</h4>
+      <ul><li><code>next.config.ts</code> · <code>app/layout.tsx</code> · empty component/config folders</li></ul>
+      <h4>Exit criteria</h4>
+      <ul><li><code>npm run dev</code> and <code>npm run build</code> succeed</li></ul>
+    </div>
+
+    <div class="phase-card" id="phase-2">
+      <h3>Phase 2 — Content port <span class="badge badge-p0">P0</span> <span class="est-time">1.5–2 days</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> Move <code>docs/**</code> → <code>content/docs/**</code> (keep slugs)</li>
+        <li><input type="checkbox" disabled /> Port <code>static/img</code> → <code>public/img</code></li>
+        <li><input type="checkbox" disabled /> Create <code>config/docs-sidebar.ts</code> from <code>sidebars.ts</code></li>
+        <li><input type="checkbox" disabled /> Preserve co-located PNG paths</li>
+        <li><input type="checkbox" disabled /> Port frontmatter with minimal change</li>
+        <li><input type="checkbox" disabled /> Initial pass: keep as MDX; HTML conversion in Phase 10</li>
+      </ul>
+      <h4>Deliverables</h4>
+      <ul><li><code>content/docs/**</code> · <code>config/docs-sidebar.ts</code> · <code>public/img/**</code></li></ul>
+      <h4>Exit criteria</h4>
+      <ul><li>All content files in place; sidebar config matches Docusaurus order</li></ul>
+    </div>
+
+    <div class="phase-card" id="phase-3">
+      <h3>Phase 3 — Docs subsystem <span class="badge badge-p0">P0</span> <span class="est-time">1.5–2 days</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> Implement <code>lib/content/load-doc.ts</code> (MDX first; HTML stub for P1)</li>
+        <li><input type="checkbox" disabled /> Build <code>DocsLayout</code> — sidebar from <code>docs-sidebar.ts</code></li>
+        <li><input type="checkbox" disabled /> TOC from heading extraction · breadcrumbs · prev/next nav</li>
+        <li><input type="checkbox" disabled /> Wire <code>@next/mdx</code> + remark/rehype plugins</li>
+        <li><input type="checkbox" disabled /> Prose styles via <code>styles/docs.css</code> + typography plugin</li>
+        <li><input type="checkbox" disabled /> Map routes to <code>/docs/&lt;section&gt;/&lt;slug&gt;</code></li>
+      </ul>
+      <h4>Deliverables</h4>
+      <ul><li><code>DocsLayout.tsx</code> · <code>load-doc.ts</code> · <code>app/docs/[[...slug]]/page.tsx</code></li></ul>
+      <h4>Exit criteria</h4>
+      <ul><li>All 38 sidebar docs render at correct URLs; images load</li></ul>
+    </div>
+
+    <div class="phase-card" id="phase-4">
+      <h3>Phase 4 — Site chrome <span class="badge badge-p0">P0</span> <span class="est-time">1–1.5 days</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> Create <code>config/navigation.ts</code> from <code>docusaurus.config.ts</code></li>
+        <li><input type="checkbox" disabled /> Build <code>SiteHeader</code> (Resources, Topics, Fellowship, Tutorials, GitHub, Contribute)</li>
+        <li><input type="checkbox" disabled /> Build <code>SiteFooter</code> (Docs, Community, More columns)</li>
+        <li><input type="checkbox" disabled /> Port homepage, fellowship, contribute pages</li>
+        <li><input type="checkbox" disabled /> Migrate Infima/CSS-module styles to Tailwind</li>
+      </ul>
+      <h4>Deliverables</h4>
+      <ul><li><code>SiteHeader.tsx</code> · <code>SiteFooter.tsx</code> · marketing pages under <code>app/</code></li></ul>
+      <h4>Exit criteria</h4>
+      <ul><li>Nav/footer links resolve; marketing pages match prior IA</li></ul>
+    </div>
+
+    <div class="phase-card" id="phase-5">
+      <h3>Phase 5 — Interactive islands <span class="badge badge-p0">P0</span> <span class="est-time">1–1.5 days</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> Port <code>LogisticRegression/**</code> → <code>components/features/logistic-regression/</code></li>
+        <li><input type="checkbox" disabled /> Port <code>CurriculumTree</code> → <code>components/features/curriculum-tree/</code></li>
+        <li><input type="checkbox" disabled /> Add <code>'use client'</code> + error boundaries</li>
+        <li><input type="checkbox" disabled /> Register in <code>lib/mdx-components.tsx</code></li>
+        <li><input type="checkbox" disabled /> Preserve external links (e.g. <code>eda.aiseekhegaindia.com</code>)</li>
+      </ul>
+      <h4>Deliverables</h4>
+      <ul><li>Working tutorial + curriculum tree in production build</li></ul>
+      <h4>Exit criteria</h4>
+      <ul><li>Canvas/input/navigation functional on both interactive docs</li></ul>
+    </div>
+
+    <div class="phase-card" id="phase-6">
+      <h3>Phase 6 — Blog <span class="badge badge-p0">P0</span> <span class="est-time">2–4 h</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> Port welcome post to <code>content/blog/</code></li>
+        <li><input type="checkbox" disabled /> Build <code>app/blog/page.tsx</code> index + <code>[slug]/page.tsx</code></li>
+        <li><input type="checkbox" disabled /> Preserve slug <code>2024-04-24-welcome</code> (or Docusaurus-equivalent URL)</li>
+      </ul>
+      <h4>Exit criteria</h4>
+      <ul><li><code>/blog</code> index + post render; footer Blog link works</li></ul>
+    </div>
+
+    <div class="phase-card" id="phase-7">
+      <h3>Phase 7 — Link hardening <span class="badge badge-p0">P0</span> <span class="est-time">4–8 h</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> Add redirects only if unavoidable (prefer zero)</li>
+        <li><input type="checkbox" disabled /> Script-check sidebar + navbar + footer URLs</li>
+        <li><input type="checkbox" disabled /> Fail build on broken internal links</li>
+      </ul>
+      <h4>Exit criteria</h4>
+      <ul><li>Zero broken internal links on parity URL set</li></ul>
+    </div>
+
+    <div class="phase-card" id="phase-8">
+      <h3>Phase 8 — Cleanup <span class="badge badge-p0">P0</span> <span class="est-time">4–6 h</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> Remove <code>@docusaurus/*</code>, Astro leftovers, unused viz components</li>
+        <li><input type="checkbox" disabled /> Remove committed <code>build/</code>, <code>.docusaurus/</code></li>
+        <li><input type="checkbox" disabled /> Expand <code>.gitignore</code> for Next</li>
+        <li><input type="checkbox" disabled /> Update README with Next workflows</li>
+      </ul>
+      <h4>Exit criteria</h4>
+      <ul><li>Single framework; <code>npm run build</code> green — <strong>P0 complete</strong></li></ul>
+    </div>
+
+    <div class="phase-card" id="phase-9">
+      <h3>Phase 9 — Search + SEO + math <span class="badge badge-p1">P1</span> <span class="est-time">1 day</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> Orama/FlexSearch build-time index + <code>SearchDialog</code> UI</li>
+        <li><input type="checkbox" disabled /> Sitemap, <code>metadataBase</code>, OG images</li>
+        <li><input type="checkbox" disabled /> KaTeX CSS (fix SRI or self-host)</li>
+        <li><input type="checkbox" disabled /> Syntax highlighting: python, r, julia</li>
+        <li><input type="checkbox" disabled /> Edit-this-page links (GitHub editUrl base)</li>
+      </ul>
+      <h4>Exit criteria</h4>
+      <ul><li>Search finds 3+ doc titles; meta + sitemap correct</li></ul>
+    </div>
+
+    <div class="phase-card" id="phase-10">
+      <h3>Phase 10 — HTML doc migration <span class="badge badge-p1">P1</span> <span class="est-time">1.5–2 days</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> Extend <code>load-doc.ts</code> for <code>.html</code> with rehype-sanitize</li>
+        <li><input type="checkbox" disabled /> Convert ~36 static MDX docs → <code>.html</code></li>
+        <li><input type="checkbox" disabled /> Keep MDX only for 2 interactive pages + blog</li>
+        <li><input type="checkbox" disabled /> Visual spot-check 3 pages per section</li>
+      </ul>
+      <h4>Exit criteria</h4>
+      <ul><li>≥90% non-interactive docs served as HTML; visual parity maintained</li></ul>
+    </div>
+
+    <div class="phase-card" id="phase-11">
+      <h3>Phase 11 — Theme system <span class="badge badge-p1">P1</span> <span class="est-time">4–8 h</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> Wire <code>next-themes</code> + <code>styles/tokens.css</code></li>
+        <li><input type="checkbox" disabled /> <code>ThemeToggle</code> in navbar; no FOUC</li>
+        <li><input type="checkbox" disabled /> Dark mode for docs prose, code blocks, chrome</li>
+        <li><input type="checkbox" disabled /> WCAG AA contrast for body text</li>
+      </ul>
+      <h4>Exit criteria</h4>
+      <ul><li>Light/dark/system work on docs + marketing pages</li></ul>
+    </div>
+
+    <div class="phase-card" id="phase-12">
+      <h3>Phase 12 — CI + production checklist <span class="badge badge-p1">P1</span> <span class="est-time">4–6 h</span></h3>
+      <p><strong>Status:</strong> <span class="status-not-started">Not started</span></p>
+      <h4>Tasks</h4>
+      <ul>
+        <li><input type="checkbox" disabled /> GitHub Action: install → lint → typecheck → build</li>
+        <li><input type="checkbox" disabled /> Custom <code>not-found.tsx</code>, <code>error.tsx</code></li>
+        <li><input type="checkbox" disabled /> Complete production checklist (Section 10)</li>
+        <li><input type="checkbox" disabled /> Write <code>MIGRATION_REPORT.md</code> — <strong>P1 complete</strong></li>
+      </ul>
+      <h4>Exit criteria</h4>
+      <ul><li>CI green; human can approve DNS cutover</li></ul>
+    </div>
+
+    <hr>
+
+    <h2 id="parity">8. Parity matrix</h2>
+    <table>
+      <thead>
+        <tr><th>Capability</th><th>Today</th><th>Target</th><th>Priority</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Site title / tagline</td><td>AISeekhegaIndia</td><td>Same</td><td><span class="badge badge-p0">P0</span></td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Canonical URL</td><td><code>https://ai-ml-docs.org</code></td><td>Same</td><td><span class="badge badge-p0">P0</span></td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Docs routes <code>/docs/...</code></td><td>Docusaurus</td><td>Next custom docs</td><td><span class="badge badge-p0">P0</span></td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Sidebar (6 categories)</td><td><code>sidebars.ts</code></td><td><code>docs-sidebar.ts</code></td><td><span class="badge badge-p0">P0</span></td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Navbar / footer</td><td>Config</td><td><code>navigation.ts</code></td><td><span class="badge badge-p0">P0</span></td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Homepage / fellowship / contribute</td><td>Custom pages</td><td>Ported</td><td><span class="badge badge-p0">P0</span></td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Interactive tutorials</td><td>Client MDX</td><td>Client features</td><td><span class="badge badge-p0">P0</span></td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Blog</td><td>1 post</td><td>Ported</td><td><span class="badge badge-p0">P0</span></td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Dark/light mode</td><td>Light + toggle</td><td><code>next-themes</code></td><td><span class="badge badge-p1">P1</span></td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Static docs as HTML</td><td>MDX</td><td>HTML adapter</td><td><span class="badge badge-p1">P1</span></td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Local search</td><td>Theme search</td><td>Orama/FlexSearch</td><td><span class="badge badge-p1">P1</span></td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>KaTeX + code langs</td><td>Configured</td><td>Same</td><td><span class="badge badge-p1">P1</span></td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>CI pipeline</td><td>None</td><td>GitHub Actions</td><td><span class="badge badge-p1">P1</span></td><td><input type="checkbox" disabled /></td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2 id="risks">9. Risks</h2>
+    <table>
+      <thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td>Custom docs chrome bugs (sidebar/TOC)</td><td>High</td><td>Broken nav UX</td><td>Port <code>sidebars.ts</code> literally; smoke test every section</td></tr>
+        <tr><td>MDX import paths break</td><td>High</td><td>Tutorials crash</td><td>Central MDX registry; error boundaries</td></tr>
+        <tr><td>HTML sanitizer strips valid content</td><td>Medium</td><td>Broken doc layout</td><td>Tuned allowlist; spot-check converted pages</td></tr>
+        <tr><td>Search index incomplete</td><td>Medium</td><td>Poor discoverability</td><td>Rebuild index in CI; test known titles</td></tr>
+        <tr><td>Theme FOUC</td><td>Medium</td><td>Flash on load</td><td><code>next-themes</code> + <code>suppressHydrationWarning</code></td></tr>
+        <tr><td>Slug case sensitivity</td><td>Medium</td><td>404s on Linux</td><td>Do not rename files (<code>CNNS</code>, etc.)</td></tr>
+        <tr><td>Dual framework rot</td><td>Medium</td><td>Bloat</td><td>Delete Docusaurus in Phase 8 only after green build</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2 id="acceptance">10. Acceptance criteria</h2>
+
+    <h3>P0 — Migration done</h3>
+    <ol>
+      <li><code>npm run build</code> succeeds; no <code>@docusaurus/*</code> runtime deps</li>
+      <li>All parity URLs respond 200</li>
+      <li>Sidebar order matches <code>sidebars.ts</code></li>
+      <li>Interactive tutorials work on production build</li>
+      <li>Zero broken internal links</li>
+    </ol>
+
+    <h3>P1 — Production ready (before DNS)</h3>
+    <ol>
+      <li>Dark/light theme complete; no FOUC</li>
+      <li>≥90% static docs as HTML</li>
+      <li>CI green: lint + typecheck + build</li>
+      <li>Search, sitemap, OG metadata working</li>
+      <li><code>MIGRATION_REPORT.md</code> complete with cutover checklist</li>
+    </ol>
+
+    <h3>Production checklist</h3>
+    <table>
+      <thead><tr><th>Area</th><th>Requirement</th><th>Done</th></tr></thead>
+      <tbody>
+        <tr><td>Build</td><td><code>next build</code> zero errors</td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Types</td><td><code>tsc --noEmit</code> passes</td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Lint</td><td>ESLint passes</td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Routes</td><td>All parity URLs 200</td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>SEO</td><td>sitemap.xml, metadataBase, OG image</td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Theme</td><td>Light/dark/system; persisted</td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>A11y</td><td>Skip link, focus visible, alt text</td><td><input type="checkbox" disabled /></td></tr>
+        <tr><td>Deploy</td><td>Vercel preview works; README updated</td><td><input type="checkbox" disabled /></td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2 id="kickoffs">11. Cursor kickoff templates</h2>
+    <p>Copy one message per phase into Cursor Agent. Attach or reference <code>DOCUSAURUS_TO_NEXTJS_PROMPT.html</code> for detailed rules.</p>
+
+    <details class="kickoff" open>
+      <summary>Phase 0 — Discovery</summary>
+      <pre><code>Execute Phase 0 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Stack: pure Next.js 15 App Router (no Fumadocs).
+Read docusaurus.config.ts, sidebars.ts, package.json, and interactive MDX files.
+Produce URL inventory, asset list, and HTML vs MDX classification in docs-migration/MIGRATION_REPORT.md.
+Do not modify application code yet.</code></pre>
+    </details>
+
+    <details class="kickoff">
+      <summary>Phase 1 — Next.js scaffold</summary>
+      <pre><code>Execute Phase 1 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Scaffold Next.js 15 App Router + TypeScript + Tailwind v4 on branch migrate/next-pure.
+Create folder skeleton from Section 6.3. Add dev/build/start/lint/typecheck scripts.
+Do not delete Docusaurus yet. Exit when npm run dev and npm run build succeed.</code></pre>
+    </details>
+
+    <details class="kickoff">
+      <summary>Phase 2 — Content port</summary>
+      <pre><code>Execute Phase 2 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Move docs/** to content/docs/** preserving slugs. Port static/img to public/img.
+Create config/docs-sidebar.ts from sidebars.ts (exact order and labels).
+Keep content as MDX for now. Do not rewrite prose.</code></pre>
+    </details>
+
+    <details class="kickoff">
+      <summary>Phase 3 — Docs subsystem</summary>
+      <pre><code>Execute Phase 3 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Implement custom DocsLayout: sidebar, TOC, breadcrumbs, prev/next.
+Build lib/content/load-doc.ts and wire @next/mdx with remark-math + rehype-katex.
+Pure Next.js only — no Fumadocs. Exit when all 38 sidebar docs render at /docs/... URLs.</code></pre>
+    </details>
+
+    <details class="kickoff">
+      <summary>Phase 4 — Site chrome</summary>
+      <pre><code>Execute Phase 4 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Create config/navigation.ts from docusaurus.config.ts navbar/footer.
+Build SiteHeader and SiteFooter. Port homepage, fellowship, and contribute pages.
+Use shared Container and layout components. Match existing link targets.</code></pre>
+    </details>
+
+    <details class="kickoff">
+      <summary>Phase 5 — Interactive islands</summary>
+      <pre><code>Execute Phase 5 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Port LogisticRegression and CurriculumTree to components/features/.
+Add use client, error boundaries, and register in lib/mdx-components.tsx.
+Smoke test both interactive docs in production build.</code></pre>
+    </details>
+
+    <details class="kickoff">
+      <summary>Phase 6 — Blog</summary>
+      <pre><code>Execute Phase 6 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Port blog/2024-04-24-welcome.mdx to content/blog/. Build /blog index and post routes.
+Preserve public URL slug. Footer Blog link must work.</code></pre>
+    </details>
+
+    <details class="kickoff">
+      <summary>Phase 7 — Link hardening</summary>
+      <pre><code>Execute Phase 7 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Script-check all sidebar, navbar, and footer URLs. Add redirects only if unavoidable.
+Configure build to fail on broken internal links. Target: zero broken links on parity set.</code></pre>
+    </details>
+
+    <details class="kickoff">
+      <summary>Phase 8 — Cleanup (P0 complete)</summary>
+      <pre><code>Execute Phase 8 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Remove @docusaurus/*, Astro leftovers, unused viz, build/, .docusaurus/.
+Expand .gitignore. Update README for Next.js workflows.
+Exit when single framework remains and npm run build is green.</code></pre>
+    </details>
+
+    <details class="kickoff">
+      <summary>Phase 9 — Search + SEO + math</summary>
+      <pre><code>Execute Phase 9 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Add Orama or FlexSearch build-time index + SearchDialog UI.
+Add sitemap, metadataBase, OG images. Wire KaTeX and syntax highlighting (python, r, julia).
+Add edit-this-page links using existing GitHub editUrl base.</code></pre>
+    </details>
+
+    <details class="kickoff">
+      <summary>Phase 10 — HTML doc migration</summary>
+      <pre><code>Execute Phase 10 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Extend load-doc.ts for .html with rehype-sanitize allowlist.
+Convert static MDX docs to HTML. Keep MDX only for interactive pages and blog.
+Spot-check 3 pages per section for visual parity.</code></pre>
+    </details>
+
+    <details class="kickoff">
+      <summary>Phase 11 — Theme system</summary>
+      <pre><code>Execute Phase 11 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Wire next-themes, styles/tokens.css, and ThemeToggle in navbar.
+Ensure no FOUC. Dark mode for docs prose, code blocks, and site chrome.
+Target WCAG AA contrast for body text.</code></pre>
+    </details>
+
+    <details class="kickoff">
+      <summary>Phase 12 — CI + prod checklist (P1 complete)</summary>
+      <pre><code>Execute Phase 12 of docs-migration/DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html.
+
+Add .github/workflows/ci.yml (install, lint, typecheck, build).
+Add not-found.tsx and error.tsx. Complete production checklist in IMPLEMENTATION_PLAN Section 10.
+Write docs-migration/MIGRATION_REPORT.md with parity matrix and DNS cutover checklist.</code></pre>
+    </details>
+
+    <hr>
+    <p><strong>Related files:</strong> <a href="DOCUSAURUS_TO_NEXTJS_PROMPT.html">Agent prompt (rules)</a> · <code>docs-migration/MIGRATION_REPORT.md</code> (created during execution)</p>
+
+  </main>
+</body>
+</html>

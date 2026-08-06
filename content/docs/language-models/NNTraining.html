@@ -1,0 +1,72 @@
+---
+sidebar_position: 3
+---
+<h1 id="understanding-neural-network-training-for-tokenized-sequences">Understanding Neural Network Training for Tokenized Sequences</h1>
+<h5 id="1-introduction"><strong>1. Introduction</strong></h5>
+<p>In this chapter, we will explore how neural networks are trained on tokenized sequences. We will break down the process step by step, starting from tokenization, moving to the structure of input data, and finally understanding how the neural network updates itself to improve predictions.</p>
+<h5 id="2-tokenization-and-data-representation"><strong>2. Tokenization and Data Representation</strong></h5>
+<p>Before training, raw text data is transformed into a sequence of tokens using a tokenizer. These tokens are unique numerical IDs that represent small chunks of text.<br>
+For example, consider a dataset with 15 trillion tokens. Each token is a discrete unit that the neural network will learn to process and predict.<br>
+Key points:</p>
+<ul>
+<li>The dataset is represented as a long sequence of tokens.</li>
+<li>Each token is assigned a unique numerical ID.</li>
+<li>The numbers themselves do not have inherent meaning but serve as identifiers.</li>
+</ul>
+<h5 id="3-neural-network-training-process"><strong>3. Neural Network Training Process</strong></h5>
+<p>Neural network training involves modeling the statistical relationships between tokens in a sequence.</p>
+<p>3.1. Windowing and Context Creation<br>
+To learn these relationships, we divide the dataset into smaller parts known as token windows. A window consists of a fixed number of consecutive tokens taken from the dataset.</p>
+<ul>
+<li>The window size can vary (e.g., 4,000, 8,000, or 16,000 tokens), but is usually limited due to computational constraints.</li>
+<li>For simplicity, let's consider a window size of 4 tokens.</li>
+<li>These 4 tokens serve as the context for predicting the next token.</li>
+</ul>
+<p>3.2. Predicting the Next Token<br>
+Given a sequence of tokens, the neural network aims to predict the next token in the sequence.<br>
+For example, consider the following sequence of token IDs:</p>
+<ul>
+<li>Input (context): 3962, 2847, 1209, 531</li>
+<li>Expected next token: 8743</li>
+</ul>
+<p>The neural network's job is to assign probabilities to all possible next tokens from the vocabulary (e.g., 100,277 possible tokens). Initially, these probabilities are random.</p>
+<h5 id="4-updating-the-neural-network"><strong>4. Updating the Neural Network</strong></h5>
+<p>The model improves by adjusting its predictions based on the correct token. This process follows these steps:</p>
+<ol>
+<li>Compute Initial Probabilities: The model assigns probabilities to all possible next tokens.</li>
+<li>Compare with Ground Truth: The actual next token is known from the dataset.</li>
+<li>Adjust Model Weights: The model updates itself to increase the probability of the correct token while decreasing the probabilities of incorrect tokens.</li>
+<li>Iterate Over Large Batches: This process is repeated across large batches of token sequences to refine the model.</li>
+</ol>
+<p>.For example:</p>
+<ul>
+<li>
+<p>Initial prediction:</p>
+<ul>
+<li>Token A: 4%</li>
+<li>Token B: 2%</li>
+<li>Token C (Correct Answer): 3%</li>
+</ul>
+</li>
+<li>
+<p>After training update:</p>
+<ul>
+<li>
+<p>Token A: 2%</p>
+</li>
+<li>
+<p>Token B: 1%</p>
+</li>
+<li>
+<h5 id="token-c-4-more-likely-to-be-predicted-next-time">Token C: 4% (more likely to be predicted next time)</h5>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="5-parallel-processing-for-efficiency"><strong>5. Parallel Processing for Efficiency</strong></h5>
+<p>Since datasets are extremely large, training happens in parallel:</p>
+<ul>
+<li>Many windows are processed simultaneously.</li>
+<li>Each token in a window contributes to updating the model.</li>
+<li>The neural network learns statistical patterns by adjusting probabilities for each token in every batch.</li>
+</ul>

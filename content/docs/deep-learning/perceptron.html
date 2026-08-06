@@ -1,0 +1,110 @@
+---
+sidebar_position: 2
+---
+<h1 id="understanding-the-perceptron-a-dive-into-the-basics-and-the-perceptron-trick">Understanding the Perceptron: A Dive into the Basics and the Perceptron Trick</h1>
+<p><img src="https://miro.medium.com/v2/resize:fit:1120/0*bWAFCEDj6oyfNAoO" alt="Perceptron Visualization"></p>
+<p><em>Photo by Milad Fakurian on Unsplash</em></p>
+<p>The perceptron is a fundamental concept in machine learning and forms the building block for more complex neural networks. If you're venturing into supervised learning, understanding the perceptron is crucial. This article will guide you through what a perceptron is, its geometric intuition, and the Perceptron Trick that powers its learning process.</p>
+<h2 id="what-is-a-perceptron">What is a Perceptron?</h2>
+<p>A perceptron is a type of artificial neuron used in supervised learning. It is a mathematical model that mimics the way a biological neuron works. Essentially, it's a function that takes input features, multiplies them by corresponding weights, adds a bias, and passes the result through an activation function to produce an output.</p>
+<p>To make predictions with a perceptron, you first need to train it on labeled data. During training, the perceptron learns by adjusting its weights and bias values based on the errors it makes. Once trained, it can make predictions on new, unseen data, where important features are given higher weights.</p>
+<p>A single perceptron can only solve linearly separable problems. However, when multiple perceptrons are combined, they form a neural network capable of tackling more complex tasks.</p>
+<p><img src="https://miro.medium.com/v2/resize:fit:531/0*BfzJ7wJ0poeVfiS3" alt="Perceptron Structure"></p>
+<h2 id="geometric-intuition">Geometric Intuition</h2>
+<p>The perceptron is a binary classifier, meaning it can classify input data into one of two classes. Geometrically, in a 2D space, a perceptron creates a straight line (or decision boundary) that divides the plane into two regions, each corresponding to one of the classes.</p>
+<p>When the number of input features increases, the perceptron no longer forms a simple line but rather a plane in higher dimensions. As the dimensionality grows, the perceptron introduces a hyperplane to separate the data into two regions.</p>
+<p>However, the perceptron excels at linear problems but fails when dealing with non-linear data. For instance, data arranged in a circular or cylindrical pattern cannot be correctly classified by a perceptron's straight-line decision boundary.</p>
+<h2 id="why-perceptrons-struggle-with-non-linear-data">Why Perceptrons Struggle with Non-Linear Data</h2>
+<p>The limitation of the perceptron becomes apparent when dealing with non-linear data. For example, consider data points arranged in concentric circles. No straight line, no matter how it's positioned, can separate these points into two classes. This is where more advanced models, like multi-layer neural networks, come into play, capable of handling non-linear boundaries.</p>
+<p><img src="https://miro.medium.com/v2/resize:fit:1120/0*n1D0uKdz1mFvd6_i" alt="Non-linear Data Example"></p>
+<h2 id="the-perceptron-trick-training-a-perceptron">The Perceptron Trick: Training a Perceptron</h2>
+<p>Training a perceptron involves finding the optimal weights and bias that minimize the error on the training data. This process can be understood as moving a decision boundary in the feature space until it correctly classifies the training examples.</p>
+<p>In the case of a 2D perceptron, the decision boundary can be expressed as a line:</p>
+<pre><code>Ax + By + C = 0
+</code></pre>
+<p>The goal is to find the coefficients <code>A</code> and <code>B</code> that best separate the data. Training starts with a random decision boundary, and the algorithm iteratively adjusts the coefficients by comparing the predicted output with the actual data points. This adjustment continues until the boundary correctly classifies all points or until a specified number of iterations (epochs) is reached.</p>
+<h3 id="moving-the-line--transformations">Moving the Line — Transformations:</h3>
+<ul>
+<li><strong>A</strong>: Adjusts the line's slope about the x-axis.</li>
+<li><strong>B</strong>: Adjusts the line's slope about the y-axis.</li>
+<li><strong>C</strong>: Moves the line parallel to its original position.</li>
+</ul>
+<p>To visualize how these transformations work, you can use tools like <a href="https://www.desmos.com/">Desmos</a> to see how adjusting these coefficients shifts the decision boundary in real-time.</p>
+<h3 id="perceptron-trick-explained">Perceptron Trick Explained</h3>
+<p>Imagine you're teaching a computer program to distinguish between two categories, say cats and dogs in pictures. Initially, the program makes random guesses, which are often incorrect. The Perceptron Trick is a method that helps the program learn from its mistakes and improve its predictions.</p>
+<p>Here's how it works:</p>
+<ol>
+<li>The program makes a prediction.</li>
+<li>If the prediction is correct, nothing changes.</li>
+<li>If the prediction is wrong, the program adjusts its weights slightly in the direction that would correct the error.</li>
+<li>This process repeats for many examples, and over time, the program's predictions improve.</li>
+</ol>
+<p>So, the Perceptron Trick is a way for the computer to learn and get better at classifying things, much like how we learn from our mistakes.</p>
+<h3 id="main-algorithm">Main Algorithm</h3>
+<pre><code class="language-python">import numpy as np
+
+def perceptron_training(X, y, learning_rate=0.01, epochs=100):
+    # Initialize weights and bias
+    W = np.zeros(X.shape[1])  # Assuming X is a NumPy array
+    b = 0
+
+    for epoch in range(epochs):
+        no_errors = True
+
+        for i in range(len(X)):
+            # Calculate weighted sum
+            weighted_sum = np.dot(W, X[i]) + b
+            
+            # Predict class label (Step function)
+            y_pred = 1 if weighted_sum > 0 else 0
+            
+            # Compute the error
+            error = y[i] - y_pred
+            
+            # Update weights and bias if misclassified
+            if error != 0:
+                W += learning_rate * error * X[i]
+                b += learning_rate * error
+                no_errors = False
+
+        # Stop early if no misclassification in the entire epoch
+        if no_errors:
+            break
+
+    return W, b
+</code></pre>
+<h3 id="during-training">During Training</h3>
+<ul>
+<li>If a point belonging to the negative class is predicted as positive, the weights are adjusted to move the decision boundary upwards.</li>
+<li>If a point belonging to the positive class is misclassified as negative, the weights are adjusted to move the boundary downwards.</li>
+</ul>
+<p>Instead of testing two conditions for updating the weights, a simplified rule is often used:</p>
+<h3 id="perceptron-weight-update-rule">Perceptron Weight Update Rule</h3>
+<p>For misclassified points:</p>
+<ul>
+<li>
+<p><strong>False Negative (Actual = 1, Predicted = 0)</strong>:</p>
+<ul>
+<li>The model underestimates the class label.</li>
+<li>To correct this, we increase the weights by adding a small portion of the input value (scaled by the learning rate).</li>
+<li><strong>Update Rule</strong>:
+<pre><code>New weight = Old weight + (Learning rate × Input value)
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>False Positive (Actual = 0, Predicted = 1)</strong>:</p>
+<ul>
+<li>The model overestimates the class label.</li>
+<li>To fix this, we decrease the weights by subtracting a small portion of the input value.</li>
+<li><strong>Update Rule</strong>:
+<pre><code>New weight = Old weight − (Learning rate × Input value)
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>This process repeats across multiple training cycles (epochs) until the model classifies all training points correctly or reaches a stopping condition.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The perceptron is a powerful yet simple model that laid the groundwork for more sophisticated neural networks. Understanding the Perceptron Trick and the geometric intuition behind perceptrons will provide you with a solid foundation in machine learning. While perceptrons have their limitations, particularly with non-linear data, they remain a crucial concept in the field.</p>

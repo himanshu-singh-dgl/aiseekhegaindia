@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Architect Prompt: Migrate AISeekhegaIndia from Docusaurus to Next.js (Production-Ready LLD)</title>
+  <style>
+    :root {
+      --bg: #f7f5f1;
+      --fg: #1a1a1a;
+      --muted: #5c5c5c;
+      --border: #d8d2c8;
+      --code-bg: #eeeae3;
+      --accent: #0b5fff;
+      --callout-bg: #eef4ff;
+      --table-head: #ebe6de;
+      --p0-bg: #fff0f0;
+      --p0-border: #e05252;
+      --p1-bg: #fff8e6;
+      --p1-border: #d4a017;
+      --p2-bg: #f0f7f0;
+      --p2-border: #3d8b40;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121418;
+        --fg: #ececec;
+        --muted: #a0a4ab;
+        --border: #2c3138;
+        --code-bg: #1c2128;
+        --accent: #6ea8ff;
+        --callout-bg: #1a2436;
+        --table-head: #1e2329;
+        --p0-bg: #2a1818;
+        --p0-border: #c44;
+        --p1-bg: #2a2418;
+        --p1-border: #b8860b;
+        --p2-bg: #182a18;
+        --p2-border: #4caf50;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.55;
+    }
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+    h1, h2, h3, h4 {
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+    h1 { font-size: 1.85rem; margin: 0 0 1rem; }
+    h2 {
+      font-size: 1.35rem;
+      margin: 2.5rem 0 0.85rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+    h2:first-of-type { border-top: 0; padding-top: 0; }
+    h3 { font-size: 1.1rem; margin: 1.5rem 0 0.6rem; }
+    h4 { font-size: 1rem; margin: 1.2rem 0 0.5rem; color: var(--muted); }
+    p, li { font-size: 1rem; }
+    a { color: var(--accent); }
+    blockquote {
+      margin: 1rem 0;
+      padding: 0.85rem 1rem;
+      background: var(--callout-bg);
+      border-left: 4px solid var(--accent);
+      color: var(--fg);
+    }
+    blockquote p { margin: 0; }
+    .priority-p0 {
+      background: var(--p0-bg);
+      border-left: 4px solid var(--p0-border);
+      padding: 0.85rem 1rem;
+      margin: 1rem 0;
+    }
+    .priority-p1 {
+      background: var(--p1-bg);
+      border-left: 4px solid var(--p1-border);
+      padding: 0.85rem 1rem;
+      margin: 1rem 0;
+    }
+    .priority-p2 {
+      background: var(--p2-bg);
+      border-left: 4px solid var(--p2-border);
+      padding: 0.85rem 1rem;
+      margin: 1rem 0;
+    }
+    .badge {
+      display: inline-block;
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.15em 0.5em;
+      border-radius: 4px;
+      vertical-align: middle;
+      margin-right: 0.35rem;
+    }
+    .badge-p0 { background: var(--p0-border); color: #fff; }
+    .badge-p1 { background: var(--p1-border); color: #fff; }
+    .badge-p2 { background: var(--p2-border); color: #fff; }
+    hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+    code, pre {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.88em;
+    }
+    :not(pre) > code {
+      background: var(--code-bg);
+      padding: 0.12em 0.35em;
+      border-radius: 4px;
+    }
+    pre {
+      background: var(--code-bg);
+      padding: 1rem 1.1rem;
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    pre code { background: none; padding: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.92rem;
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.65rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: var(--table-head); font-weight: 600; }
+    ul, ol { padding-left: 1.35rem; }
+    li { margin: 0.35rem 0; }
+    .meta {
+      color: var(--muted);
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .toc {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      font-size: 0.92rem;
+    }
+    .toc ol { margin: 0; padding-left: 1.25rem; }
+    .toc li { margin: 0.25rem 0; }
+    .est-time {
+      display: inline-block;
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.15em 0.65em;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .timeline-summary {
+      background: var(--callout-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0 1.5rem;
+      font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      font-size: 0.92rem;
+    }
+    .timeline-summary strong { color: var(--fg); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="meta">Copy-paste agent prompt · AISeekhegaIndia / ai-ml-docs · Docusaurus → Pure Next.js 15 · Production-ready LLD v2</p>
+
+    <h1>Architect Prompt: Migrate AISeekhegaIndia from Docusaurus to Next.js</h1>
+
+    <blockquote>
+      <p><strong>How to use this file:</strong> Paste this entire HTML document as the system/user prompt for an implementing agent or engineer. Do not summarize it away. Execute against the repository as it exists; treat locked decisions as final unless a hard blocker is discovered and logged. This document is the specification of record.</p>
+      <p><strong>Phase tracking:</strong> Use <a href="DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html">DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html</a> for phased tasks, estimates, status checkboxes, and Cursor kickoff templates. This prompt = rules; that plan = roadmap.</p>
+    </blockquote>
+
+    <nav class="toc" aria-label="Table of contents">
+      <strong>Contents</strong>
+      <ol>
+        <li><a href="#role">Role and mission</a></li>
+        <li><a href="#priorities">Priority model (P0 / P1 / P2)</a></li>
+        <li><a href="#nongoals">Non-goals</a></li>
+        <li><a href="#current">Current-state brief</a></li>
+        <li><a href="#decisions">Locked architectural decisions</a></li>
+        <li><a href="#rules">Engineering decision rules</a></li>
+        <li><a href="#lld">Low-level design (LLD) and design patterns</a></li>
+        <li><a href="#components">Component architecture and folder structure</a></li>
+        <li><a href="#theme">Dark / light theme system</a></li>
+        <li><a href="#html-content">HTML content authoring strategy</a></li>
+        <li><a href="#timeline">Timeline and estimates</a></li>
+        <li><a href="#phases">Phased execution (P0 → P1 → P2)</a></li>
+        <li><a href="#architecture">Target architecture</a></li>
+        <li><a href="#production">Production readiness checklist</a></li>
+        <li><a href="#parity">Parity matrix</a></li>
+        <li><a href="#risks">Risk register</a></li>
+        <li><a href="#acceptance">Acceptance criteria</a></li>
+        <li><a href="#files">Expected file map</a></li>
+        <li><a href="#report">Reporting format</a></li>
+        <li><a href="#actions">Immediate first actions</a></li>
+      </ol>
+    </nav>
+
+    <hr>
+
+    <h2 id="role">1. Role and mission</h2>
+    <p>You are acting as a <strong>Staff / Principal Engineer and Solution Architect</strong>. Your job is to migrate this repository’s documentation and marketing site from <strong>Docusaurus 3.1.1</strong> to a <strong>production-ready Next.js 15 (App Router)</strong> platform with a <strong>custom docs subsystem</strong> (no Fumadocs), with <strong>content and URL parity first</strong>, then incremental platform advantages.</p>
+    <p>You own:</p>
+    <ul>
+      <li>Technical architecture, LLD, and sequencing</li>
+      <li>Scalable, maintainable, extensible project structure (shared components, design tokens, clear boundaries)</li>
+      <li>Engineering decision discipline (no framework churn mid-flight)</li>
+      <li>Risk identification and mitigation</li>
+      <li>A measurable cutover that does not silently drop routes, SEO, or interactive tutorials</li>
+      <li>Production-grade theming (dark/light), CI, and deploy hygiene</li>
+    </ul>
+    <p>You do <strong>not</strong> own:</p>
+    <ul>
+      <li>Brand redesign or visual “refresh for its own sake”</li>
+      <li>Expanding content, i18n, or doc versioning beyond what exists today</li>
+      <li>Production DNS cutover without explicit human approval at the end</li>
+    </ul>
+    <p><strong>Mission success:</strong> A single Next.js deployable replaces Docusaurus, preserves public URLs and behavior for docs/blog/custom pages, ports interactive React islands, removes dead Astro/Docusaurus scaffolding, ships with CI + acceptance checks, and is structured for long-term maintainability.</p>
+
+    <hr>
+
+    <h2 id="priorities">2. Priority model (P0 / P1 / P2)</h2>
+    <p>Every task in this prompt is tagged. Execute <strong>P0 before P1 before P2</strong>. Do not start P1 polish until all P0 exit criteria pass. Do not defer P0 items to “later.”</p>
+
+    <table>
+      <thead>
+        <tr><th>Priority</th><th>Meaning</th><th>Ship gate</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-p0">P0</span></td>
+          <td><strong>Blocking.</strong> Cutover cannot happen without this. URL parity, build green, core docs render, interactive tutorials work, framework singularity.</td>
+          <td>Required for “migration done”</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-p1">P1</span></td>
+          <td><strong>Production quality.</strong> Search, SEO, theme polish, component library hygiene, CI hardening, a11y baseline, performance budgets.</td>
+          <td>Required before human DNS cutover approval</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-p2">P2</span></td>
+          <td><strong>Enhancement.</strong> Nice-to-have optimizations documented for post-cutover. Never block P0.</td>
+          <td>Log in migration report follow-ups</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>P0 summary (must complete)</h3>
+    <ul>
+      <li>Next 15 + custom docs layout + Tailwind v4 scaffold with green <code>build</code></li>
+      <li>All sidebar docs render at correct <code>/docs/...</code> URLs</li>
+      <li>Navbar, footer, homepage, fellowship, contribute pages functional</li>
+      <li>Logistic regression tutorial + CurriculumTree interactive</li>
+      <li>Blog welcome post at preserved slug</li>
+      <li>Remove Docusaurus/Astro/dead code; single framework</li>
+      <li>Zero broken internal links on parity URL set</li>
+    </ul>
+
+    <h3>P1 summary (production-ready bar)</h3>
+    <ul>
+      <li>Dark/light theme with persisted preference + <code>prefers-color-scheme</code></li>
+      <li>Shared component library under <code>components/ui</code> and <code>components/layout</code></li>
+      <li>Local search, sitemap, OG metadata, KaTeX, syntax highlighting (python, r, julia)</li>
+      <li>GitHub Action CI: install → lint → typecheck → build</li>
+      <li>Design tokens in Tailwind/CSS variables (Indian-flag palette preserved)</li>
+      <li>HTML content pipeline for static doc pages (see Section 10)</li>
+      <li>Core Web Vitals baseline: no render-blocking theme flash; LCP image priority on homepage</li>
+    </ul>
+
+    <h3>P2 summary (post-cutover)</h3>
+    <ul>
+      <li>Algolia, analytics, i18n, doc versioning <span class="est-time">2–4 days</span></li>
+      <li>Visual redesign, slug normalization <span class="est-time">3–5 days</span></li>
+      <li>Storybook / component catalog <span class="est-time">1–2 days</span></li>
+      <li>Edge middleware, advanced caching strategies <span class="est-time">1–2 days</span></li>
+    </ul>
+
+    <h3 id="timeline">Effort summary (at a glance)</h3>
+    <div class="timeline-summary">
+      <table>
+        <thead>
+          <tr><th>Track</th><th>Phases</th><th>Estimated effort</th><th>Calendar (1 FTE)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-p0">P0</span> Cutover blockers</td>
+            <td>0 → 5, 7, 8</td>
+            <td><strong>5–7 working days</strong> (40–56 h)</td>
+            <td>Week 1 – mid Week 2</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-p1">P1</span> Production ready</td>
+            <td>6, 9 → 12</td>
+            <td><strong>3–4.5 working days</strong> (24–36 h)</td>
+            <td>Mid Week 2 – end Week 2</td>
+          </tr>
+          <tr>
+            <td><strong>Total P0 + P1</strong></td>
+            <td>All 13 phases (0–12)</td>
+            <td><strong>8–11.5 working days</strong> (64–92 h)</td>
+            <td><strong>~2–2.5 weeks</strong> full-time</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-p2">P2</span> Post-cutover</td>
+            <td>Follow-ups</td>
+            <td><strong>3–8 working days</strong> (as needed)</td>
+            <td>Week 3+ (optional)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Assumptions:</strong> One engineer familiar with Next.js App Router; ~38 docs, 2 interactive tutorials, 3 marketing pages; no content rewrites; agent-assisted implementation may compress P0 by ~15–25%. Add <strong>+1–2 days</strong> buffer if custom docs subsystem (sidebar/TOC/search) takes longer than estimated or interactive tutorial port hits React 19 breaking changes.</p>
+
+    <hr>
+
+    <h2 id="nongoals">3. Non-goals</h2>
+    <p>Do <strong>not</strong>:</p>
+    <ol>
+      <li>Redesign the homepage, fellowship page, or docs chrome beyond what is required for Next.js layout and Tailwind consistency.</li>
+      <li>Add locales, doc versioning, Algolia, analytics, or Mermaid unless already present and required for parity (they are <strong>not</strong> present today—skip).</li>
+      <li>Keep Docusaurus and Next.js as dual production frameworks in one deployable.</li>
+      <li>Rewrite MDX/HTML pedagogy content while migrating (fix broken imports/paths only).</li>
+      <li>Invent new information architecture; preserve <code>sidebars.ts</code> category order and labels.</li>
+      <li>Commit secrets, force-push, or change git config.</li>
+      <li>Leave orphan Astro starter files, unused viz components, or stale <code>build/</code> as “maybe later.”</li>
+      <li>Scatter one-off components in <code>app/</code> route files—use the shared component structure in Section 8.</li>
+    </ol>
+
+    <hr>
+
+    <h2 id="current">4. Current-state brief (this repository)</h2>
+    <p>Treat the following as ground truth for planning and parity checks.</p>
+
+    <h3>Identity</h3>
+    <table>
+      <thead><tr><th>Field</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Brand / title</td><td>AISeekhegaIndia</td></tr>
+        <tr><td>Package name</td><td><code>ai-ml-docs</code></td></tr>
+        <tr><td>Production URL (config)</td><td><code>https://ai-ml-docs.org</code></td></tr>
+        <tr><td><code>baseUrl</code></td><td><code>/</code></td></tr>
+        <tr><td>Framework today</td><td>Docusaurus <strong>3.1.1</strong></td></tr>
+        <tr><td>React</td><td>18.2</td></tr>
+        <tr><td>Styling</td><td>Tailwind CSS <strong>v4</strong> + Infima overrides</td></tr>
+        <tr><td>Math</td><td><code>remark-math</code> + <code>rehype-katex</code></td></tr>
+        <tr><td>Search / analytics</td><td>No Algolia, no gtag</td></tr>
+        <tr><td>i18n / versioning</td><td>Not enabled</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Key source files</h3>
+    <table>
+      <thead><tr><th>Path</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code>docusaurus.config.ts</code></td><td>Site metadata, navbar, footer, prism, color mode, KaTeX CDN</td></tr>
+        <tr><td><code>sidebars.ts</code></td><td>Explicit <code>docsSidebar</code> — <strong>source of truth for nav order</strong></td></tr>
+        <tr><td><code>docs/**</code></td><td>~38 docs (mostly MDX), 6 sections, ~100 co-located PNGs</td></tr>
+        <tr><td><code>blog/2024-04-24-welcome.mdx</code></td><td>Single blog post</td></tr>
+        <tr><td><code>src/pages/index.tsx</code>, <code>fellowship.tsx</code>, <code>contribute.mdx</code></td><td>Custom marketing pages</td></tr>
+        <tr><td><code>src/components/LogisticRegression/**</code></td><td>Interactive tutorial</td></tr>
+        <tr><td><code>src/components/CurriculumTree.jsx</code></td><td>Interactive curriculum tree</td></tr>
+        <tr><td><code>static/img/**</code></td><td>Favicon, logo, social card</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Docs sidebar categories (preserve labels and order)</h3>
+    <ol>
+      <li>AI for Leaders</li>
+      <li>Machine Learning</li>
+      <li>Deep Learning</li>
+      <li>Language Models</li>
+      <li>Interactive Tutorials</li>
+      <li>Resources</li>
+    </ol>
+
+    <h3>Public routes that must survive</h3>
+    <table>
+      <thead><tr><th>Route</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td><code>/</code></td><td><code>src/pages/index.tsx</code></td></tr>
+        <tr><td><code>/fellowship</code></td><td><code>src/pages/fellowship.tsx</code></td></tr>
+        <tr><td><code>/contribute</code></td><td><code>src/pages/contribute.mdx</code></td></tr>
+        <tr><td><code>/docs/...</code></td><td>All sidebar docs</td></tr>
+        <tr><td><code>/blog</code> + post URL</td><td>Classic blog plugin</td></tr>
+        <tr><td>Navbar deep links</td><td>As in <code>docusaurus.config.ts</code></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Interactive MDX imports (must keep working)</h3>
+    <ul>
+      <li><code>docs/tutorials/logistic-regression.mdx</code> → <code>LogisticRegressionTutorial</code></li>
+      <li><code>docs/ai-for-leaders/curriculum-tree.mdx</code> → <code>CurriculumTree</code></li>
+    </ul>
+
+    <h3>Technical debt to resolve during migration</h3>
+    <table>
+      <thead><tr><th>Item</th><th>Action</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td>Astro leftovers</td><td>Delete after Next scaffold is healthy</td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>Unused <code>AIVisualization*</code>, <code>BrainVisualization*</code></td><td>Delete</td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>Orphan <code>curriculum-visual-tree.md</code></td><td>Do not publish; archive/delete with report note</td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>Stale <code>build/</code>, <code>.docusaurus/</code></td><td>Remove; gitignore</td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>Minimal <code>.gitignore</code></td><td>Expand for Next</td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>KaTeX CDN placeholder integrity</td><td>Fix SRI or self-host</td><td><span class="badge badge-p1">P1</span></td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2 id="decisions">5. Locked architectural decisions</h2>
+    <p>These decisions are <strong>final</strong>. Only escalate on hard blockers; log the smallest deviation required.</p>
+    <table>
+      <thead><tr><th>Decision</th><th>Locked choice</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td>App framework</td><td><strong>Next.js 15 App Router</strong> + TypeScript</td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>Docs system</td><td><strong>Custom Next.js docs subsystem</strong> — <code>DocsLayout</code>, sidebar, TOC, prev/next (no Fumadocs)</td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>Rejected: Fumadocs</td><td>Not chosen — pure Next.js per project decision</td><td>—</td></tr>
+        <tr><td>React</td><td><strong>React 19</strong> (Next 15 peer deps)</td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>Styling</td><td><strong>Tailwind CSS v4 only</strong>; drop Infima</td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>Content location</td><td><code>content/docs/**</code> + <code>lib/content/load-doc.ts</code></td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>Sidebar</td><td><code>config/docs-sidebar.ts</code> ported from <code>sidebars.ts</code></td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>Static doc format</td><td><strong>HTML files</strong> for non-interactive docs (see Section 10); MDX only where React islands required</td><td><span class="badge badge-p1">P1</span></td></tr>
+        <tr><td>URL policy</td><td>Parity with Docusaurus URLs</td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>Theme</td><td><code>next-themes</code> + CSS variables; light default, toggle, <code>prefers-color-scheme</code></td><td><span class="badge badge-p1">P1</span></td></tr>
+        <tr><td>Search</td><td>Orama or FlexSearch — build-time index, custom <code>SearchDialog</code></td><td><span class="badge badge-p1">P1</span></td></tr>
+        <tr><td>Hosting</td><td><strong>Vercel</strong></td><td><span class="badge badge-p0">P0</span></td></tr>
+        <tr><td>Broken links</td><td>Fail build on broken internal links</td><td><span class="badge badge-p0">P0</span></td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2 id="rules">6. Engineering decision rules</h2>
+    <ol>
+      <li><strong>URL parity over elegance.</strong> Keep old paths if “cleaner” routes break bookmarks.</li>
+      <li><strong>Sidebar file is law.</strong> Port <code>sidebars.ts</code> before filesystem-driven nav.</li>
+      <li><strong>Chrome before polish.</strong> Nav, footer, docs layout, homepage before typography tweaks.</li>
+      <li><strong>Islands stay client-only.</strong> <code>'use client'</code> only at interactive boundaries.</li>
+      <li><strong>Content ≠ layout.</strong> Doc bodies never embed site chrome.</li>
+      <li><strong>One design system.</strong> No Infima + Tailwind dual stack.</li>
+      <li><strong>Composition over duplication.</strong> Extract repeated UI into <code>components/ui</code> on second use.</li>
+      <li><strong>Colocate by feature, share by layer.</strong> Tutorial code lives under <code>components/features/</code>; buttons live under <code>components/ui/</code>.</li>
+      <li><strong>Fail closed on links.</strong> Internal broken links fail CI.</li>
+      <li><strong>Verify with build, not vibes.</strong> <code>next build</code> must succeed.</li>
+      <li><strong>Theme must not flash.</strong> Use <code>suppressHydrationWarning</code> on <code>&lt;html&gt;</code> and blocking script or <code>next-themes</code> defaults.</li>
+      <li><strong>HTML docs are sanitized at build time.</strong> Never render contributor HTML with <code>dangerouslySetInnerHTML</code> without a strict allowlist rehype step.</li>
+    </ol>
+
+    <hr>
+
+    <h2 id="lld">7. Low-level design (LLD) and design patterns</h2>
+    <p>Build for <strong>scalability</strong> (add docs/sections without touching routing code), <strong>maintainability</strong> (one place for nav, theme, tokens), and <strong>extensibility</strong> (new interactive tutorials plug in via MDX component map).</p>
+
+    <h3>7.1 Layered architecture</h3>
+    <pre><code>┌─────────────────────────────────────────────────────────┐
+│  Presentation (app/** routes, layouts, page shells)      │
+├─────────────────────────────────────────────────────────┤
+│  Composition (components/layout, components/features)    │
+├─────────────────────────────────────────────────────────┤
+│  Design system (components/ui, lib/cn, tokens)           │
+├─────────────────────────────────────────────────────────┤
+│  Content (content/docs HTML+MDX, content/blog, docs-sidebar config)│
+├─────────────────────────────────────────────────────────┤
+│  Infrastructure (lib/content, config, next.config, CI, search) │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+    <p><strong>Dependency rule:</strong> Upper layers import lower layers only. Content never imports from <code>app/</code>. <code>components/ui</code> never imports from <code>components/features</code>.</p>
+
+    <h3>7.2 Design patterns to apply</h3>
+    <table>
+      <thead><tr><th>Pattern</th><th>Where</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Layout composition</strong></td>
+          <td><code>app/layout.tsx</code> → <code>RootProviders</code> → route layouts</td>
+          <td>Single injection point for theme, fonts, analytics shell</td>
+        </tr>
+        <tr>
+          <td><strong>Provider pattern</strong></td>
+          <td><code>components/providers/ThemeProvider.tsx</code></td>
+          <td>Centralize dark/light; avoid prop drilling</td>
+        </tr>
+        <tr>
+          <td><strong>Container / presentational split</strong></td>
+          <td>Features: e.g. <code>LogisticRegressionContainer</code> + section presentational components</td>
+          <td>Testable math/state vs pure UI</td>
+        </tr>
+        <tr>
+          <td><strong>Registry / plugin map</strong></td>
+          <td><code>lib/mdx-components.tsx</code></td>
+          <td>MDX imports resolve through one map; add tutorials without editing docs routing core</td>
+        </tr>
+        <tr>
+          <td><strong>Content adapter</strong></td>
+          <td><code>lib/content/load-doc.ts</code></td>
+          <td>Uniform loader for <code>.html</code>, <code>.mdx</code>, frontmatter extraction</td>
+        </tr>
+        <tr>
+          <td><strong>Config as data</strong></td>
+          <td><code>config/site.ts</code>, <code>config/navigation.ts</code></td>
+          <td>Navbar/footer derived from typed config, not hardcoded in JSX</td>
+        </tr>
+        <tr>
+          <td><strong>Design tokens</strong></td>
+          <td><code>styles/tokens.css</code> + Tailwind <code>@theme</code></td>
+          <td>One source for colors, spacing, typography; theme switches swap CSS variables</td>
+        </tr>
+        <tr>
+          <td><strong>Barrel exports ( selective )</strong></td>
+          <td><code>components/ui/index.ts</code></td>
+          <td>Stable public API for UI primitives; avoid barrel-everything anti-pattern</td>
+        </tr>
+        <tr>
+          <td><strong>Static generation first</strong></td>
+          <td>Docs pages default SSG; client only for islands</td>
+          <td>Performance + SEO</td>
+        </tr>
+        <tr>
+          <td><strong>Error boundary per feature</strong></td>
+          <td>Wrap interactive tutorials</td>
+          <td>One broken canvas must not white-screen the doc</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>7.3 Extension points (future-proofing)</h3>
+    <ul>
+      <li><strong>New doc section:</strong> Add folder under <code>content/docs/&lt;section&gt;/</code> + entry in <code>config/docs-sidebar.ts</code>; no route code change.</li>
+      <li><strong>New interactive tutorial:</strong> Add feature folder + register in <code>mdx-components.tsx</code> + one MDX wrapper page.</li>
+      <li><strong>New marketing page:</strong> Add <code>app/&lt;route&gt;/page.tsx</code> using <code>MarketingLayout</code>.</li>
+      <li><strong>New nav item:</strong> Edit <code>config/navigation.ts</code> only.</li>
+      <li><strong>Theme variant:</strong> Extend CSS variables in <code>tokens.css</code>; components consume semantic tokens (<code>--color-surface</code>), not raw hex.</li>
+    </ul>
+
+    <h3>7.4 TypeScript boundaries</h3>
+    <ul>
+      <li><code>config/*.ts</code> — site metadata, nav items typed with <code>satisfies</code></li>
+      <li><code>lib/types/doc.ts</code> — <code>DocFrontmatter</code>, <code>DocFormat: 'html' | 'mdx'</code></li>
+      <li>Strict mode enabled; no <code>any</code> in public component props</li>
+      <li>Path alias <code>@/</code> → project root (consistent imports)</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="components">8. Component architecture and folder structure</h2>
+    <p>Use this structure. Do not invent parallel folders.</p>
+
+    <pre><code>app/
+  layout.tsx                    # Root layout: html, fonts, RootProviders
+  page.tsx                      # Homepage
+  fellowship/page.tsx
+  contribute/page.tsx
+  blog/
+    page.tsx
+    [slug]/page.tsx
+  docs/
+    layout.tsx                  # DocsLayout: sidebar, TOC, chrome
+    [[...slug]]/page.tsx
+  api/search/route.ts           # Optional search API
+
+components/
+  ui/                           # Generic, reusable, zero business logic
+    Button.tsx
+    Card.tsx
+    Badge.tsx
+    ThemeToggle.tsx
+    Container.tsx
+    index.ts                    # Barrel for ui only
+  layout/                       # Site chrome shared across marketing + docs
+    SiteHeader.tsx
+    SiteFooter.tsx
+    MarketingLayout.tsx
+    DocsPageActions.tsx         # Edit link, etc.
+  providers/
+    RootProviders.tsx           # ThemeProvider, etc.
+    ThemeProvider.tsx
+  features/                     # Domain-specific interactive modules
+    logistic-regression/
+      LogisticRegressionTutorial.tsx
+      sections/
+      utils/
+    curriculum-tree/
+      CurriculumTree.tsx
+    homepage/
+      HomepageFeatures.tsx
+      BrainIcon.tsx
+
+config/
+  site.ts                       # title, url, og defaults, editUrl base
+  navigation.ts                 # navbar + footer from docusaurus.config.ts
+
+content/
+  docs/
+    ai-for-leaders/
+      intro.html                # Static HTML doc example
+      curriculum-tree.mdx       # MDX only where React required
+      meta.json                 # optional per-folder metadata only
+    ...
+  blog/
+    2024-04-24-welcome.mdx
+
+lib/
+  cn.ts                         # clsx + tailwind-merge
+  mdx-components.tsx            # MDX component registry
+  content/
+    load-doc.ts                 # HTML + MDX adapter
+    frontmatter.ts
+  metadata.ts                   # generateMetadata helpers
+
+styles/
+  globals.css                   # Tailwind imports
+  tokens.css                    # CSS variables light/dark
+  docs.css                      # Prose styles for HTML/MDX body
+
+public/
+  img/                          # From static/img
+
+config/docs-sidebar.ts
+next.config.ts
+tailwind.config / postcss
+</code></pre>
+
+    <h3>8.1 Component ownership rules</h3>
+    <table>
+      <thead><tr><th>Folder</th><th>May import from</th><th>Must not</th></tr></thead>
+      <tbody>
+        <tr><td><code>components/ui</code></td><td><code>lib/cn</code>, <code>styles/tokens</code></td><td>Import features, app routes, content</td></tr>
+        <tr><td><code>components/layout</code></td><td><code>ui</code>, <code>config</code></td><td>Contain tutorial business logic</td></tr>
+        <tr><td><code>components/features/*</code></td><td><code>ui</code>, <code>lib</code></td><td>Import sibling features</td></tr>
+        <tr><td><code>app/**</code></td><td>layout, features, config, lib</td><td>Define reusable buttons inline</td></tr>
+      </tbody>
+    </table>
+
+    <h3>8.2 Shared UI primitives (P1 — implement as needed during chrome phase)</h3>
+    <ul>
+      <li><code>Button</code> — variants: primary, secondary, ghost, link</li>
+      <li><code>Container</code> — max-width wrapper matching current marketing layout</li>
+      <li><code>ThemeToggle</code> — sun/moon icon, accessible label, keyboard operable</li>
+      <li><code>Card</code> — homepage feature grid</li>
+      <li><code>DropdownMenu</code> — navbar Topics/Tutorials (use Radix or native details; keep bundle small)</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="theme">9. Dark / light theme system (production spec)</h2>
+    <div class="priority-p1"><span class="badge badge-p1">P1</span> Required before DNS cutover approval.</div>
+
+    <h3>9.1 Requirements</h3>
+    <ul>
+      <li>Default: <strong>light</strong> (match Docusaurus)</li>
+      <li>User toggle persisted in <code>localStorage</code> key <code>theme</code></li>
+      <li>Respect <code>prefers-color-scheme: dark</code> when user has not chosen</li>
+      <li>No FOUC: apply theme class before paint (<code>next-themes</code> + <code>suppressHydrationWarning</code>)</li>
+      <li>Docs prose, code blocks, callouts, navbar, footer all respect theme</li>
+      <li>Docs chrome styled via CSS variables and Tailwind tokens, not third-party doc theme forks</li>
+    </ul>
+
+    <h3>9.2 Token structure (<code>styles/tokens.css</code>)</h3>
+    <pre><code>:root {
+  --color-bg: #ffffff;
+  --color-fg: #1a1a1a;
+  --color-muted: #5c5c5c;
+  --color-border: #e5e5e5;
+  --color-accent: #0b5fff;          /* brand blue */
+  --color-accent-saffron: #ff9933;  /* Indian flag saffron — preserve from tailwind.config */
+  --color-accent-green: #138808;
+  --color-surface: #f7f5f1;
+  --color-code-bg: #f4f4f4;
+}
+
+.dark {
+  --color-bg: #121418;
+  --color-fg: #ececec;
+  --color-muted: #a0a4ab;
+  --color-border: #2c3138;
+  --color-accent: #6ea8ff;
+  --color-surface: #1c2128;
+  --color-code-bg: #1c2128;
+}
+</code></pre>
+    <p>Map tokens into Tailwind v4 <code>@theme</code> so utilities like <code>bg-surface</code> work. Components use semantic tokens, never hardcoded <code>#fff</code> in feature code.</p>
+
+    <h3>9.3 ThemeToggle placement</h3>
+    <ul>
+      <li>Navbar right cluster: ThemeToggle before GitHub icon</li>
+      <li>Same component reused in mobile nav drawer</li>
+      <li><code>aria-pressed</code> + visible focus ring (a11y P1)</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="html-content">10. HTML content authoring strategy</h2>
+    <div class="priority-p1"><span class="badge badge-p1">P1</span> Migrate static docs to HTML; keep MDX only for interactive pages.</div>
+
+    <h3>10.1 Rationale</h3>
+    <ul>
+      <li>Most ~38 docs are static prose + images — HTML is portable, diff-friendly for non-React contributors, and avoids MDX compile overhead.</li>
+      <li>Interactive pages (<code>logistic-regression</code>, <code>curriculum-tree</code>) remain <strong>MDX</strong> for React component imports.</li>
+      <li>Blog can stay MDX for now (single post).</li>
+    </ul>
+
+    <h3>10.2 File format</h3>
+    <p>Each static doc is a <code>.html</code> file with YAML frontmatter in an HTML comment or companion <code>.meta.json</code>:</p>
+    <pre><code>&lt;!--
+title: Introduction to Deep Learning
+description: Overview of neural networks
+sidebar_position: 1
+--&gt;
+&lt;article class="doc-content"&gt;
+  &lt;h1&gt;Introduction&lt;/h1&gt;
+  &lt;p&gt;...&lt;/p&gt;
+  &lt;img src="./assets/diagram.png" alt="..." /&gt;
+&lt;/article&gt;
+</code></pre>
+    <p>Implement <code>lib/content/load-doc.ts</code> to read HTML files and inject into the docs page body via a sanitized pipeline (<code>rehype-sanitize</code> allowlist). MDX wrapper fallback is acceptable only if logged as a deviation in the migration report.</p>
+
+    <h3>10.3 Migration conversion rules (MDX → HTML)</h3>
+    <ol>
+      <li>Convert MDX with <strong>no</strong> React imports → <code>.html</code></li>
+      <li>Keep MDX where <code>import Component from '@site/...'</code> exists</li>
+      <li>Replace Docusaurus admonitions with semantic HTML + <code>class="callout callout-info"</code></li>
+      <li>Preserve relative image paths; co-located PNGs stay beside the HTML file</li>
+      <li>Do not rewrite prose — structural conversion only</li>
+      <li>Internal links stay as <code>&lt;a href="/docs/..."&gt;</code> for parity</li>
+    </ol>
+
+    <h3>10.4 HTML sanitization (security — P1)</h3>
+    <ul>
+      <li>Run contributor HTML through <code>rehype-sanitize</code> with allowlist: headings, p, ul, ol, li, a, img, code, pre, table, blockquote, strong, em, sup, sub, span (class), div (class)</li>
+      <li>Strip <code>script</code>, <code>iframe</code>, event handlers</li>
+      <li>Never pass raw HTML to client components</li>
+    </ul>
+
+    <h3>10.5 Prose styling</h3>
+    <p>Apply shared <code>.doc-content</code> or <code>@tailwindcss/typography</code> <code>prose prose-neutral dark:prose-invert</code> wrapper in docs layout so HTML and MDX look identical.</p>
+
+    <hr>
+
+    <h2 id="phases">11. Phased execution (P0 → P1 → P2)</h2>
+    <p>Execute in order. Each phase lists exit criteria, priority, and estimated effort. See Section 2 for roll-up totals.</p>
+
+    <h3>Master timeline</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Name</th>
+          <th>Priority</th>
+          <th>Estimate</th>
+          <th>Cumulative (P0+P1)</th>
+          <th>Dependencies</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>Discovery</td><td><span class="badge badge-p0">P0</span></td><td>2–4 h</td><td>2–4 h</td><td>—</td></tr>
+        <tr><td>1</td><td>Scaffold</td><td><span class="badge badge-p0">P0</span></td><td>6–8 h</td><td>8–12 h</td><td>Phase 0</td></tr>
+        <tr><td>2</td><td>Content port</td><td><span class="badge badge-p0">P0</span></td><td>1–2 days</td><td>1.5–2.5 days</td><td>Phase 1</td></tr>
+        <tr><td>3</td><td>Site chrome</td><td><span class="badge badge-p0">P0</span></td><td>1–1.5 days</td><td>2.5–4 days</td><td>Phase 1 (parallel tail of Phase 2 OK)</td></tr>
+        <tr><td>4</td><td>Interactive islands</td><td><span class="badge badge-p0">P0</span></td><td>1–1.5 days</td><td>3.5–5.5 days</td><td>Phase 2</td></tr>
+        <tr><td>5</td><td>Blog</td><td><span class="badge badge-p0">P0</span></td><td>2–4 h</td><td>4–6 days</td><td>Phase 1</td></tr>
+        <tr><td>7</td><td>Link hardening</td><td><span class="badge badge-p0">P0</span></td><td>4–8 h</td><td>4.5–7 days</td><td>Phases 2–5</td></tr>
+        <tr><td>8</td><td>Cleanup &amp; cutover prep</td><td><span class="badge badge-p0">P0</span></td><td>4–6 h</td><td><strong>5–7 days</strong></td><td>Phase 7</td></tr>
+        <tr><td>6</td><td>Search, SEO, math</td><td><span class="badge badge-p1">P1</span></td><td>6–8 h</td><td>5.5–8 days</td><td>Phase 8</td></tr>
+        <tr><td>9</td><td>HTML doc migration</td><td><span class="badge badge-p1">P1</span></td><td>1.5–2 days</td><td>7–10 days</td><td>Phase 2, 6</td></tr>
+        <tr><td>10</td><td>Theme system</td><td><span class="badge badge-p1">P1</span></td><td>4–8 h</td><td>7.5–11 days</td><td>Phase 3</td></tr>
+        <tr><td>11</td><td>Component library</td><td><span class="badge badge-p1">P1</span></td><td>4–6 h</td><td>8–11.5 days</td><td>Phases 3, 4</td></tr>
+        <tr><td>12</td><td>CI &amp; production checklist</td><td><span class="badge badge-p1">P1</span></td><td>4–6 h</td><td><strong>8–11.5 days</strong></td><td>Phases 6–11</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Parallelization note:</strong> Phase 3 (chrome) can start once Phase 1 exits while Phase 2 is in progress. Phase 5 (blog) can run in parallel with Phase 4. Do not start P1 phases until Phase 8 (P0 cleanup) exits.</p>
+
+    <pre><code class="language-mermaid">flowchart TB
+  subgraph P0["P0 — Cutover blockers"]
+    P0A[Phase 0 Discovery]
+    P0B[Phase 1 Scaffold]
+    P0C[Phase 2 Content port]
+    P0D[Phase 3 Site chrome]
+    P0E[Phase 4 Interactive islands]
+    P0F[Phase 5 Blog]
+    P0G[Phase 7 Link hardening]
+    P0H[Phase 8 Cleanup]
+  end
+  subgraph P1["P1 — Production ready"]
+    P1A[Phase 6 Search SEO math]
+    P1B[HTML doc migration]
+    P1C[Theme system]
+    P1D[Component library]
+    P1E[CI and prod checklist]
+  end
+  P0A --> P0B --> P0C --> P0D --> P0E --> P0F --> P0G --> P0H
+  P0H --> P1A --> P1B --> P1C --> P1D --> P1E
+</code></pre>
+
+    <h3>Phase 0 — Discovery <span class="badge badge-p0">P0</span> <span class="est-time">Est. 2–4 h</span></h3>
+    <ul>
+      <li>Re-read <code>docusaurus.config.ts</code>, <code>sidebars.ts</code>, <code>package.json</code>, custom pages, interactive MDX files</li>
+      <li>Inventory all <code>/docs/*</code> URLs from sidebar IDs</li>
+      <li>List assets under <code>docs/**</code> and <code>static/</code></li>
+      <li>Classify each doc: <strong>interactive (MDX)</strong> vs <strong>static (candidate for HTML)</strong></li>
+      <li><strong>Exit:</strong> Written inventory in migration report with HTML/MDX classification column</li>
+    </ul>
+
+    <h3>Phase 1 — Scaffold <span class="badge badge-p0">P0</span> <span class="est-time">Est. 6–8 h</span></h3>
+    <ul>
+      <li>Next.js 15 App Router + TypeScript + Tailwind v4 (no Fumadocs)</li>
+      <li>Create folder skeleton from Section 8 (empty <code>components/ui</code>, <code>config/</code>, <code>lib/</code>)</li>
+      <li><code>RootProviders</code> with placeholder ThemeProvider</li>
+      <li>Scripts: <code>dev</code>, <code>build</code>, <code>start</code>, <code>lint</code>, <code>typecheck</code></li>
+      <li>Do <strong>not</strong> delete Docusaurus yet</li>
+      <li><strong>Exit:</strong> <code>npm run dev</code> and <code>npm run build</code> succeed</li>
+    </ul>
+
+    <h3>Phase 2 — Content port <span class="badge badge-p0">P0</span> <span class="est-time">Est. 1–2 days</span></h3>
+    <ul>
+      <li>Move docs → <code>content/docs/**</code>; preserve slugs for <code>/docs/&lt;section&gt;/&lt;slug&gt;</code></li>
+      <li>Port <code>static/img</code> → <code>public/img</code></li>
+      <li>Encode sidebar via <code>config/docs-sidebar.ts</code> matching <code>sidebars.ts</code></li>
+      <li>Initial pass: port as MDX if faster; HTML conversion is Phase 11b (P1)</li>
+      <li><strong>Exit:</strong> All sidebar docs render; images load; no missing-module errors</li>
+    </ul>
+
+    <h3>Phase 3 — Site chrome <span class="badge badge-p0">P0</span> <span class="est-time">Est. 1–1.5 days</span></h3>
+    <ul>
+      <li>Implement <code>config/navigation.ts</code> from <code>docusaurus.config.ts</code></li>
+      <li><code>SiteHeader</code>, <code>SiteFooter</code> using shared <code>Container</code></li>
+      <li>Port homepage, fellowship, contribute</li>
+      <li>Placeholder ThemeToggle (can wire fully in Phase 11d)</li>
+      <li><strong>Exit:</strong> Marketing pages + nav/footer links resolve</li>
+    </ul>
+
+    <h3>Phase 4 — Interactive islands <span class="badge badge-p0">P0</span> <span class="est-time">Est. 1–1.5 days</span></h3>
+    <ul>
+      <li>Port features under <code>components/features/</code></li>
+      <li><code>'use client'</code> + error boundaries</li>
+      <li>Register in <code>lib/mdx-components.tsx</code></li>
+      <li><strong>Exit:</strong> Tutorial + curriculum tree interactive in production build</li>
+    </ul>
+
+    <h3>Phase 5 — Blog <span class="badge badge-p0">P0</span> <span class="est-time">Est. 2–4 h</span></h3>
+    <ul>
+      <li>Port welcome post; preserve slug and <code>/blog</code> index</li>
+      <li><strong>Exit:</strong> Blog index + post render</li>
+    </ul>
+
+    <h3>Phase 6 — Search, SEO, math, highlighting <span class="badge badge-p1">P1</span> <span class="est-time">Est. 6–8 h</span></h3>
+    <ul>
+      <li>Orama/FlexSearch local search + SearchDialog UI</li>
+      <li>Sitemap + metadata / Open Graph (<code>https://ai-ml-docs.org</code>)</li>
+      <li>remark-math + rehype-katex + KaTeX CSS (fix integrity)</li>
+      <li>Syntax highlighting: python, r, julia</li>
+      <li>Edit-this-page links</li>
+      <li><strong>Exit:</strong> Search finds 3+ doc titles; meta correct; math pipeline compiles</li>
+    </ul>
+
+    <h3>Phase 7 — Redirects and link hardening <span class="badge badge-p0">P0</span> <span class="est-time">Est. 4–8 h</span></h3>
+    <ul>
+      <li>Redirects only if unavoidable (prefer zero)</li>
+      <li>Strict internal link checking in CI</li>
+      <li>Script-check all sidebar + navbar + footer URLs</li>
+      <li><strong>Exit:</strong> Zero broken internal links on parity set</li>
+    </ul>
+
+    <h3>Phase 8 — Cleanup and cutover prep <span class="badge badge-p0">P0</span> <span class="est-time">Est. 4–6 h</span></h3>
+    <ul>
+      <li>Remove Docusaurus, Astro, unused viz, committed <code>build/</code></li>
+      <li>Update README</li>
+      <li>Expand <code>.gitignore</code></li>
+      <li><strong>Exit:</strong> Single framework; <code>npm run build</code> green</li>
+    </ul>
+
+    <h3>Phase 9 — HTML doc migration <span class="badge badge-p1">P1</span> <span class="est-time">Est. 1.5–2 days</span></h3>
+    <ul>
+      <li>Implement <code>lib/content/load-doc.ts</code> content adapter</li>
+      <li>Convert static MDX docs → HTML per Section 10 rules</li>
+      <li>Verify visual parity on 3 sample pages per section</li>
+      <li><strong>Exit:</strong> ≥90% of non-interactive docs served as HTML; MDX count ≤ interactive + blog</li>
+    </ul>
+
+    <h3>Phase 10 — Theme system completion <span class="badge badge-p1">P1</span> <span class="est-time">Est. 4–8 h</span></h3>
+    <ul>
+      <li>Wire <code>next-themes</code>, tokens, docs chrome dark overrides</li>
+      <li>ThemeToggle in navbar; test light/dark/system on docs + marketing pages</li>
+      <li><strong>Exit:</strong> No FOUC; all major surfaces themed; contrast meets WCAG AA for body text</li>
+    </ul>
+
+    <h3>Phase 11 — Component library hardening <span class="badge badge-p1">P1</span> <span class="est-time">Est. 4–6 h</span></h3>
+    <ul>
+      <li>Extract duplicated markup into <code>components/ui</code></li>
+      <li>Ensure layout/features obey import rules (Section 8.1)</li>
+      <li><strong>Exit:</strong> No inline duplicate button/card patterns in <code>app/</code></li>
+    </ul>
+
+    <h3>Phase 12 — CI and production checklist <span class="badge badge-p1">P1</span> <span class="est-time">Est. 4–6 h</span></h3>
+    <ul>
+      <li>GitHub Action: install → lint → typecheck → build</li>
+      <li>Complete Section 13 production checklist</li>
+      <li>Write migration report (Section 16)</li>
+      <li><strong>Exit:</strong> CI green on branch; report complete; human can approve DNS cutover</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="architecture">12. Target architecture</h2>
+
+    <h3>Data flow</h3>
+    <ol>
+      <li>Content loader reads HTML or MDX from <code>content/docs</code></li>
+      <li><code>@next/mdx</code> compiles MDX through remark/rehype (math, sanitize for HTML)</li>
+      <li>Sidebar from <code>config/docs-sidebar.ts</code> (former <code>sidebars.ts</code>)</li>
+      <li>Marketing pages use <code>MarketingLayout</code> + shared header/footer</li>
+      <li>Search indexes at build via Orama/FlexSearch in <code>lib/content/build-search-index.ts</code></li>
+      <li>Vercel serves Next build; static assets CDN-cached</li>
+    </ol>
+
+    <h3>Separation of concerns</h3>
+    <table>
+      <thead><tr><th>Layer</th><th>Owns</th></tr></thead>
+      <tbody>
+        <tr><td><code>content/**</code></td><td>Pedagogy HTML/MDX, co-located images, sidebar meta</td></tr>
+        <tr><td><code>app/**</code></td><td>Routing, layouts, metadata only</td></tr>
+        <tr><td><code>components/**</code></td><td>UI, layout chrome, feature islands</td></tr>
+        <tr><td><code>config/**</code></td><td>Site + navigation data</td></tr>
+        <tr><td><code>lib/**</code></td><td>Content adapters, MDX registry, utilities</td></tr>
+        <tr><td><code>styles/**</code></td><td>Tokens, globals, prose</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2 id="production">13. Production readiness checklist</h2>
+    <div class="priority-p1"><span class="badge badge-p1">P1</span> Complete before requesting DNS cutover.</div>
+
+    <table>
+      <thead><tr><th>Area</th><th>Requirement</th><th>Verify</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Build</strong></td><td><code>next build</code> zero errors; no Docusaurus deps</td><td>CI log</td></tr>
+        <tr><td><strong>Type safety</strong></td><td><code>tsc --noEmit</code> passes</td><td>CI log</td></tr>
+        <tr><td><strong>Lint</strong></td><td>ESLint passes (Next recommended rules)</td><td>CI log</td></tr>
+        <tr><td><strong>Routes</strong></td><td>All parity URLs 200</td><td>Script or manual matrix</td></tr>
+        <tr><td><strong>Links</strong></td><td>Zero broken internal links</td><td>CI link checker</td></tr>
+        <tr><td><strong>SEO</strong></td><td><code>metadataBase</code>, titles, OG image, sitemap.xml, robots.txt</td><td>View source + /sitemap.xml</td></tr>
+        <tr><td><strong>Theme</strong></td><td>Light/dark/system; no flash; persisted preference</td><td>Manual + Lighthouse</td></tr>
+        <tr><td><strong>Performance</strong></td><td>LCP &lt; 2.5s on homepage (local prod build); next/image for hero assets</td><td>Lighthouse</td></tr>
+        <tr><td><strong>A11y</strong></td><td>Skip link, focus visible, alt text on migrated images, theme toggle labels</td><td>axe or manual</td></tr>
+        <tr><td><strong>Security</strong></td><td>HTML sanitize pipeline; no secrets in repo; security headers via <code>next.config</code> if trivial</td><td>Code review</td></tr>
+        <tr><td><strong>Errors</strong></td><td>Custom <code>not-found.tsx</code>, <code>error.tsx</code> for docs layout</td><td Hit bad URL</td></tr>
+        <tr><td><strong>Deploy</strong></td><td>Vercel project config documented; preview deploy works</td><td>README</td></tr>
+        <tr><td><strong>Observability</strong></td><td>Build logs sufficient; optional Vercel Analytics noted as P2</td><td>Report</td></tr>
+        <tr><td><strong>Contributor docs</strong></td><td>README: dev, build, HTML vs MDX authoring, folder structure</td><td>README review</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2 id="parity">14. Parity matrix (must pass)</h2>
+    <table>
+      <thead><tr><th>Capability</th><th>Docusaurus today</th><th>Next target</th><th>Priority</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Site title / tagline</td><td>AISeekhegaIndia</td><td>Same</td><td><span class="badge badge-p0">P0</span></td><td></td></tr>
+        <tr><td>Canonical base</td><td><code>https://ai-ml-docs.org</code></td><td>Same</td><td><span class="badge badge-p0">P0</span></td><td></td></tr>
+        <tr><td>Docs routes</td><td><code>/docs/...</code></td><td>Same</td><td><span class="badge badge-p0">P0</span></td><td></td></tr>
+        <tr><td>Sidebar (6 categories)</td><td><code>sidebars.ts</code></td><td><code>config/docs-sidebar.ts</code></td><td><span class="badge badge-p0">P0</span></td><td></td></tr>
+        <tr><td>Navbar / footer</td><td>Config</td><td><code>config/navigation.ts</code></td><td><span class="badge badge-p0">P0</span></td><td></td></tr>
+        <tr><td>Homepage / fellowship / contribute</td><td>Custom</td><td>Ported</td><td><span class="badge badge-p0">P0</span></td><td></td></tr>
+        <tr><td>Interactive tutorials</td><td>Client</td><td>Client features</td><td><span class="badge badge-p0">P0</span></td><td></td></tr>
+        <tr><td>Blog</td><td>1 post</td><td>Ported</td><td><span class="badge badge-p0">P0</span></td><td></td></tr>
+        <tr><td>Dark/light mode</td><td>Light default + toggle</td><td><code>next-themes</code> + tokens</td><td><span class="badge badge-p1">P1</span></td><td></td></tr>
+        <tr><td>Static docs as HTML</td><td>MDX today</td><td>HTML adapter</td><td><span class="badge badge-p1">P1</span></td><td></td></tr>
+        <tr><td>Shared component library</td><td>Ad hoc</td><td><code>ui/</code> + <code>layout/</code></td><td><span class="badge badge-p1">P1</span></td><td></td></tr>
+        <tr><td>Local search</td><td>Theme search</td><td>Orama/FlexSearch</td><td><span class="badge badge-p1">P1</span></td><td></td></tr>
+        <tr><td>KaTeX + prism langs</td><td>Configured</td><td>Same</td><td><span class="badge badge-p1">P1</span></td><td></td></tr>
+        <tr><td>CI pipeline</td><td>None</td><td>GitHub Actions</td><td><span class="badge badge-p1">P1</span></td><td></td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2 id="risks">15. Risk register</h2>
+    <table>
+      <thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td>MDX import paths break</td><td>High</td><td>Tutorials crash</td><td>MDX registry; smoke test both interactive docs</td></tr>
+        <tr><td>HTML migration breaks images/links</td><td>High</td><td>Broken docs</td><td>Preserve paths; per-section visual check</td></tr>
+        <tr><td>Theme FOUC</td><td>Medium</td><td>Poor UX</td><td><code>next-themes</code> + blocking attribute script</td></tr>
+        <tr><td>Custom docs subsystem complexity</td><td>Medium</td><td>Delayed P0/P1</td><td>Follow IMPLEMENTATION_PLAN Phase 3; log deviations in report</td></tr>
+        <tr><td>Component sprawl</td><td>Medium</td><td>Unmaintainable</td><td>Enforce Section 8 folder rules in review</td></tr>
+        <tr><td>Slug case sensitivity</td><td>Medium</td><td>404s</td><td>Do not rename; Linux CI</td></tr>
+        <tr><td>Dual framework rot</td><td>Medium</td><td>Bloat</td><td>Delete Docusaurus in Phase 8</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2 id="acceptance">16. Acceptance criteria</h2>
+
+    <h3>P0 — Migration done</h3>
+    <ol>
+      <li><code>npm run build</code> succeeds; no <code>@docusaurus/*</code></li>
+      <li>All parity URLs respond 200</li>
+      <li>Sidebar order matches <code>sidebars.ts</code></li>
+      <li>Interactive tutorials work on production build</li>
+      <li>Zero broken internal links</li>
+      <li>Migration report draft exists</li>
+    </ol>
+
+    <h3>P1 — Production ready (required before DNS)</h3>
+    <ol>
+      <li>Dark/light theme complete per Section 9</li>
+      <li>≥90% static docs as HTML</li>
+      <li>CI green: lint + typecheck + build</li>
+      <li>Search, sitemap, OG metadata working</li>
+      <li>Section 13 checklist complete</li>
+      <li>README documents architecture and authoring</li>
+    </ol>
+
+    <hr>
+
+    <h2 id="files">17. Expected file map</h2>
+    <h3>Add / own</h3>
+    <ul>
+      <li>Full tree from Section 8</li>
+      <li><code>.github/workflows/ci.yml</code></li>
+      <li><code>styles/tokens.css</code>, expanded <code>.gitignore</code></li>
+    </ul>
+    <h3>Remove after cutover</h3>
+    <ul>
+      <li><code>docusaurus.config.ts</code>, <code>sidebars.ts</code> (after encoded in meta + report)</li>
+      <li>All <code>@docusaurus/*</code>, Astro leftovers, unused viz, <code>build/</code>, <code>.docusaurus/</code></li>
+    </ul>
+
+    <hr>
+
+    <h2 id="report">18. Reporting format (required deliverable)</h2>
+    <h3>A. Executive summary</h3>
+    <h3>B. Decisions obeyed / deviations</h3>
+    <h3>C. Parity matrix (Section 14 completed)</h3>
+    <h3>D. URL inventory</h3>
+    <h3>E. HTML vs MDX classification table</h3>
+    <h3>F. Component map (features + ui exports)</h3>
+    <h3>G. Deleted debt</h3>
+    <h3>H. Production checklist (Section 13) with checkmarks</h3>
+    <h3>I. Cutover checklist for humans</h3>
+    <ul>
+      <li><input disabled type="checkbox"> Vercel connected</li>
+      <li><input disabled type="checkbox"> <code>ai-ml-docs.org</code> DNS verified</li>
+      <li><input disabled type="checkbox"> Production smoke all critical routes</li>
+      <li><input disabled type="checkbox"> Theme tested light/dark</li>
+      <li><input disabled type="checkbox"> Old GH Pages disabled</li>
+    </ul>
+    <h3>J. Follow-ups (P2)</h3>
+
+    <hr>
+
+    <h2 id="actions">19. Immediate first actions</h2>
+    <ol>
+      <li>Create branch <code>migrate/next-pure</code> <span class="est-time">15 min</span></li>
+      <li>Confirm Node LTS <span class="est-time">15 min</span></li>
+      <li>Phase 0 discovery — classify HTML vs MDX docs <span class="est-time">2–4 h</span></li>
+      <li>Phase 1 scaffold with Section 8 folder skeleton + RootProviders <span class="est-time">1 day</span></li>
+      <li>Follow phases in <a href="DOCUSAURUS_TO_NEXTJS_IMPLEMENTATION_PLAN.html">IMPLEMENTATION_PLAN.html</a> using kickoff templates <span class="est-time">ongoing</span></li>
+      <li>Write migration report (Section 18) <span class="est-time">1–2 h</span></li>
+    </ol>
+    <p><strong>Target completion:</strong> P0 in ~1 week · P0+P1 (production-ready) in ~2–2.5 weeks · DNS cutover (human) +1 day smoke testing.</p>
+
+    <p><strong>Begin now.</strong> Treat this document as the specification of record.</p>
+
+  </main>
+</body>
+</html>

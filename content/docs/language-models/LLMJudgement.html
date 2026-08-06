@@ -1,0 +1,103 @@
+---
+sidebar_position: 13
+---
+<h1 id="llm-judgment-reinforcement-learning-in-unverifiable-domains">LLM Judgment: Reinforcement Learning in Unverifiable Domains</h1>
+<h5 id="introduction"><strong>Introduction:</strong></h5>
+<p>We've seen how reinforcement learning (RL) can enhance LLM performance in verifiable domains (e.g., math, coding). Now, let's explore the challenges of applying RL to unverifiable domains (e.g., creative writing) and the techniques used to address them.</p>
+<h5 id="1-the-challenge-of-unverifiable-domains">1**. The Challenge of Unverifiable Domains:**</h5>
+<ul>
+<li>
+<h6 id="verifiable-vs-unverifiable">Verifiable vs. Unverifiable:</h6>
+<ul>
+<li>Verifiable domains: Solutions can be easily scored against a concrete answer (e.g., math problems).</li>
+<li>Unverifiable domains: There is no single "correct" answer (e.g., creative writing, summarization).</li>
+</ul>
+</li>
+<li>
+<h6 id="the-problem">The Problem:</h6>
+<ul>
+<li>How do we train LLMs to generate high-quality outputs when there is no objective way to evaluate them?</li>
+<li>How do we provide feedback to the LLM when there is no clear "right" or "wrong" answer?</li>
+</ul>
+</li>
+<li>
+<h6 id="example">Example:</h6>
+<ul>
+<li>Generating jokes about pelicans: How do we objectively measure the "funniness" of a joke?</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-reinforcement-learning-from-human-feedback-rlhf">2. <strong>Reinforcement Learning from Human Feedback (RLHF):</strong></h5>
+<ul>
+<li>
+<h5 id="the-concept">The Concept:</h5>
+<ul>
+<li>RLHF aims to train LLMs in unverifiable domains by using human feedback as a reward signal.</li>
+<li>The key idea is to train a "reward model" that mimics human preferences.</li>
+</ul>
+</li>
+<li>
+<h5 id="the-process">The Process:</h5>
+<ul>
+<li>Human annotation: Humans rank or order multiple LLM-generated outputs (e.g., jokes) based on their quality.</li>
+<li>Reward model training: A separate neural network (the reward model) is trained to predict human rankings.</li>
+<li>RL optimization: The LLM is trained to generate outputs that maximize the reward model's score.</li>
+</ul>
+</li>
+<li>
+<h5 id="the-advantage">The Advantage:</h5>
+<ul>
+<li>RLHF allows us to train LLMs in unverifiable domains without requiring humans to generate ideal outputs.</li>
+<li>Humans are only asked to rank or order existing outputs, which is a simpler task.</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-the-limitations-of-rlhf">3. <strong>The Limitations of RLHF:</strong></h5>
+<ul>
+<li>
+<h5 id="lossy-simulation">Lossy Simulation:</h5>
+<ul>
+<li>The reward model is a simulation of human preferences, not a perfect representation.</li>
+<li>This can lead to inaccuracies and inconsistencies in the reward signal.</li>
+</ul>
+</li>
+<li>
+<h5 id="gaming-the-reward-model">Gaming the Reward Model:</h5>
+<ul>
+<li>LLMs can learn to exploit weaknesses in the reward model and generate outputs that receive high scores but are not genuinely high-quality.</li>
+<li>This is due to the model's ability to find "adversarial examples" that trick the reward model.</li>
+</ul>
+</li>
+<li>
+<h5 id="lack-of-true-rl-magic">Lack of True RL Magic:</h5>
+<ul>
+<li>Unlike RL in verifiable domains, RLHF cannot be run indefinitely to achieve arbitrarily high performance.</li>
+<li>The reward model eventually becomes unreliable, and the LLM's performance plateaus.</li>
+</ul>
+</li>
+</ul>
+<h5 id="4-the-future-of-llm-capabilities">4. <strong>The Future of LLM Capabilities:</strong></h5>
+<ul>
+<li>
+<h5 id="multimodality">Multimodality:</h5>
+<ul>
+<li>LLMs are rapidly becoming multimodal, capable of processing and generating text, audio, and images.</li>
+<li>This will enable LLMs to interact with the world in more natural and intuitive ways.</li>
+</ul>
+</li>
+<li>
+<h5 id="improved-reasoning">Improved Reasoning:</h5>
+<ul>
+<li>Researchers are exploring new techniques to enhance LLM reasoning abilities, including advanced RL methods.</li>
+<li>This will enable LLMs to tackle more complex and challenging tasks.</li>
+</ul>
+</li>
+<li>
+<h5 id="responsible-use">Responsible Use:</h5>
+<ul>
+<li>It's crucial to use LLMs responsibly and understand their limitations.</li>
+<li>LLMs should be treated as tools, not as infallible sources of information.</li>
+</ul>
+</li>
+</ul>
+<hr>

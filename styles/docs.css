@@ -1,0 +1,73 @@
+.doc-content {
+  @apply text-[var(--fg)];
+}
+
+.doc-content h1 {
+  @apply mb-6 text-3xl font-bold tracking-tight;
+}
+
+.doc-content h2 {
+  @apply mb-4 mt-10 scroll-mt-24 border-b border-[var(--border)] pb-2 text-2xl font-semibold;
+}
+
+.doc-content h3 {
+  @apply mb-3 mt-8 scroll-mt-24 text-xl font-semibold;
+}
+
+.doc-content h4 {
+  @apply mb-2 mt-6 scroll-mt-24 text-lg font-medium;
+}
+
+.doc-content p,
+.doc-content li {
+  @apply leading-7;
+}
+
+.doc-content a {
+  @apply text-[var(--link)] underline-offset-2 hover:text-[var(--link-hover)] hover:underline;
+}
+
+.doc-content pre {
+  @apply overflow-x-auto rounded-lg border border-[var(--border)] bg-[var(--code-bg)] p-4 text-sm;
+}
+
+.doc-content code {
+  @apply rounded bg-[var(--code-bg)] px-1.5 py-0.5 text-sm;
+}
+
+.doc-content pre code {
+  @apply bg-transparent p-0;
+}
+
+.doc-content img {
+  @apply my-4 max-w-full rounded-lg;
+}
+
+.doc-content blockquote {
+  @apply my-4 border-l-4 border-primary bg-[var(--surface)] px-4 py-2 italic;
+}
+
+.doc-content table {
+  @apply my-6 w-full border-collapse text-sm;
+}
+
+.doc-content th,
+.doc-content td {
+  @apply border border-[var(--border)] px-3 py-2 text-left align-top;
+}
+
+.doc-content th {
+  @apply bg-[var(--surface)] font-semibold;
+}
+
+.doc-content ul {
+  @apply my-4 list-disc pl-6;
+}
+
+.doc-content ol {
+  @apply my-4 list-decimal pl-6;
+}
+
+.katex-display {
+  @apply my-6 overflow-x-auto;
+}

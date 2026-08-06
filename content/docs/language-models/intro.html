@@ -1,0 +1,71 @@
+---
+sidebar_position: 1
+---
+<h1 id="introduction-to-large-language-models">Introduction to Large Language Models</h1>
+<h2 id="understanding-large-language-models-llms">Understanding Large Language Models (LLMs)</h2>
+<p>Large Language Models (LLMs) like ChatGPT have revolutionized the way humans interact with artificial intelligence. These models can generate coherent and contextually relevant text, making them useful for a wide range of applications, from chatbots to creative writing tools. However, understanding how these models work requires us to break down the complex process behind their development and training.<br>
+In this chapter, we will develop a mental model for understanding LLMs, their strengths and weaknesses, and the intricate processes that make them function. We will also explore some of the cognitive and psychological implications of these tools.</p>
+<h2 id="the-architecture-behind-llms">The Architecture Behind LLMs</h2>
+<p>At its core, an LLM is a deep learning model trained on vast amounts of text data. The process of building such a model involves multiple stages:</p>
+<ul>
+<li>Pre-Training Stage</li>
+<li>Fine-Tuning Stage</li>
+<li>Inference and Usage</li>
+</ul>
+<p>For this chapter, we will focus on the Pre-Training Stage, which is the foundation of all LLMs.</p>
+<h2 id="the-pre-training-stage"><strong>The Pre-Training Stage</strong></h2>
+<p>Data Collection: The Foundation of LLMs<br>
+Before an LLM can generate meaningful text, it needs to be trained on an enormous amount of textual data. This data is typically collected from various sources on the internet, ensuring high-quality and diverse documents to enhance the model’s knowledge base.<br>
+One widely recognized dataset used for training is <a href="https://pile.eleuther.ai/">https://pile.eleuther.ai/</a> and <a href="https://huggingface.co/spaces/HuggingFaceFW/blogpost-fineweb-v1">FineWeb by Hugging Face</a>. These datasets are created from public sources such as:</p>
+<ul>
+<li>Wikipedia</li>
+<li>Books</li>
+<li>Research papers</li>
+<li>News articles</li>
+<li>Common Crawl (a massive dataset of web pages)</li>
+</ul>
+<p>Understanding Common Crawl<br>
+Common Crawl is an organization that has been systematically scraping the internet since 2008, indexing billions of web pages. The process involves:</p>
+<ul>
+<li>Starting with a few "seed" web pages.</li>
+<li>Following all the hyperlinks on those pages.</li>
+<li>Continuously expanding the dataset by crawling linked pages.</li>
+<li>Storing raw HTML content of these web pages.</li>
+</ul>
+<p>However, raw internet data is noisy and requires rigorous filtering.</p>
+<p>Filtering the Data<br>
+To ensure high-quality input data, several pre processing steps are performed:<br>
+1. URL Filtering:<br>
+Some domains are excluded to avoid low-quality data, including:</p>
+<ul>
+<li>Spam websites</li>
+<li>Malware sites</li>
+<li>Marketing pages</li>
+<li>Adult content</li>
+<li>Racist and misleading sources</li>
+</ul>
+<p>2. Text Extraction:<br>
+Since web pages are stored in HTML format, the actual text must be extracted by removing:</p>
+<ul>
+<li>Navigation menus</li>
+<li>Advertisement</li>
+<li>Code snippets (CSS, JavaScript, etc.)</li>
+</ul>
+<p>3. Language Filtering:</p>
+<ul>
+<li>Since LLMs are often optimized for specific languages, only web pages meeting a language threshold (e.g., 65% English content) are retained.</li>
+<li>Multilingual models may retain data in multiple languages.</li>
+</ul>
+<p>4. Deduplication and PII(Personally Identified Information) Removal:</p>
+<ul>
+<li>Duplicate content is removed to prevent overfitting.</li>
+<li>Personally Identifiable Information (PII), such as addresses and social security numbers, is detected and removed.</li>
+</ul>
+<p>What the Data Looks Like<br>
+After multiple filtering stages, the final dataset consists of pure textual content. To give an idea of scale:</p>
+<ul>
+<li>The FineWeb dataset is approximately 44 terabytes in size.</li>
+<li>This is equivalent to storing thousands of high-definition movies but purely in text form.</li>
+</ul>
+<p>This refined data becomes the foundation for training LLMs, providing them with a vast corpus to learn from.</p>
+<p>In the next chapter, we will dive deeper into the Training Phase, exploring how these massive datasets are transformed into intelligent models capable of understanding and generating human-like text.</p>
