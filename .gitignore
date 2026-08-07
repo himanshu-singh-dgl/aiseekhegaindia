@@ -1,1 +1,8 @@
 node_modules
+.DS_Store
+.next
+.source
+out
+build
+.docusaurus
+.cache-loader

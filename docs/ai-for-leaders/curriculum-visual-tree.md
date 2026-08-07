@@ -1,3 +1,8 @@
+---
+title: AI for Leaders Visual Curriculum Tree
+description: Visual overview of the AI for Leaders learning progression
+---
+
 # AI for Leaders: Visual Curriculum Tree
 
 ## Learning Progression Overview
