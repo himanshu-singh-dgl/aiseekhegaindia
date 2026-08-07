@@ -1,0 +1,13 @@
+{
+  "/blog/atom.xml/route": "app/blog/atom.xml/route.js",
+  "/blog/rss.xml/route": "app/blog/rss.xml/route.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/blog/2024/04/24/welcome/page": "app/blog/2024/04/24/welcome/page.js",
+  "/blog/page": "app/blog/page.js",
+  "/contribute/page": "app/contribute/page.js",
+  "/page": "app/page.js",
+  "/fellowship/page": "app/fellowship/page.js",
+  "/docs/[[...slug]]/page": "app/docs/[[...slug]]/page.js"
+}
