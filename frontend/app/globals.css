@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --color-saffron: #ff9933;
+  --color-india-green: #138808;
+}
+
+body {
+  @apply bg-white text-zinc-900 antialiased;
+}
+
+.prose-doc {
+  @apply prose prose-zinc max-w-none prose-headings:scroll-mt-24 prose-a:text-orange-600;
+}
+
+.prose-doc .katex-display {
+  @apply overflow-x-auto py-4;
+}

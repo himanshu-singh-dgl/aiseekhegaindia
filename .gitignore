@@ -1,1 +1,8 @@
 node_modules
+.next
+out
+build
+dist
+*.local
+.env*
+.DS_Store
