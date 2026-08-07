@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Docusaurus → Next.js Migration Plan — AISeekhegaIndia</title>
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --ink: #1a1a1a;
+      --muted: #5c574f;
+      --line: #d9d2c5;
+      --card: #fffdf9;
+      --accent: #0b5fff;
+      --accent-soft: #e8f0ff;
+      --warn: #8a4b00;
+      --warn-bg: #fff4e5;
+      --ok: #0f6b3a;
+      --ok-bg: #e8f7ee;
+      --danger: #8b1e1e;
+      --danger-bg: #fdecec;
+      --deferred: #5b4b8a;
+      --deferred-bg: #f3efff;
+      --p0: #8b1e1e;
+      --p0-bg: #fdecec;
+      --p1: #8a4b00;
+      --p1-bg: #fff4e5;
+      --p2: #0b5fff;
+      --p2-bg: #e8f0ff;
+      --mono: "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
+      --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #ffe8d2 0%, transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, #dce9ff 0%, transparent 50%),
+        var(--bg);
+      line-height: 1.55;
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+    }
+
+    header {
+      margin-bottom: 40px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 10px;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      line-height: 1.15;
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .lede {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 64ch;
+      margin: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .chip {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--muted);
+    }
+
+    .chip.strong {
+      background: var(--accent-soft);
+      border-color: #c7d8ff;
+      color: #083ea8;
+      font-weight: 600;
+    }
+
+    .chip.ok {
+      background: var(--ok-bg);
+      border-color: #b9e4cb;
+      color: var(--ok);
+      font-weight: 600;
+    }
+
+    .chip.deferred {
+      background: var(--deferred-bg);
+      border-color: #d8cdef;
+      color: var(--deferred);
+      font-weight: 600;
+    }
+
+    nav.toc {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 36px;
+    }
+
+    nav.toc h2 { margin: 0 0 12px; font-size: 0.95rem; }
+    nav.toc ol { margin: 0; padding-left: 1.2rem; }
+    @media (min-width: 720px) {
+      nav.toc ol { columns: 2; column-gap: 28px; }
+    }
+    nav.toc li { margin: 0 0 6px; break-inside: avoid; }
+    nav.toc a { color: var(--accent); text-decoration: none; }
+    nav.toc a:hover { text-decoration: underline; }
+
+    section {
+      margin: 0 0 36px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px 26px;
+    }
+
+    section h2 {
+      margin: 0 0 14px;
+      font-size: 1.35rem;
+      letter-spacing: -0.01em;
+    }
+
+    section h3 {
+      margin: 22px 0 8px;
+      font-size: 1.05rem;
+    }
+
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 12px; padding-left: 1.25rem; }
+    li { margin: 0 0 6px; }
+
+    code, .path {
+      font-family: var(--mono);
+      font-size: 0.86em;
+      background: #f0ebe3;
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      margin: 10px 0 14px;
+    }
+
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .callout {
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 14px 0;
+      border: 1px solid var(--line);
+    }
+
+    .callout.decision {
+      background: var(--accent-soft);
+      border-color: #c7d8ff;
+    }
+
+    .callout.warn {
+      background: var(--warn-bg);
+      border-color: #f0d2a8;
+      color: var(--warn);
+    }
+
+    .callout.ok {
+      background: var(--ok-bg);
+      border-color: #b9e4cb;
+      color: var(--ok);
+    }
+
+    .callout.deferred {
+      background: var(--deferred-bg);
+      border-color: #d8cdef;
+      color: var(--deferred);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .badge.ok { background: var(--ok-bg); color: var(--ok); border: 1px solid #b9e4cb; }
+    .badge.deferred { background: var(--deferred-bg); color: var(--deferred); border: 1px solid #d8cdef; }
+    .badge.p0 { background: var(--p0-bg); color: var(--p0); border: 1px solid #f0c0c0; }
+    .badge.p1 { background: var(--p1-bg); color: var(--p1); border: 1px solid #f0d2a8; }
+    .badge.p2 { background: var(--p2-bg); color: var(--p2); border: 1px solid #c7d8ff; }
+
+    .tradeoff-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    @media (min-width: 720px) {
+      .tradeoff-grid.two { grid-template-columns: 1fr 1fr; }
+    }
+
+    .trade {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+      background: #fff;
+    }
+
+    .trade h4 { margin: 0 0 6px; font-size: 0.92rem; }
+    .trade .pro { color: var(--ok); }
+    .trade .con { color: var(--danger); }
+    .trade ul { margin: 0; font-size: 0.9rem; }
+
+    .task {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 10px 0;
+      background: #fff;
+    }
+
+    .task-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .task-head h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .task-meta {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .task p { margin: 0 0 8px; color: var(--muted); font-size: 0.93rem; }
+    .task ul { margin: 0; font-size: 0.92rem; }
+
+    .priority-block {
+      border-radius: 12px;
+      padding: 16px;
+      margin: 18px 0 8px;
+      border: 1px solid var(--line);
+    }
+
+    .priority-block.p0 { background: #fff7f7; border-color: #f0c0c0; }
+    .priority-block.p1 { background: #fffaf3; border-color: #f0d2a8; }
+    .priority-block.p2 { background: #f7faff; border-color: #c7d8ff; }
+
+    .priority-block > h3 {
+      margin: 0 0 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .priority-block > .blurb {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    footer.note {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .diagram {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.45;
+      white-space: pre;
+      background: #171717;
+      color: #e8e8e8;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+
+    .chosen {
+      border: 1px solid #b9e4cb;
+      background: #f3fbf6;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 10px 0;
+    }
+
+    .chosen h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chosen p { margin: 0; color: var(--muted); font-size: 0.93rem; }
+
+    .chosen.deferred-card {
+      border-color: #d8cdef;
+      background: #faf8ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="eyebrow">Migration plan · decisions recorded · no implementation yet</p>
+      <h1>Migrate AISeekhegaIndia from Docusaurus to Next.js</h1>
+      <p class="lede">
+        Plan updated with your decisions. D1–D5 are locked. D6 (deploy/hosting) is deferred.
+        Tradeoffs and priority-ranked P0 / P1 / P2 tasks reflect the chosen path:
+        <strong>custom Next MDX, in-place, exact URLs, full blog, Tailwind shell restyle</strong>.
+      </p>
+      <div class="meta">
+        <span class="chip ok">D1–D5 locked</span>
+        <span class="chip deferred">D6 deferred</span>
+        <span class="chip strong">Custom Next MDX</span>
+        <span class="chip">In-place cutover</span>
+        <span class="chip">Exact URL parity</span>
+        <span class="chip">No code changes yet</span>
+      </div>
+    </header>
+
+    <nav class="toc" aria-label="Table of contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#decisions">Decision log</a></li>
+        <li><a href="#tradeoffs">Tradeoffs of chosen path</a></li>
+        <li><a href="#goals">Goals and non-goals</a></li>
+        <li><a href="#current">Current state</a></li>
+        <li><a href="#target">Target architecture</a></li>
+        <li><a href="#priorities">P0 / P1 / P2 tasks</a></li>
+        <li><a href="#checklist">Acceptance checklist</a></li>
+        <li><a href="#risks">Risks</a></li>
+      </ol>
+    </nav>
+
+    <section id="decisions">
+      <h2>1. Decision log</h2>
+      <div class="callout ok">
+        <strong>Status:</strong> D1–D5 approved. Implementation can start on P0 remaining items + P1
+        without waiting on hosting. Production cutover waits on D6 later.
+      </div>
+
+      <div class="chosen">
+        <h3><span class="badge ok">Locked D1</span> Custom Next MDX (no docs framework)</h3>
+        <p>
+          Build docs on Next.js App Router with our own MDX pipeline, sidebar, TOC, and layout.
+          No Fumadocs / Nextra.
+        </p>
+      </div>
+
+      <div class="chosen">
+        <h3><span class="badge ok">Locked D2</span> In-place in this repo</h3>
+        <p>
+          Scaffold Next beside current Docusaurus files on a migration branch; delete Docusaurus
+          after parity. Keep <code>main</code> shippable until cutover.
+        </p>
+      </div>
+
+      <div class="chosen">
+        <h3><span class="badge ok">Locked D3</span> Exact URL parity (including CamelCase)</h3>
+        <p>
+          Preserve paths such as <code>/docs/deep-learning/CNNS</code> and
+          <code>/docs/language-models/NNTraining</code>. No slug normalization.
+        </p>
+      </div>
+
+      <div class="chosen">
+        <h3><span class="badge ok">Locked D4</span> Keep blog + feeds/tags</h3>
+        <p>
+          Port <code>/blog</code>, post URLs, tags/archive equivalents, and RSS/Atom
+          (<code>/blog/rss.xml</code>, <code>/blog/atom.xml</code>.
+        </p>
+      </div>
+
+      <div class="chosen">
+        <h3><span class="badge ok">Locked D5</span> Tailwind-only restyle of shell; keep tutorial look</h3>
+        <p>
+          Drop Infima. Rebuild navbar/footer/homepage with Tailwind. Keep Logistic Regression /
+          tutorial visual language as-is as much as practical.
+        </p>
+      </div>
+
+      <div class="chosen deferred-card">
+        <h3><span class="badge deferred">Deferred D6</span> Deploy / hosting</h3>
+        <p>
+          Decide later: Vercel vs current host vs static export, DNS for <code>ai-ml-docs.org</code>,
+          and edit-link GitHub repo target. Does <strong>not</strong> block local Next scaffolding
+          or content migration. Blocks only production cutover (P2.6).
+        </p>
+      </div>
+    </section>
+
+    <section id="tradeoffs">
+      <h2>2. Tradeoffs of the chosen path</h2>
+
+      <h3>Custom Next MDX (D1) vs a docs framework</h3>
+      <div class="tradeoff-grid two">
+        <div class="trade">
+          <h4 class="pro">Why this helps</h4>
+          <ul>
+            <li>Full control over routing, layout, and MDX component map</li>
+            <li>No framework upgrade churn (Fumadocs/Nextra APIs)</li>
+            <li>Easier to grow into a non-docs product surface later</li>
+          </ul>
+        </div>
+        <div class="trade">
+          <h4 class="con">What we take on</h4>
+          <ul>
+            <li>We must build sidebar, TOC, prev/next, and docs layout ourselves (extra P1 work)</li>
+            <li>Longer time-to-first-docs-page than Fumadocs/Nextra</li>
+            <li>Search (if wanted later) is fully custom</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>In-place cutover (D2)</h3>
+      <div class="tradeoff-grid two">
+        <div class="trade">
+          <h4 class="pro">Why this helps</h4>
+          <ul>
+            <li>Single repo/history; no dual-package forever</li>
+            <li>Content moves once into final locations</li>
+          </ul>
+        </div>
+        <div class="trade">
+          <h4 class="con">What we take on</h4>
+          <ul>
+            <li>Messy mid-migration tree until Docusaurus is deleted</li>
+            <li>Must use a branch so production Docusaurus stays safe</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Exact URL parity (D3)</h3>
+      <div class="tradeoff-grid two">
+        <div class="trade">
+          <h4 class="pro">Why this helps</h4>
+          <ul>
+            <li>No SEO or shared-link breakage</li>
+            <li>Simpler acceptance: crawl old URL list as-is</li>
+          </ul>
+        </div>
+        <div class="trade">
+          <h4 class="con">What we take on</h4>
+          <ul>
+            <li>CamelCase slugs stay forever</li>
+            <li>Routing/file mapping must be case-sensitive and careful on macOS</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Full blog keep (D4)</h3>
+      <div class="tradeoff-grid two">
+        <div class="trade">
+          <h4 class="pro">Why this helps</h4>
+          <ul>
+            <li>No broken <code>/blog/*</code> or feed consumers</li>
+            <li>Complete feature parity with current site</li>
+          </ul>
+        </div>
+        <div class="trade">
+          <h4 class="con">What we take on</h4>
+          <ul>
+            <li>Extra P2 work for tags/archive/RSS despite only 1 post today</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Tailwind shell restyle (D5)</h3>
+      <div class="tradeoff-grid two">
+        <div class="trade">
+          <h4 class="pro">Why this helps</h4>
+          <ul>
+            <li>Removes Infima debt in one pass</li>
+            <li>One styling system with tutorials</li>
+          </ul>
+        </div>
+        <div class="trade">
+          <h4 class="con">What we take on</h4>
+          <ul>
+            <li>Homepage/nav/footer will not be pixel-identical to Docusaurus</li>
+            <li>Need a short visual QA pass, not a full redesign</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Hosting deferred (D6)</h3>
+      <div class="callout deferred">
+        <strong>Tradeoff accepted:</strong> we can build and validate locally (and on preview envs later)
+        without choosing production host now. Risk: late discovery that the host is static-only may force
+        <code>output: 'export'</code> adjustments. Mitigation: avoid hard dependencies on server-only
+        features in P1 (no required search API route for v1).
+      </div>
+    </section>
+
+    <section id="goals">
+      <h2>3. Goals and non-goals</h2>
+      <h3>Goals</h3>
+      <ul>
+        <li>Replace Docusaurus with Next.js App Router + custom MDX in this repo.</li>
+        <li>Preserve all public URLs exactly (docs CamelCase, blog, custom pages).</li>
+        <li>Keep interactive tutorials and KaTeX math.</li>
+        <li>Restyle shell with Tailwind; keep tutorial look.</li>
+        <li>Keep blog including feeds/tags.</li>
+      </ul>
+      <h3>Non-goals (now)</h3>
+      <ul>
+        <li>No Fumadocs/Nextra.</li>
+        <li>No slug cleanup / redirect matrix (D3 exact parity).</li>
+        <li>No production deploy/DNS work until D6 is decided.</li>
+        <li>No curriculum content rewrite; no Astro leftover migration.</li>
+        <li>No implementation in this planning update.</li>
+      </ul>
+    </section>
+
+    <section id="current">
+      <h2>4. Current state</h2>
+      <table>
+        <thead>
+          <tr><th>Area</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Stack</td><td>Docusaurus 3.1.1, React 18, TypeScript, Tailwind 4, KaTeX</td></tr>
+          <tr><td>Docs</td><td>38 pages under <code>docs/</code>; sidebar in <code>sidebars.ts</code></td></tr>
+          <tr><td>Blog</td><td>1 post + tags/feeds today</td></tr>
+          <tr><td>Custom pages</td><td><code>/</code>, <code>/fellowship</code>, <code>/contribute</code></td></tr>
+          <tr><td>Interactive</td><td>CurriculumTree, LogisticRegressionTutorial</td></tr>
+          <tr><td>Known issue</td><td><code>HandlingHallucinationRAGLoRA.mdx</code> missing from current build</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="target">
+      <h2>5. Target architecture (locked by D1–D5)</h2>
+      <div class="diagram">app/
+  layout.tsx                      # root shell, fonts, theme provider (Tailwind)
+  page.tsx                        # homepage (restyled)
+  fellowship/page.tsx
+  contribute/page.tsx
+  docs/[[...slug]]/page.tsx       # custom docs catch-all — exact /docs/* parity
+  blog/page.tsx
+  blog/[...slug]/page.tsx         # post + date path parity
+  blog/tags/...                   # tags
+  blog/rss.xml/route.ts           # or route handlers for feeds
+  blog/atom.xml/route.ts
+
+content/
+  docs/                           # from docs/ (preserve casing)
+  blog/                           # from blog/
+
+components/
+  docs/                           # DocsShell, Sidebar, Toc, PrevNext (custom)
+  site/                           # Navbar, Footer
+  HomepageFeatures/, CurriculumTree*, LogisticRegression/*
+
+lib/
+  docs.ts                         # load MDX, sidebar from sidebars mapping
+  blog.ts                         # posts, tags, feeds
+  mdx.ts                          # remark-math, rehype-katex, component map
+  site-config.ts                  # title, url, social card (hosting details later)
+
+public/img/                       # from static/img — keep /img/* URLs
+</div>
+      <div class="callout decision">
+        Because D1 is custom MDX, <strong>P1 includes building docs chrome</strong> (sidebar from
+        <code>sidebars.ts</code>, TOC, prev/next), not only moving files.
+      </div>
+    </section>
+
+    <section id="priorities">
+      <h2>6. P0 / P1 / P2 tasks (priority-ranked)</h2>
+
+      <div class="priority-block p0">
+        <h3><span class="badge p0">P0 — Critical path</span> Remaining before / while starting scaffold</h3>
+        <p class="blurb">D1–D5 are done. Finish inventory + branch safety. Hosting stays deferred.</p>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P0.1 Resolve product decisions</h3>
+            <div class="task-meta"><span class="badge ok">Done</span></div>
+          </div>
+          <p>D1–D5 locked; D6 deferred by design.</p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P0.2 Freeze URL inventory from source of truth</h3>
+            <div class="task-meta"><span class="badge p0">Priority 1 · next</span></div>
+          </div>
+          <p>
+            Canonical list from <code>docs/</code> + <code>sidebars.ts</code> + custom pages + blog
+            (not stale <code>build/</code>). Include every CamelCase slug and
+            <code>HandlingHallucinationRAGLoRA</code>. This list is the acceptance oracle.
+          </p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P0.3 Create migration branch</h3>
+            <div class="task-meta"><span class="badge p0">Priority 2</span></div>
+          </div>
+          <p>
+            In-place work happens on a dedicated branch so current Docusaurus on default branch
+            remains recoverable until parity.
+          </p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P0.4 Hosting constraint check</h3>
+            <div class="task-meta"><span class="badge deferred">Deferred with D6</span></div>
+          </div>
+          <p>
+            Not required to start P1. When D6 returns: confirm Node vs static-export.
+            Until then, keep P1 free of required server-only features.
+          </p>
+        </div>
+      </div>
+
+      <div class="priority-block p1">
+        <h3><span class="badge p1">P1 — Core migration</span> Custom MDX docs site to content parity</h3>
+        <p class="blurb">Highest engineering priority. Goal: all docs routes + shell + math + interactive work locally.</p>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P1.1 Scaffold Next App Router + MDX toolchain</h3>
+            <div class="task-meta"><span class="badge p1">Priority 1</span></div>
+          </div>
+          <p>
+            Next.js + TypeScript + Tailwind v4 + MDX pipeline (<code>@next/mdx</code> and/or
+            <code>next-mdx-remote</code> / compile pipeline — implementer’s choice within “no docs framework”).
+            Scripts: <code>dev</code> / <code>build</code> / <code>start</code>. Keep Docusaurus runnable until cutover.
+          </p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P1.2 Build custom docs chrome</h3>
+            <div class="task-meta"><span class="badge p1">Priority 2</span></div>
+          </div>
+          <p>
+            Sidebar (categories/labels/order from <code>sidebars.ts</code>), in-page TOC, prev/next,
+            docs layout. This is the main cost of choosing custom MDX.
+          </p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P1.3 Migrate all docs with exact slug parity</h3>
+            <div class="task-meta"><span class="badge p1">Priority 3</span></div>
+          </div>
+          <p>
+            Move/wire 38 docs into <code>content/docs/</code> (or equivalent), case-preserving routes under
+            <code>/docs/...</code>. Rewrite <code>@site</code> imports and <code>static/img</code> paths to
+            <code>/img/...</code> / <code>@/components</code>.
+          </p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P1.4 KaTeX + fix HandlingHallucinationRAGLoRA</h3>
+            <div class="task-meta"><span class="badge p1">Priority 4</span></div>
+          </div>
+          <p>
+            remark-math + rehype-katex; validate ML/DL math pages; make the previously missing
+            language-model page compile.
+          </p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P1.5 Port static assets</h3>
+            <div class="task-meta"><span class="badge p1">Priority 5</span></div>
+          </div>
+          <p><code>static/</code> → <code>public/</code>; keep <code>/img/*</code>; fix colocated doc images.</p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P1.6 Tailwind restyle shell + custom pages</h3>
+            <div class="task-meta"><span class="badge p1">Priority 6</span></div>
+          </div>
+          <p>
+            Navbar/footer/home/fellowship/contribute without Infima. Replace Docusaurus Link/Layout.
+            Visual QA: recognizable brand, not pixel clone.
+          </p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P1.7 Port interactive MDX islands</h3>
+            <div class="task-meta"><span class="badge p1">Priority 7</span></div>
+          </div>
+          <p>
+            CurriculumTree (keep <code>ai-leaders-progress</code>) and LogisticRegressionTutorial as client
+            components; preserve tutorial look (D5).
+          </p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P1.8 Dark mode + basic SEO metadata</h3>
+            <div class="task-meta"><span class="badge p1">Priority 8</span></div>
+          </div>
+          <p>Class-based theme toggle; title/description/social card parity.</p>
+        </div>
+      </div>
+
+      <div class="priority-block p2">
+        <h3><span class="badge p2">P2 — Parity polish &amp; cutover</span> After core docs work</h3>
+        <p class="blurb">Blog/feeds required. Production deploy waits on D6.</p>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P2.1 Blog + tags + archive routes</h3>
+            <div class="task-meta"><span class="badge p2">Priority 1</span></div>
+          </div>
+          <p>Full keep per D4: index, dated post URL, tags pages.</p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P2.2 RSS + Atom feeds</h3>
+            <div class="task-meta"><span class="badge p2">Priority 2</span></div>
+          </div>
+          <p>Serve <code>/blog/rss.xml</code> and <code>/blog/atom.xml</code> (or permanent redirects only if feed body must move).</p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P2.3 Sitemap + 404</h3>
+            <div class="task-meta"><span class="badge p2">Priority 3</span></div>
+          </div>
+          <p>Generate sitemap covering docs/blog/custom pages; decent 404 page.</p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P2.4 Acceptance crawl vs URL inventory</h3>
+            <div class="task-meta"><span class="badge p2">Priority 4</span></div>
+          </div>
+          <p>Verify P0.2 list + interactive smoke + <code>next build</code>.</p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P2.5 Remove Docusaurus / Astro / dead code</h3>
+            <div class="task-meta"><span class="badge p2">Priority 5</span></div>
+          </div>
+          <p>
+            Delete Docusaurus packages/config, <code>.docusaurus/</code>, stale <code>build/</code>,
+            Astro leftovers, unused viz components; rewrite README.
+          </p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P2.6 Production deploy + DNS cutover</h3>
+            <div class="task-meta"><span class="badge deferred">Blocked on D6</span></div>
+          </div>
+          <p>Revisit when hosting decision is made. Not part of the immediate build track.</p>
+        </div>
+
+        <div class="task">
+          <div class="task-head">
+            <h3>P2.7 Optional follow-ups</h3>
+            <div class="task-meta"><span class="badge p2">Priority 6 · optional</span></div>
+          </div>
+          <p>Local search, analytics, edit-link repo correction, further visual polish.</p>
+        </div>
+      </div>
+
+      <h3>Priority summary</h3>
+      <table>
+        <thead>
+          <tr><th>Band</th><th>Meaning</th><th>Top remaining tasks</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge p0">P0</span></td>
+            <td>Prep</td>
+            <td>URL inventory → migration branch · (hosting deferred)</td>
+          </tr>
+          <tr>
+            <td><span class="badge p1">P1</span></td>
+            <td>Core Next + custom MDX</td>
+            <td>Scaffold → docs chrome → docs/slugs → KaTeX → assets → shell → interactive → theme/SEO</td>
+          </tr>
+          <tr>
+            <td><span class="badge p2">P2</span></td>
+            <td>Polish</td>
+            <td>Blog/tags → feeds → sitemap/404 → crawl → cleanup · deploy later (D6)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="checklist">
+      <h2>7. Acceptance checklist</h2>
+      <ul>
+        <li>All inventoried doc routes resolve with exact casing.</li>
+        <li>Sidebar categories/labels/order match current <code>docsSidebar</code>.</li>
+        <li><code>/</code>, <code>/fellowship</code>, <code>/contribute</code> work (Tailwind shell).</li>
+        <li>Interactive tutorials work; curriculum progress key preserved; tutorial look retained.</li>
+        <li>Math renders; dark mode works; <code>/img/...</code> loads.</li>
+        <li>Blog index/post/tags + RSS/Atom work.</li>
+        <li><code>next build</code> succeeds locally.</li>
+        <li>Docusaurus removed from shipping tree after parity.</li>
+        <li>Production deploy checklist deferred until D6.</li>
+      </ul>
+    </section>
+
+    <section id="risks">
+      <h2>8. Risks</h2>
+      <table>
+        <thead>
+          <tr><th>Risk</th><th>Mitigation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Custom MDX under-scoped (sidebar/TOC time)</td>
+            <td>Explicit P1.2; do not skip docs chrome</td>
+          </tr>
+          <tr>
+            <td>Case-sensitive slug breakage</td>
+            <td>P0.2 inventory + P2.4 crawl</td>
+          </tr>
+          <tr>
+            <td>Canvas/SSR failures in tutorials</td>
+            <td>Client components / selective <code>ssr: false</code> in P1.7</td>
+          </tr>
+          <tr>
+            <td>Late static-host constraint (D6)</td>
+            <td>Avoid required server-only features in P1; revisit before P2.6</td>
+          </tr>
+          <tr>
+            <td>HandlingHallucinationRAGLoRA MDX failure</td>
+            <td>P1.4 blocker</td>
+          </tr>
+          <tr>
+            <td>In-place mid-migration breakage on default branch</td>
+            <td>P0.3 migration branch until parity</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <p class="footer note">
+      File: <span class="path">migration-plan.html</span> · decisions recorded · no migration code written.
+      Next action when you say go: P0.2 URL inventory + P0.3 branch, then P1.1 scaffold.
+    </p>
+  </div>
+</body>
+</html>
