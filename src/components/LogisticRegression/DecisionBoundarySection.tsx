@@ -1,3 +1,4 @@
+'use client';
 import React, { useRef, useEffect, useState } from 'react';
 import { Play, Pause, RotateCcw, Shuffle, ToggleLeft, ToggleRight } from 'lucide-react';
 import { clearCanvas } from './utils/canvas';
@@ -6,7 +7,7 @@ import { sigmoid, generateBinaryData } from './utils/math';
 const DecisionBoundarySection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const probabilityCanvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | undefined>(undefined);
   const [isAnimating, setIsAnimating] = useState(false);
   const [threshold, setThreshold] = useState(0.5);
   const [animationStep, setAnimationStep] = useState(0);

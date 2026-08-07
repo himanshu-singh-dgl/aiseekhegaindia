@@ -1,18 +1,50 @@
 {
-  "extends": "@docusaurus/tsconfig",
   "compilerOptions": {
-    "baseUrl": ".",
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "esModuleInterop": true
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@site/src/*": [
+        "./src/*"
+      ]
+    }
   },
-  "include": ["./**/*"],
+  "include": [
+    "next-env.d.ts",
+    "app/**/*",
+    "components/**/*",
+    "lib/**/*",
+    "content/**/*",
+    "src/components/**/*",
+    ".next/types/**/*.ts"
+  ],
   "exclude": [
-    "node_modules/**/*",
-    "build/**/*",
-    ".docusaurus/**/*",
-    ".cache-loader/**/*"
+    "node_modules",
+    "build",
+    ".next",
+    "migration-plan.html"
   ]
 }

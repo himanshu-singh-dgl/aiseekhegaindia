@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, BookOpen, Brain } from 'lucide-react';
 import LinearModelSection from './LinearModelSection';

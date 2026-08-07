@@ -1,3 +1,4 @@
+'use client';
 import React, { useRef, useEffect, useState } from 'react';
 import { Play, Pause, RotateCcw, Zap, Calculator } from 'lucide-react';
 import { clearCanvas } from './utils/canvas';
@@ -6,7 +7,7 @@ import { sigmoid } from './utils/math';
 const SigmoidSection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const transformCanvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | undefined>(undefined);
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationStep, setAnimationStep] = useState(0);
   const [inputValue, setInputValue] = useState(0);

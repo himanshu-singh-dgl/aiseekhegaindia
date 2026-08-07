@@ -1,3 +1,4 @@
+'use client';
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Play, Pause, RotateCcw, Shuffle, TrendingUp, Target, Database, Brain } from 'lucide-react';
 import { clearCanvas } from './utils/canvas';
@@ -13,7 +14,7 @@ interface TrainingState {
 const TrainingSection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const lossCanvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | undefined>(undefined);
   
   const [isTraining, setIsTraining] = useState(false);
   const [data, setData] = useState(() => generateBinaryData(200));

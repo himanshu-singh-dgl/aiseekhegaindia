@@ -1,0 +1,135 @@
+{
+  "generatedFrom": ["docs/", "sidebars.ts", "blog/", "src/pages/", "static/"],
+  "policy": "exact-parity-including-CamelCase",
+  "customPages": ["/", "/fellowship", "/contribute"],
+  "blog": {
+    "index": "/blog",
+    "posts": ["/blog/2024/04/24/welcome"],
+    "tagsIndex": "/blog/tags",
+    "tags": ["/blog/tags/announcement", "/blog/tags/welcome"],
+    "archive": "/blog/archive",
+    "feeds": ["/blog/rss.xml", "/blog/atom.xml"]
+  },
+  "docs": {
+    "sidebarOrder": [
+      {
+        "label": "AI for Leaders",
+        "items": [
+          "/docs/ai-for-leaders/intro",
+          "/docs/ai-for-leaders/curriculum-tree",
+          "/docs/ai-for-leaders/curriculum-overview",
+          "/docs/ai-for-leaders/machine-learning-fundamentals",
+          "/docs/ai-for-leaders/classification-regression-supervised-unsupervised",
+          "/docs/ai-for-leaders/algorithms-high-level-overview",
+          "/docs/ai-for-leaders/classical-ml-in-market"
+        ]
+      },
+      {
+        "label": "Machine Learning",
+        "items": [
+          "/docs/machine-learning/intro",
+          "/docs/machine-learning/supervised-learning",
+          "/docs/machine-learning/logistic_regression_tutorial"
+        ]
+      },
+      {
+        "label": "Deep Learning",
+        "items": [
+          "/docs/deep-learning/intro",
+          "/docs/deep-learning/perceptron",
+          "/docs/deep-learning/CNNS",
+          "/docs/deep-learning/RNNs"
+        ]
+      },
+      {
+        "label": "Language Models",
+        "items": [
+          "/docs/language-models/intro",
+          "/docs/language-models/Tokenization",
+          "/docs/language-models/NNTraining",
+          "/docs/language-models/NNInference",
+          "/docs/language-models/NNInternals",
+          "/docs/language-models/PostTraining",
+          "/docs/language-models/EvolutionGpt2",
+          "/docs/language-models/BaseModels",
+          "/docs/language-models/Hallucinations",
+          "/docs/language-models/LLMIdentity",
+          "/docs/language-models/ThinkingInTokens",
+          "/docs/language-models/LLMInconsistencies",
+          "/docs/language-models/PostTrainingReinforcementLearning",
+          "/docs/language-models/ThinkingRL",
+          "/docs/language-models/ReinforcementLearning",
+          "/docs/language-models/LLMJudgement",
+          "/docs/language-models/Multimodality",
+          "/docs/language-models/Evaluation",
+          "/docs/language-models/AccessingLLMs",
+          "/docs/language-models/QueryToResponse",
+          "/docs/language-models/HandlingHallucinationRAGLoRA"
+        ]
+      },
+      {
+        "label": "Interactive Tutorials",
+        "items": ["/docs/tutorials/logistic-regression"]
+      },
+      {
+        "label": "Resources",
+        "items": ["/docs/resources/intro"]
+      }
+    ],
+    "orphanRoutes": ["/docs/ai-for-leaders/curriculum-visual-tree"],
+    "allDocRoutes": [
+      "/docs/ai-for-leaders/algorithms-high-level-overview",
+      "/docs/ai-for-leaders/classical-ml-in-market",
+      "/docs/ai-for-leaders/classification-regression-supervised-unsupervised",
+      "/docs/ai-for-leaders/curriculum-overview",
+      "/docs/ai-for-leaders/curriculum-tree",
+      "/docs/ai-for-leaders/curriculum-visual-tree",
+      "/docs/ai-for-leaders/intro",
+      "/docs/ai-for-leaders/machine-learning-fundamentals",
+      "/docs/deep-learning/CNNS",
+      "/docs/deep-learning/RNNs",
+      "/docs/deep-learning/intro",
+      "/docs/deep-learning/perceptron",
+      "/docs/language-models/AccessingLLMs",
+      "/docs/language-models/BaseModels",
+      "/docs/language-models/Evaluation",
+      "/docs/language-models/EvolutionGpt2",
+      "/docs/language-models/Hallucinations",
+      "/docs/language-models/HandlingHallucinationRAGLoRA",
+      "/docs/language-models/LLMIdentity",
+      "/docs/language-models/LLMInconsistencies",
+      "/docs/language-models/LLMJudgement",
+      "/docs/language-models/Multimodality",
+      "/docs/language-models/NNInference",
+      "/docs/language-models/NNInternals",
+      "/docs/language-models/NNTraining",
+      "/docs/language-models/PostTraining",
+      "/docs/language-models/PostTrainingReinforcementLearning",
+      "/docs/language-models/QueryToResponse",
+      "/docs/language-models/ReinforcementLearning",
+      "/docs/language-models/ThinkingInTokens",
+      "/docs/language-models/ThinkingRL",
+      "/docs/language-models/Tokenization",
+      "/docs/language-models/intro",
+      "/docs/machine-learning/intro",
+      "/docs/machine-learning/logistic_regression_tutorial",
+      "/docs/machine-learning/supervised-learning",
+      "/docs/resources/intro",
+      "/docs/tutorials/logistic-regression"
+    ]
+  },
+  "staticAssets": [
+    "/img/favicon.ico",
+    "/img/logo.svg",
+    "/img/social-card.jpg",
+    "/img/ai-for-leaders/classification-vs-regression.png",
+    "/img/ai-for-leaders/supervised-learning.png",
+    "/img/ai-for-leaders/unsupervised-learning.png"
+  ],
+  "counts": {
+    "docsInSidebar": 37,
+    "docsIncludingOrphans": 38,
+    "blogPosts": 1,
+    "customPages": 3
+  }
+}

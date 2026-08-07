@@ -46,7 +46,6 @@ module.exports = {
   plugins: [
     require('@tailwindcss/typography'),
   ],
-  // Ensure compatibility with Docusaurus
   corePlugins: {
     preflight: false,
   },

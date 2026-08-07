@@ -1,3 +1,4 @@
+'use client';
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Play, Pause, RotateCcw, Move } from 'lucide-react';
 import { drawAxes, drawLine, drawPoints, clearCanvas } from './utils/canvas';
@@ -5,7 +6,7 @@ import { generateLinearData } from './utils/math';
 
 const LinearModelSection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | undefined>(undefined);
   const [isAnimating, setIsAnimating] = useState(false);
   const [slope, setSlope] = useState(0);
   const [intercept, setIntercept] = useState(0);
