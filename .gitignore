@@ -1,1 +1,12 @@
-node_modules
+.DS_Store
+**/.DS_Store
+*.log
+.env
+.env.local
+**/.env
+**/.env.local
+node_modules/
+**/node_modules/
+.next/
+**/dist/
+.vercel/

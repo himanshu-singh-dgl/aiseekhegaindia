@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Docusaurus → Next.js Migration Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a2332;
+      --muted: #5a6578;
+      --line: #d8dee8;
+      --surface: #ffffff;
+      --bg0: #f0f4f8;
+      --bg1: #e8eef5;
+      --accent: #0f766e;
+      --accent-soft: #ccfbf1;
+      --warn: #c2410c;
+      --warn-soft: #ffedd5;
+      --ok: #059669;
+      --ok-soft: #d1fae5;
+      --info: #2563eb;
+      --info-soft: #dbeafe;
+      --phase: #1e3a5f;
+      --shadow: 0 1px 2px rgba(26, 35, 50, 0.06), 0 8px 24px rgba(26, 35, 50, 0.06);
+      --radius: 12px;
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "DM Sans", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      line-height: 1.55;
+      background:
+        radial-gradient(ellipse 70% 45% at 5% -5%, rgba(15, 118, 110, 0.09), transparent 50%),
+        radial-gradient(ellipse 50% 35% at 95% 5%, rgba(37, 99, 235, 0.07), transparent 45%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 2.25rem 1.25rem 4rem;
+    }
+
+    /* Top nav */
+    .toc-bar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(240, 244, 248, 0.85);
+      border-bottom: 1px solid var(--line);
+      margin: -2.25rem -1.25rem 2rem;
+      padding: 0.75rem 1.25rem;
+      overflow-x: auto;
+    }
+
+    .toc-bar nav {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 1080px;
+      margin: 0 auto;
+      white-space: nowrap;
+    }
+
+    .toc-bar a {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .toc-bar a:hover {
+      background: var(--surface);
+      color: var(--accent);
+    }
+
+    header {
+      margin-bottom: 2rem;
+      animation: rise 0.55s ease both;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      margin-bottom: 0.85rem;
+    }
+
+    header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.65rem;
+    }
+
+    header .lede {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 40rem;
+    }
+
+    .verdict {
+      margin-top: 1.25rem;
+      padding: 1.1rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .verdict strong { color: var(--accent); }
+
+    section {
+      margin-top: 2.5rem;
+      animation: rise 0.5s ease both;
+    }
+
+    section h2 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      scroll-margin-top: 3.5rem;
+    }
+
+    section > .section-desc {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.15rem 1.25rem;
+    }
+
+    /* Inventory table */
+    .inventory {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .inventory th,
+    .inventory td {
+      text-align: left;
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    .inventory th {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      font-weight: 700;
+      width: 28%;
+    }
+
+    .inventory tr:last-child td,
+    .inventory tr:last-child th { border-bottom: none; }
+
+    /* Pros / cons */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 720px) {
+      .split { grid-template-columns: 1fr; }
+    }
+
+    .split h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    .badge.ok { background: var(--ok-soft); color: var(--ok); }
+    .badge.warn { background: var(--warn-soft); color: var(--warn); }
+    .badge.info { background: var(--info-soft); color: var(--info); }
+
+    ul.check {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+      font-size: 0.88rem;
+    }
+
+    ul.check li {
+      padding-left: 1.25rem;
+      position: relative;
+      color: var(--ink);
+    }
+
+    ul.check li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.45rem;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+    }
+
+    .pros li::before { background: var(--ok); }
+    .cons li::before { background: var(--warn); }
+
+    .when {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 720px) {
+      .when { grid-template-columns: 1fr; }
+    }
+
+    .when .card h3 {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .when p { font-size: 0.85rem; color: var(--muted); }
+
+    /* Options */
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.9rem;
+    }
+
+    .option {
+      position: relative;
+      padding: 1.15rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .option:hover { transform: translateY(-2px); }
+
+    .option.recommended {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent), var(--shadow);
+    }
+
+    .option .rec-tag {
+      position: absolute;
+      top: -0.55rem;
+      right: 0.75rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .option h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .option .fit {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 0.65rem;
+    }
+
+    .option ul {
+      list-style: none;
+      font-size: 0.82rem;
+      display: grid;
+      gap: 0.3rem;
+      color: var(--muted);
+    }
+
+    .option ul li::before {
+      content: "· ";
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Timeline / phases */
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 0.9rem;
+      padding-left: 1.5rem;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 0.4rem;
+      top: 0.5rem;
+      bottom: 0.5rem;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--info));
+      border-radius: 2px;
+    }
+
+    .phase {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .phase::before {
+      content: "";
+      position: absolute;
+      left: -1.22rem;
+      top: 1.35rem;
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg0);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    .phase-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 1rem 1.15rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .phase-head:hover { background: rgba(26, 35, 50, 0.02); }
+
+    .phase-head h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .phase-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 6px;
+      background: var(--phase);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .time-chip {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--bg1);
+      padding: 0.25rem 0.55rem;
+      border-radius: 99px;
+    }
+
+    .phase-body {
+      padding: 0 1.15rem 1.1rem;
+      font-size: 0.88rem;
+    }
+
+    .phase.collapsed .phase-body { display: none; }
+
+    .phase-body ol {
+      margin: 0.5rem 0 0 1.1rem;
+      display: grid;
+      gap: 0.35rem;
+      color: var(--ink);
+    }
+
+    .phase-body .exit {
+      margin-top: 0.75rem;
+      padding: 0.55rem 0.75rem;
+      background: var(--accent-soft);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      color: var(--accent);
+    }
+
+    .chevron {
+      display: inline-block;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-right: 2px solid var(--muted);
+      border-bottom: 2px solid var(--muted);
+      transform: rotate(45deg);
+      transition: transform 0.2s;
+      margin-left: 0.25rem;
+    }
+
+    .phase.collapsed .chevron { transform: rotate(-45deg); }
+
+    /* Effort */
+    .effort-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .effort-card {
+      text-align: center;
+      padding: 1.15rem 0.9rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .effort-card .weeks {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .effort-card .label {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* Checklist */
+    .checklist {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .check-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.75rem;
+      align-items: start;
+      padding: 0.85rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.15s;
+    }
+
+    .check-item:has(input:checked) {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, #f0fdfa, #fff);
+    }
+
+    .check-item input {
+      margin-top: 0.2rem;
+      width: 1.05rem;
+      height: 1.05rem;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .check-item label {
+      cursor: pointer;
+      font-size: 0.88rem;
+    }
+
+    .check-item .q {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .check-item .choices {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .group-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin: 1.25rem 0 0.5rem;
+    }
+
+    /* Defaults */
+    .defaults {
+      background: linear-gradient(135deg, #f0fdfa, #fff);
+      border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
+    }
+
+    .defaults h3 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+
+    .defaults ul {
+      list-style: none;
+      display: grid;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+    }
+
+    .defaults li {
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .defaults li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Risks */
+    .risks {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .risk {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      padding: 0.8rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 0.88rem;
+    }
+
+    .risk-num {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--warn-soft);
+      color: var(--warn);
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* Next steps */
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .steps li {
+      list-style: none;
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.85rem;
+      align-items: start;
+      padding: 0.9rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      font-size: 0.9rem;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      width: 1.75rem;
+      height: 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--phase);
+      color: #fff;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    footer {
+      margin-top: 2.75rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .progress-note {
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media print {
+      .toc-bar { position: static; }
+      .phase.collapsed .phase-body { display: block; }
+      body { background: #fff; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="toc-bar">
+      <nav aria-label="Sections">
+        <a href="#inventory">Inventory</a>
+        <a href="#tradeoffs">Tradeoffs</a>
+        <a href="#options">Options</a>
+        <a href="#phases">Phases</a>
+        <a href="#effort">Effort</a>
+        <a href="#approve">Approve</a>
+        <a href="#defaults">Defaults</a>
+        <a href="#risks">Risks</a>
+        <a href="#next">Next</a>
+      </nav>
+    </div>
+
+    <header>
+      <span class="eyebrow">Architecture decision</span>
+      <h1>Docusaurus → Next.js Migration Plan</h1>
+      <p class="lede">Visual plan for migrating AISeekhegaIndia from Docusaurus to Next.js — with tradeoffs, phases, and what you need to approve.</p>
+      <div class="verdict">
+        <strong>Verdict:</strong> Migrate if you want a custom learning platform and interactive product surface. Stay on Docusaurus if the goal is mainly content publishing with least maintenance. Recommended path: <strong>Next.js + Fumadocs</strong>, keep all <code>/docs/...</code> URLs.
+      </div>
+    </header>
+
+    <!-- Inventory -->
+    <section id="inventory">
+      <h2>1. Current inventory</h2>
+      <p class="section-desc">What the repo already has that must be preserved or rebuilt.</p>
+      <div class="card" style="padding: 0.35rem 0.25rem;">
+        <table class="inventory">
+          <tbody>
+            <tr><th>Framework</th><td>Docusaurus 3.1.1 (+ leftover Astro files)</td></tr>
+            <tr><th>Content</th><td>~37 MDX docs · ~5.7k lines · ~33MB under <code>docs/</code></td></tr>
+            <tr><th>Sections</th><td>AI for Leaders · ML · Deep Learning · Language Models · Tutorials · Resources</td></tr>
+            <tr><th>Custom React</th><td>CurriculumTree · LogisticRegressionTutorial · HomepageFeatures · Brain* · AIVisualization</td></tr>
+            <tr><th>Pages</th><td>Home · Fellowship · Contribute · Blog (1 post)</td></tr>
+            <tr><th>Features</th><td>Sidebar · KaTeX · Prism · Dark mode · Edit on GitHub · Navbar dropdowns</td></tr>
+            <tr><th>Production</th><td><code>https://ai-ml-docs.org</code></td></tr>
+            <tr><th>URL rule</th><td>Preserve <code>/docs/...</code>, <code>/blog/...</code>, <code>/fellowship</code>, <code>/contribute</code> (or redirect)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tradeoffs -->
+    <section id="tradeoffs">
+      <h2>2. Pros &amp; cons</h2>
+      <p class="section-desc">Why move — and what you give up.</p>
+      <div class="split">
+        <div class="card pros">
+          <h3><span class="badge ok">Pros</span> Move to Next.js</h3>
+          <ul class="check">
+            <li>Full control over homepage, fellowship, interactive demos</li>
+            <li>App Router, RSC, better DX for app-like features</li>
+            <li>Easier path to auth, analytics, CMS, APIs later</li>
+            <li>Tailwind already partially present</li>
+            <li>Cleaner long-term stack if this becomes more than docs</li>
+            <li>Broader hiring / ecosystem than Docusaurus plugins</li>
+          </ul>
+        </div>
+        <div class="card cons">
+          <h3><span class="badge warn">Cons</span> Migration cost</h3>
+          <ul class="check">
+            <li>Lose built-in docs chrome unless using Fumadocs/Nextra</li>
+            <li>Rewrite @site / @theme / @docusaurus imports</li>
+            <li>SEO risk if URLs/metadata change without redirects</li>
+            <li>Own search, sitemap, OG, broken-link checks</li>
+            <li>Contributors learn new local commands</li>
+            <li>Astro leftovers add cleanup work</li>
+          </ul>
+        </div>
+      </div>
+      <div class="when">
+        <div class="card">
+          <h3><span class="badge info">Stay</span> if…</h3>
+          <p>Primary goal is content publishing, team is small, and custom React stays light. Upgrade Docusaurus and remove Astro leftovers instead.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge ok">Move</span> if…</h3>
+          <p>You want a product-quality marketing + learning platform, interactive tutorials will grow, or you need Next features (API, auth, edge, CMS).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Options -->
+    <section id="options">
+      <h2>3. Architecture options</h2>
+      <p class="section-desc">Pick one stack before implementation starts.</p>
+      <div class="options">
+        <article class="option recommended">
+          <span class="rec-tag">Recommended</span>
+          <h3>A · Next + Fumadocs</h3>
+          <p class="fit">Fit: High</p>
+          <ul>
+            <li>Docs UX close to Docusaurus</li>
+            <li>MDX + Tailwind native</li>
+            <li>Full Next flexibility</li>
+            <li>Learn one docs layer</li>
+          </ul>
+        </article>
+        <article class="option">
+          <h3>B · Next + Nextra</h3>
+          <p class="fit">Fit: Good</p>
+          <ul>
+            <li>Mature docs-on-Next</li>
+            <li>Solid for content sites</li>
+            <li>Less flexible theming in some setups</li>
+          </ul>
+        </article>
+        <article class="option">
+          <h3>C · Bare Next + MDX</h3>
+          <p class="fit">Fit: Only if highly custom</p>
+          <ul>
+            <li>Maximum control</li>
+            <li>Build sidebar/TOC/search yourself</li>
+            <li>Highest effort</li>
+          </ul>
+        </article>
+        <article class="option">
+          <h3>D · Stay Docusaurus</h3>
+          <p class="fit">Fit: Lowest cost</p>
+          <ul>
+            <li>Keep docs features free</li>
+            <li>Clean Astro leftovers</li>
+            <li>Limited app growth</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Phases -->
+    <section id="phases">
+      <h2>4. Phased plan</h2>
+      <p class="section-desc">Click a phase to expand. Ship in order — spike one section before bulk port.</p>
+      <div class="timeline">
+        <article class="phase" data-phase="0">
+          <div class="phase-head" role="button" tabindex="0" aria-expanded="true">
+            <h3><span class="phase-num">0</span> Decisions &amp; freeze <span class="chevron"></span></h3>
+            <span class="time-chip">Before code</span>
+          </div>
+          <div class="phase-body">
+            <ol>
+              <li>Confirm why migrate (product growth vs preference)</li>
+              <li>Freeze new Docusaurus features during migration</li>
+              <li>Choose Option A/B/C/D + hosting + repo strategy</li>
+              <li>Approve URL policy: keep <code>/docs/...</code> exactly</li>
+            </ol>
+            <p class="exit"><strong>Exit:</strong> Signed decisions checklist below</p>
+          </div>
+        </article>
+
+        <article class="phase" data-phase="1">
+          <div class="phase-head" role="button" tabindex="0" aria-expanded="true">
+            <h3><span class="phase-num">1</span> Scaffold <span class="chevron"></span></h3>
+            <span class="time-chip">1–2 days</span>
+          </div>
+          <div class="phase-body">
+            <ol>
+              <li>Next.js 15 App Router + TypeScript + Tailwind</li>
+              <li>Add Fumadocs (or Nextra) + MDX</li>
+              <li>Wire KaTeX (remark-math / rehype-katex)</li>
+              <li>Path aliases replacing <code>@site/...</code></li>
+              <li>Site config: url, title, social card, editUrl</li>
+              <li>Ignore/remove Astro leftovers</li>
+            </ol>
+            <p class="exit"><strong>Deliverable:</strong> Empty Next app builds with one sample doc page</p>
+          </div>
+        </article>
+
+        <article class="phase" data-phase="2">
+          <div class="phase-head" role="button" tabindex="0" aria-expanded="true">
+            <h3><span class="phase-num">2</span> Content pipeline <span class="chevron"></span></h3>
+            <span class="time-chip">2–4 days</span>
+          </div>
+          <div class="phase-body">
+            <ol>
+              <li>Move <code>docs/</code> into Next content tree (keep folder names)</li>
+              <li>Port <code>sidebars.ts</code> → Fumadocs/Nextra sidebar</li>
+              <li>Map frontmatter (<code>sidebar_position</code>, titles)</li>
+              <li>Fix relative image paths</li>
+              <li>Preserve permalinks under <code>/docs/...</code></li>
+              <li>Broken-link scan vs current build routes</li>
+              <li>Blog: port now or defer</li>
+            </ol>
+            <p class="exit"><strong>Deliverable:</strong> All MDX pages render with sidebar + TOC + prev/next</p>
+          </div>
+        </article>
+
+        <article class="phase" data-phase="3">
+          <div class="phase-head" role="button" tabindex="0" aria-expanded="true">
+            <h3><span class="phase-num">3</span> Custom UI &amp; interactives <span class="chevron"></span></h3>
+            <span class="time-chip">2–4 days</span>
+          </div>
+          <div class="phase-body">
+            <ol>
+              <li>Replace Docusaurus APIs with Next equivalents</li>
+              <li>Port homepage, fellowship, contribute</li>
+              <li>Port CurriculumTree + LogisticRegressionTutorial</li>
+              <li>Dark/light mode</li>
+              <li>Navbar/footer parity (Topics, Discord, GitHub, copyright)</li>
+            </ol>
+            <p class="exit"><strong>Deliverable:</strong> Homepage + interactive tutorials work</p>
+          </div>
+        </article>
+
+        <article class="phase" data-phase="4">
+          <div class="phase-head" role="button" tabindex="0" aria-expanded="true">
+            <h3><span class="phase-num">4</span> Docs UX parity <span class="chevron"></span></h3>
+            <span class="time-chip">2–3 days</span>
+          </div>
+          <div class="phase-body">
+            <ol>
+              <li>Search (Fumadocs / Orama / Algolia / Pagefind)</li>
+              <li>Syntax highlight (Shiki preferred)</li>
+              <li>Math CSS + plugins verified</li>
+              <li>Edit on GitHub links</li>
+              <li>SEO: metadata, sitemap, robots, OG</li>
+              <li>404 + redirect map for any slug changes</li>
+            </ol>
+            <p class="exit"><strong>Deliverable:</strong> Feature parity checklist green</p>
+          </div>
+        </article>
+
+        <article class="phase" data-phase="5">
+          <div class="phase-head" role="button" tabindex="0" aria-expanded="true">
+            <h3><span class="phase-num">5</span> Cutover &amp; cleanup <span class="chevron"></span></h3>
+            <span class="time-chip">1–2 days</span>
+          </div>
+          <div class="phase-body">
+            <ol>
+              <li>Staging deploy; side-by-side URL compare</li>
+              <li>Production cutover for ai-ml-docs.org</li>
+              <li>Remove @docusaurus, build/, .docusaurus/, Astro files</li>
+              <li>Update README + contribute docs + editUrl</li>
+              <li>Smoke test: mobile, dark mode, math, tutorials</li>
+              <li>Monitor 404s / analytics 1–2 weeks</li>
+            </ol>
+            <p class="exit"><strong>Deliverable:</strong> Live Next site; Docusaurus retired</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Effort -->
+    <section id="effort">
+      <h2>5. Effort estimate</h2>
+      <p class="section-desc">Calendar time for one engineer familiar with React.</p>
+      <div class="effort-grid">
+        <div class="effort-card">
+          <div class="weeks">1.5–3 wks</div>
+          <div class="label">Lean · Fumadocs · keep URLs · no redesign</div>
+        </div>
+        <div class="effort-card">
+          <div class="weeks">3–5 wks</div>
+          <div class="label">+ redesign · search polish · UX polish</div>
+        </div>
+        <div class="effort-card">
+          <div class="weeks">4–8 wks</div>
+          <div class="label">Bare Next · build docs UX yourself</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Approval checklist -->
+    <section id="approve">
+      <h2>6. Approval checklist</h2>
+      <p class="section-desc">Tick items as you decide. Progress is saved in this browser.</p>
+      <p class="progress-note" id="progress">0 / 15 decided</p>
+
+      <div class="group-title">A. Go / no-go</div>
+      <div class="checklist" id="checklist">
+        <div class="check-item">
+          <input type="checkbox" id="q1" data-key="q1" />
+          <label for="q1">
+            <div class="q">1. Approve migration?</div>
+            <div class="choices">Yes · No · Defer</div>
+          </label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="q2" data-key="q2" />
+          <label for="q2">
+            <div class="q">2. Primary reason?</div>
+            <div class="choices">Product flexibility · DX · Hosting · Redesign · Other</div>
+          </label>
+        </div>
+
+        <div class="group-title" style="grid-column: 1 / -1;">B. Technical choices</div>
+        <div class="check-item">
+          <input type="checkbox" id="q3" data-key="q3" />
+          <label for="q3">
+            <div class="q">3. Stack</div>
+            <div class="choices">A Fumadocs · B Nextra · C Bare Next · D Stay Docusaurus</div>
+          </label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="q4" data-key="q4" />
+          <label for="q4">
+            <div class="q">4. Hosting</div>
+            <div class="choices">Vercel · Cloudflare · Netlify · Other</div>
+          </label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="q5" data-key="q5" />
+          <label for="q5">
+            <div class="q">5. Repo strategy</div>
+            <div class="choices">Rewrite current · Branch <code>next-migration</code> · New repo</div>
+          </label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="q6" data-key="q6" />
+          <label for="q6">
+            <div class="q">6. URL policy</div>
+            <div class="choices">Keep all /docs/... (recommended) · Breaking + redirects</div>
+          </label>
+        </div>
+
+        <div class="group-title" style="grid-column: 1 / -1;">C. Scope in v1</div>
+        <div class="check-item">
+          <input type="checkbox" id="q7" data-key="q7" />
+          <label for="q7">
+            <div class="q">7. Blog</div>
+            <div class="choices">Migrate now · Defer</div>
+          </label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="q8" data-key="q8" />
+          <label for="q8">
+            <div class="q">8. Search</div>
+            <div class="choices">Must have at launch · Can ship without</div>
+          </label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="q9" data-key="q9" />
+          <label for="q9">
+            <div class="q">9. Visual redesign</div>
+            <div class="choices">Port as-is · Homepage only · Full redesign</div>
+          </label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="q10" data-key="q10" />
+          <label for="q10">
+            <div class="q">10. Interactive tutorials day-1</div>
+            <div class="choices">CurriculumTree + Logistic Regression must work</div>
+          </label>
+        </div>
+
+        <div class="group-title" style="grid-column: 1 / -1;">D. Content &amp; ownership</div>
+        <div class="check-item">
+          <input type="checkbox" id="q11" data-key="q11" />
+          <label for="q11">
+            <div class="q">11. Canonical GitHub for Edit this page</div>
+            <div class="choices">ai-ml-community/ai-ml-docs · retiredbatmanforsale/aiseekhegaindia</div>
+          </label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="q12" data-key="q12" />
+          <label for="q12">
+            <div class="q">12. Domain</div>
+            <div class="choices">Keep ai-ml-docs.org? Staging domain?</div>
+          </label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="q13" data-key="q13" />
+          <label for="q13">
+            <div class="q">13. Content QA owner</div>
+            <div class="choices">Names / roles who sign off</div>
+          </label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="q14" data-key="q14" />
+          <label for="q14">
+            <div class="q">14. Freeze window</div>
+            <div class="choices">How long can new docs PRs wait?</div>
+          </label>
+        </div>
+
+        <div class="group-title" style="grid-column: 1 / -1;">E. Non-goals</div>
+        <div class="check-item">
+          <input type="checkbox" id="q15" data-key="q15" />
+          <label for="q15">
+            <div class="q">15. Out of scope for v1</div>
+            <div class="choices">Confirm: i18n · doc versioning · auth · CMS · payments · mobile app</div>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Defaults -->
+    <section id="defaults">
+      <h2>7. Suggested defaults (fast path)</h2>
+      <p class="section-desc">Approve this package in one shot if you want to start quickly.</p>
+      <div class="card defaults">
+        <h3>Recommended package</h3>
+        <ul>
+          <li>Yes — migrate</li>
+          <li>Next.js 15 + Fumadocs + Tailwind + MDX + KaTeX</li>
+          <li>Keep all existing URLs</li>
+          <li>Branch <code>next-migration</code> in same repo</li>
+          <li>Vercel (or current host)</li>
+          <li>Port homepage + fellowship + contribute + both interactives</li>
+          <li>Search at launch (Fumadocs/Orama)</li>
+          <li>Blog deferred or minimal</li>
+          <li>No full visual redesign in v1</li>
+          <li>Fix editUrl to real GitHub remote</li>
+          <li>Remove Astro leftovers during migration</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Risks -->
+    <section id="risks">
+      <h2>8. Risks to accept</h2>
+      <p class="section-desc">Know these before kicking off.</p>
+      <div class="risks">
+        <div class="risk"><span class="risk-num">1</span> Math-heavy MDX (RNNs/CNNs) may need rendering fixes</div>
+        <div class="risk"><span class="risk-num">2</span><span><code>@site</code> imports in MDX must be rewritten</span></div>
+        <div class="risk"><span class="risk-num">3</span> Image-heavy docs need <code>next/image</code> + caching strategy</div>
+        <div class="risk"><span class="risk-num">4</span> SEO dip if cutover lacks redirects/sitemap</div>
+        <div class="risk"><span class="risk-num">5</span> Contributors must learn <code>next dev</code> instead of <code>docusaurus start</code></div>
+      </div>
+    </section>
+
+    <!-- Next -->
+    <section id="next">
+      <h2>9. Immediate next steps</h2>
+      <p class="section-desc">After you approve defaults (or return checklist choices).</p>
+      <ol class="steps">
+        <li>Create branch <code>next-migration</code></li>
+        <li>Scaffold Next + Fumadocs</li>
+        <li>Port one section end-to-end (e.g. AI for Leaders) as a spike</li>
+        <li>Review spike → bulk-port remaining docs</li>
+      </ol>
+    </section>
+
+    <footer>
+      AISeekhegaIndia · Docusaurus → Next.js migration plan · Checklist state saved locally in your browser
+    </footer>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "aiseekhega-migration-checklist";
+
+    // Phase collapse
+    document.querySelectorAll(".phase-head").forEach((head) => {
+      const toggle = () => {
+        const phase = head.closest(".phase");
+        const collapsed = phase.classList.toggle("collapsed");
+        head.setAttribute("aria-expanded", String(!collapsed));
+      };
+      head.addEventListener("click", toggle);
+      head.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    });
+
+    // Checklist persistence
+    const boxes = [...document.querySelectorAll("#checklist input[type=checkbox]")];
+    const progress = document.getElementById("progress");
+
+    function load() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        boxes.forEach((box) => {
+          if (data[box.dataset.key]) box.checked = true;
+        });
+      } catch (_) {}
+    }
+
+    function save() {
+      const data = {};
+      boxes.forEach((box) => { data[box.dataset.key] = box.checked; });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const done = boxes.filter((b) => b.checked).length;
+      progress.textContent = `${done} / ${boxes.length} decided`;
+    }
+
+    boxes.forEach((box) => box.addEventListener("change", save));
+    load();
+    updateProgress();
+  </script>
+</body>
+</html>
