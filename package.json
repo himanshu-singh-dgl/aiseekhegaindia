@@ -3,15 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "workspaces": [
-    "frontend",
-    "backend"
+    "frontend"
   ],
   "scripts": {
     "dev:frontend": "npm run dev --workspace @aiseekhegaindia/frontend",
-    "dev:backend": "npm run dev --workspace @aiseekhegaindia/backend",
     "build": "npm run build --workspaces --if-present",
-    "typecheck": "npm run typecheck --workspaces --if-present",
-    "test": "npm run test --workspace @aiseekhegaindia/backend"
+    "typecheck": "npm run typecheck --workspaces --if-present"
   },
   "engines": {
     "node": ">=20.0"

@@ -1,35 +1,25 @@
-# AISeekhegaIndia
+# AISeekhegaIndia (Frontend)
 
-AISeekhegaIndia is organized as an npm-workspaces monorepo:
+Frontend-only branch for AISeekhegaIndia: Next.js and Fumadocs in `frontend/`.
 
-- `frontend/` — Next.js and Fumadocs
-- `backend/` — Express, Google OAuth, and PostgreSQL
+Auth and API calls expect a running backend at `NEXT_PUBLIC_API_URL` (default `http://localhost:4000`).
 
 ## Setup
 
 ```bash
 npm install
 cp frontend/.env.example frontend/.env.local
-cp backend/.env.example backend/.env
-```
-
-Apply the PostgreSQL migration before starting OAuth:
-
-```bash
-psql "$DATABASE_URL" -f backend/migrations/001_initial.sql
 ```
 
 ## Development
 
 ```bash
 npm run dev:frontend
-npm run dev:backend
 ```
 
 ## Verification
 
 ```bash
-npm test
 npm run typecheck
 npm run build
 ```
