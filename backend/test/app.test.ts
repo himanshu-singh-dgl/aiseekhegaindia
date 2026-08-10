@@ -25,14 +25,14 @@ describe('Express API', () => {
   });
 
   it('returns 401 for an unauthenticated current-user request', async () => {
-    const response = await request(app).get('/api/auth/me');
+    const response = await request(app).get('/auth/me');
 
     expect(response.status).toBe(401);
     expect(response.body).toEqual({ user: null });
   });
 
   it('starts Google OAuth with the required scopes and state', async () => {
-    const response = await request(app).get('/api/auth/google');
+    const response = await request(app).get('/auth/google');
 
     expect(response.status).toBe(302);
     const redirect = new URL(response.headers.location);
@@ -44,14 +44,14 @@ describe('Express API', () => {
   });
 
   it('clears an unauthenticated session on logout', async () => {
-    const response = await request(app).post('/api/auth/logout');
+    const response = await request(app).post('/auth/logout');
 
     expect(response.status).toBe(204);
   });
 
   it('redirects a denied Google callback safely', async () => {
     const response = await request(app).get(
-      '/api/auth/google/callback?error=access_denied',
+      '/auth/google/callback?error=access_denied',
     );
 
     expect(response.status).toBe(302);

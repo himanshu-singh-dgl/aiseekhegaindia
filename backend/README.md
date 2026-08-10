@@ -19,7 +19,7 @@ openssl rand -base64 48
 The Google Cloud OAuth client must include:
 
 ```text
-http://localhost:4000/api/auth/google/callback
+http://localhost:4000/auth/google/callback
 ```
 
 under **Authorized redirect URIs**.
@@ -40,10 +40,10 @@ The API listens on `http://localhost:4000` by default.
 
 - `GET /api/health`
 - `GET /api/health/database`
-- `GET /api/auth/google`
-- `GET /api/auth/google/callback`
-- `GET /api/auth/me`
-- `POST /api/auth/logout`
+- `GET /auth/google`
+- `GET /auth/google/callback`
+- `GET /auth/me`
+- `POST /auth/logout`
 
 ## Build
 
@@ -66,7 +66,7 @@ DATABASE_URL=postgresql://USER:PASSWORD@/DB?host=/cloudsql/PROJECT:REGION:INSTAN
 DATABASE_SSL=false
 GCP_CLIENT_ID=...
 GCP_CLIENT_SECRET=...
-GOOGLE_CALLBACK_URL=https://YOUR_API_URL/api/auth/google/callback
+GOOGLE_CALLBACK_URL=https://YOUR_API_URL/auth/google/callback
 SESSION_SECRET=...   # at least 32 characters
 ```
 

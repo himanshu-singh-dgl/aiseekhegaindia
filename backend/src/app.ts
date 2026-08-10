@@ -63,7 +63,7 @@ export function buildApp(options: BuildAppOptions = {}): Express {
   app.use(passport.session());
 
   app.use('/api', healthRouter);
-  app.use('/api/auth', authRouter);
+  app.use('/auth', authRouter);
 
   const errorHandler: ErrorRequestHandler = (error, _request, response, _next) => {
     console.error('Unhandled request error', error);
