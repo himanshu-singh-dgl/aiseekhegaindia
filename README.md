@@ -1,15 +1,13 @@
-# AISeekhegaIndia
+# AISeekhegaIndia (Backend)
 
-AISeekhegaIndia is organized as an npm-workspaces monorepo:
+Backend-only branch for AISeekhegaIndia: Express, Google OAuth, and PostgreSQL in `backend/`.
 
-- `frontend/` — Next.js and Fumadocs
-- `backend/` — Express, Google OAuth, and PostgreSQL
+CORS allows the frontend origin from `FRONTEND_ORIGIN` (default `http://localhost:3000`).
 
 ## Setup
 
 ```bash
 npm install
-cp frontend/.env.example frontend/.env.local
 cp backend/.env.example backend/.env
 ```
 
@@ -22,7 +20,6 @@ psql "$DATABASE_URL" -f backend/migrations/001_initial.sql
 ## Development
 
 ```bash
-npm run dev:frontend
 npm run dev:backend
 ```
 
