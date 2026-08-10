@@ -1,0 +1,38 @@
+{
+  "name": "@aiseekhegaindia/frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_OPTIONS=--experimental-require-module next dev --webpack",
+    "build": "NODE_OPTIONS=--experimental-require-module next build --webpack",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "postinstall": "fumadocs-mdx"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "fumadocs-core": "16.14.0",
+    "fumadocs-mdx": "^15.2.2",
+    "fumadocs-ui": "16.14.0",
+    "katex": "^0.16.22",
+    "lucide-react": "^0.542.0",
+    "next": "^16.2.12",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.12",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.12",
+    "typescript": "^5.8.0"
+  },
+  "engines": {
+    "node": ">=20.0"
+  }
+}
