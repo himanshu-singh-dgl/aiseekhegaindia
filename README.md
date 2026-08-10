@@ -7,25 +7,28 @@ CORS allows the frontend origin from `FRONTEND_ORIGIN` (default `http://localhos
 ## Setup
 
 ```bash
+cd backend
 npm install
-cp backend/.env.example backend/.env
+cp .env.example .env
 ```
 
 Apply the PostgreSQL migration before starting OAuth:
 
 ```bash
-psql "$DATABASE_URL" -f backend/migrations/001_initial.sql
+psql "$DATABASE_URL" -f migrations/001_initial.sql
 ```
 
 ## Development
 
 ```bash
-npm run dev:backend
+cd backend
+npm run dev
 ```
 
 ## Verification
 
 ```bash
+cd backend
 npm test
 npm run typecheck
 npm run build
