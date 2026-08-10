@@ -7,19 +7,22 @@ Auth and API calls expect a running backend at `NEXT_PUBLIC_API_URL` (default `h
 ## Setup
 
 ```bash
+cd frontend
 npm install
-cp frontend/.env.example frontend/.env.local
+cp .env.example .env.local
 ```
 
 ## Development
 
 ```bash
-npm run dev:frontend
+cd frontend
+npm run dev
 ```
 
 ## Verification
 
 ```bash
+cd frontend
 npm run typecheck
 npm run build
 ```
