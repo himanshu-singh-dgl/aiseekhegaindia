@@ -1,0 +1,14 @@
+# Netlify site settings for the feature/frontend branch.
+# In the Netlify UI you can also set Base directory = "frontend".
+
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--include=dev"
+
+# Next.js Runtime is applied automatically by Netlify for Next 13.5+.
+# Set site env: NEXT_PUBLIC_API_URL=https://YOUR_CLOUD_RUN_API_URL

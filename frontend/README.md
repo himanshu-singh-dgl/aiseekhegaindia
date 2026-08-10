@@ -20,6 +20,12 @@ The frontend runs on [http://localhost:3000](http://localhost:3000). Set
 npm run build
 ```
 
+## Deploy (Netlify)
+
+Use branch `feature/frontend`. Repo root [`netlify.toml`](../netlify.toml) sets `base = "frontend"`.
+
+Set Netlify env `NEXT_PUBLIC_API_URL` to the Cloud Run API URL. Backend `FRONTEND_ORIGIN` must match the Netlify site origin.
+
 ## Content
 
 - Docs: `content/docs/`
