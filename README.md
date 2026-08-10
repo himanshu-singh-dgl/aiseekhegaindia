@@ -1,48 +1,58 @@
-# Astro Starter Kit: Basics
+# AI Seekhega India
 
-```sh
-npm create astro@latest -- --template basics
-```
+Monorepo with a Next.js frontend and a NestJS + MongoDB backend (Google OAuth via GCP).
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Structure
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+aiseekhegaindia/
+├── frontend/     # Next.js 15 app (docs, blog, fellowship)
+├── backend/      # NestJS API (health + Google OAuth)
+└── package.json  # npm workspaces orchestrator
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Prerequisites
 
-## 🧞 Commands
+- Node.js 18+
+- MongoDB running locally (default: `mongodb://127.0.0.1:27017/aiseekhegaindia`)
+- Google Cloud OAuth 2.0 Web client credentials
 
-All commands are run from the root of the project, from a terminal:
+## Setup
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```bash
+npm install
+cp frontend/.env.example frontend/.env.local
+cp backend/.env.example backend/.env
+```
 
-## 👀 Want to learn more?
+Fill in `backend/.env`:
 
-Feel free to check [our platform](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` from [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials → OAuth client ID (Web application)
+- Authorized JavaScript origins: `http://localhost:3000`, `http://localhost:4000`
+- Authorized redirect URI: `http://localhost:4000/api/auth/google/callback`
+- Set a strong `JWT_SECRET`
+
+See [backend/README.md](backend/README.md) for more detail.
+
+## Scripts
+
+| Command | Action |
+| --- | --- |
+| `npm run dev` | Run frontend and backend in parallel |
+| `npm run dev:frontend` | Next.js only (`http://localhost:3000`) |
+| `npm run dev:backend` | NestJS only (`http://localhost:4000`) |
+| `npm run build` | Build both workspaces |
+| `npm run build:frontend` | Build frontend |
+| `npm run build:backend` | Build backend |
+| `npm run start` | Start both production builds |
+| `npm run start:frontend` | Start frontend only |
+| `npm run start:backend` | Start backend only |
+| `npm run lint` | Lint frontend |
+
+## Auth flow
+
+1. Click **Sign in with Google** in the navbar
+2. Browser redirects to `GET /api/auth/google` on the backend
+3. After Google consent, callback sets an httpOnly JWT cookie and redirects to the frontend
+4. Frontend calls `GET /api/auth/me` with credentials to load the user
+5. **Sign out** calls `POST /api/auth/logout` and clears the cookie

@@ -12,10 +12,6 @@ out/
 build
 dist
 
-# docusaurus (legacy)
-.docusaurus
-.cache-loader
-
 # misc
 .DS_Store
 *.pem
