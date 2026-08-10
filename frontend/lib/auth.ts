@@ -11,11 +11,11 @@ const apiUrl =
   'http://localhost:4000';
 
 export function getGoogleLoginUrl(): string {
-  return `${apiUrl}/api/auth/google`;
+  return `${apiUrl}/auth/google`;
 }
 
 export async function getCurrentUser(): Promise<AuthUser | null> {
-  const response = await fetch(`${apiUrl}/api/auth/me`, {
+  const response = await fetch(`${apiUrl}/auth/me`, {
     credentials: 'include',
   });
 
@@ -32,7 +32,7 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
 }
 
 export async function logout(): Promise<void> {
-  const response = await fetch(`${apiUrl}/api/auth/logout`, {
+  const response = await fetch(`${apiUrl}/auth/logout`, {
     method: 'POST',
     credentials: 'include',
   });
